@@ -3,7 +3,7 @@
 
 DataBase::DataBase(QObject *parent) : QObject(parent)
 {
-    if(!QFile("/home/ubuntu/BiniApp/database" DATABASE_NAME).exists()){
+    if(!QFile("/home/ubuntu/BiniApp/database/database" DATABASE_NAME).exists()){
         this->restoreDataBase();
     } else {
         this->openDataBase();
@@ -30,7 +30,7 @@ bool DataBase::openDataBase()
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setHostName(DATABASE_HOSTNAME);
-    db.setDatabaseName("/home/ubuntu/BiniApp/database" DATABASE_NAME);
+    db.setDatabaseName("/home/ubuntu/BiniApp/database/database" DATABASE_NAME);
     if(db.open()){
         return true;
     } else {
