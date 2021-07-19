@@ -3,8 +3,8 @@
 #include <QQmlContext>
 #include <QQuickView>
 
-#include "database.h"
-#include "listmodel.h"
+#include "include/database.h"
+#include "include/listmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     context->setContextProperty("myModel", model);
     context->setContextProperty("database", &database);
 
-    viewer->setSource(QUrl("qrc:/main.qml"));
+    viewer->setSource(QUrl("qrc:/qml/main.qml"));
 
     return app->exec();
 }

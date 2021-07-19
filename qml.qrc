@@ -1,14 +1,14 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>Dashboard.qml</file>
-        <file>GridItem.qml</file>
-        <file>GridNavigation.qml</file>
-        <file>Map.qml</file>
-        <file>Mapping.qml</file>
-        <file>Mission.qml</file>
-        <file>Navigation.qml</file>
-        <file>SideBar.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/Dashboard.qml</file>
+        <file>qml/GridItem.qml</file>
+        <file>qml/GridNavigation.qml</file>
+        <file>qml/Map.qml</file>
+        <file>qml/Mapping.qml</file>
+        <file>qml/Mission.qml</file>
+        <file>qml/Navigation.qml</file>
+        <file>qml/SideBar.qml</file>
         <file>images/eva.jpg</file>
         <file>images/eve.jpg</file>
         <file>images/loc.png</file>
