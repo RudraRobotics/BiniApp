@@ -8,7 +8,7 @@ Item{
         // center the picture here
         x: mapItemArea.width/2-mapImg.width/2
         y: mapItemArea.height/2-mapImg.height/2
-        source: "maps/map.pgm"
+        source: "../maps/map.pgm"
                      // Images are loaded asynchronously, only useful for local images
         asynchronous: true
     }

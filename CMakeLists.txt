@@ -27,14 +27,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick Sql Network Mqtt REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Sql Network Mqtt REQUIRED)
 
-include_directories(
-    /opt/ros/noetic/include
-)
-
 set(PROJECT_SOURCES
-    database.cpp
-    listmodel.cpp
-    main.cpp
+    src/database.cpp
+    include/database.h
+    src/listmodel.cpp
+    include/listmodel.h
+    src/main.cpp
     qml.qrc
 )
 
@@ -62,8 +60,4 @@ target_link_libraries(BiniApp
   Qt${QT_VERSION_MAJOR}::Sql
   Qt${QT_VERSION_MAJOR}::Network
   Qt${QT_VERSION_MAJOR}::Mqtt
-  /opt/ros/noetic/lib/libroscpp.so
-  /opt/ros/noetic/lib/librosconsole.so
-  /opt/ros/noetic/lib/libroscpp_serialization.so
-  /opt/ros/noetic/lib/librostime.so
 )
