@@ -48,9 +48,9 @@
 **
 ****************************************************************************/
 
-#include "qmlmqttclient.h"
+#include "include/qmlmqttclient.h"
 #include <QDebug>
-#include <std_msgs/String.h>
+
 
 QmlMqttClient::QmlMqttClient(QObject *parent)
     : QMqttClient(parent)

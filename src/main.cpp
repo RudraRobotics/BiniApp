@@ -1,24 +1,24 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <QQuickView>
+#include <QLoggingCategory>
 
+#include "include/qmlmqttclient.h"
 #include "include/database.h"
 #include "include/listmodel.h"
 
+
 int main(int argc, char *argv[])
 {
-    QScopedPointer<QGuiApplication> app(new QGuiApplication(argc, argv));
-    QQuickView *viewer = new QQuickView();
-    QQmlContext *context = viewer->rootContext();
+    QGuiApplication app(argc, argv);
 
-    DataBase database;
-    ListModel *model = new ListModel();
+    QQmlApplicationEngine engine;
 
-    context->setContextProperty("myModel", model);
-    context->setContextProperty("database", &database);
+    qmlRegisterType<QmlMqttClient>("MqttClient", 1, 0, "MqttClient");
+    qmlRegisterUncreatableType<QmlMqttSubscription>("MqttClient", 1, 0, "MqttSubscription", QLatin1String("Subscriptions are read-only"));
 
-    viewer->setSource(QUrl("qrc:/qml/main.qml"));
+    engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+    if (engine.rootObjects().isEmpty())
+        return -1;
 
-    return app->exec();
+    return app.exec();
 }

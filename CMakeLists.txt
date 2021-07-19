@@ -32,6 +32,8 @@ set(PROJECT_SOURCES
     include/database.h
     src/listmodel.cpp
     include/listmodel.h
+    src/qmlmqttclient.cpp
+    include/qmlmqttclient.h
     src/main.cpp
     qml.qrc
 )
