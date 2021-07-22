@@ -4,7 +4,7 @@ import QtQml 2.3
 import QtQuick.Controls 2.3
 
 Item {
-    id: item1
+    id: navigation
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.top: parent.top
@@ -21,21 +21,23 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
         anchors.rightMargin: 160
         anchors.leftMargin: 0
         anchors.topMargin: 0
     }
 
     Button {
-        id: button
+        id: serve
+        height: 36
         text: "SERVE"
-        anchors.left: item2.right
+        anchors.left: gridNavigation.right
         anchors.right: parent.right
         anchors.top: parent.top
-        anchors.bottomMargin: 430
-        anchors.rightMargin: 10
-        anchors.leftMargin: 10
-        anchors.topMargin: 10
+        anchors.rightMargin: 8
+        anchors.topMargin: 8
+        anchors.leftMargin: 6
 
         background: Rectangle {
             color: "#ded3d3"
@@ -46,20 +48,21 @@ Item {
             radius: 5
         }
         onClicked: {
-            button.highlighted = !button.highlighted
+            serve.highlighted = !serve.highlighted
+            client.publish(comboBox.currentText+"mission", gridNavigation.mission, 0, false)
             pageLoader.source = "Mission.qml"
         }
     }
 
     Button {
-        id: button1
+        id: reset
         text: qsTr("RESET")
-        anchors.left: item2.right
+        anchors.left: gridNavigation.right
         anchors.right: parent.right
-        anchors.top: button.bottom
-        anchors.rightMargin: 10
-        anchors.leftMargin: 10
-        anchors.topMargin: 10
+        anchors.top: serve.bottom
+        anchors.rightMargin: 8
+        anchors.topMargin: 13
+        anchors.leftMargin: 6
 
         background: Rectangle {
             color: "#ded3d3"
@@ -70,14 +73,45 @@ Item {
             radius: 5
         }
         onClicked: {
-            button1.highlighted = !button1.highlighted
-            rectangleButton.color = "blue"
+            reset.highlighted = !reset.highlighted
         }
 
         Connections {
-            target: button1
+            target: reset
             onClicked: console.log("clicked")
         }
+    }
+
+    ComboBox {
+        id: comboBox
+        anchors.left: gridNavigation.right
+        anchors.right: parent.right
+        anchors.top: text1.bottom
+        anchors.rightMargin: 8
+        anchors.leftMargin: 12
+        anchors.topMargin: 12
+        currentIndex: 2
+        textRole: "text"
+        model: ListModel {
+            id: cbItems
+            ListElement { text: "Bini1"; }
+            ListElement { text: "Bini2"; }
+            ListElement { text: "Bini3"; }
+        }
+        onCurrentIndexChanged: console.debug(cbItems.get(currentIndex).text + ", " + cbItems.get(currentIndex).color)
+    }
+
+    Text {
+        id: text1
+        height: 31
+        text: qsTr("Select Robot")
+        anchors.left: gridNavigation.right
+        anchors.right: parent.right
+        anchors.top: reset.bottom
+        font.pixelSize: 12
+        anchors.rightMargin: 13
+        anchors.leftMargin: 12
+        anchors.topMargin: 33
     }
 
 }
@@ -85,6 +119,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:1.33;height:480;width:640}
+    D{i:0;autoSize:true;formeditorZoom:1.33;height:480;width:640}D{i:2}D{i:4}D{i:7}D{i:12}
 }
 ##^##*/

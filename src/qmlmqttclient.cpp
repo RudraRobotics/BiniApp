@@ -52,8 +52,7 @@
 #include <QDebug>
 
 
-QmlMqttClient::QmlMqttClient(QObject *parent)
-    : QMqttClient(parent)
+QmlMqttClient::QmlMqttClient(QObject *parent)  : QMqttClient(parent)
 {
 }
 
@@ -78,11 +77,27 @@ QmlMqttSubscription::~QmlMqttSubscription()
 
 void QmlMqttSubscription::handleMessage(const QMqttMessage &qmsg)
 {
-    emit messageReceived(qmsg.payload());
+    const QString topic = qmsg.topic().name();
+    auto items = qmsg.payload().split('_');
+    QPointF pose;
+    pose.setX(items.at(0).toFloat());
+    pose.setY(items.at(1).toFloat());
+    emit messageReceived(pose);
 }
 
 int QmlMqttClient::publish(const QString &topic, const QString &message, int qos, bool retain)
 {
+    qDebug() << "Msg published:" << topic << "," << message;
     auto result = QMqttClient::publish(QMqttTopicName(topic), message.toUtf8(), qos, retain);
     return result;
+}
+
+QPointF QmlMqttClient::pose() const
+{
+    return robot_pose;
+}
+
+void QmlMqttClient::setName(const QPointF &pose_)
+{
+    robot_pose = pose_;
 }

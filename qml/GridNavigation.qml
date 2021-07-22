@@ -1,16 +1,17 @@
 import QtQuick 2.0
+import QtQml 2.12
 
 Rectangle {
+    width: 107
     height: 480
+
+    property string mission: ""
 
     GridView {
         anchors.fill: parent
-        anchors.rightMargin: 10
-        anchors.leftMargin: 10
-        anchors.bottomMargin: 10
-        anchors.topMargin: 10
         Component {
             id: contactsDelegate
+
             Rectangle {
                 id: rectangleButton
                 width: 80
@@ -32,6 +33,7 @@ Rectangle {
                     onClicked: {
                         rectangleButton.click = !rectangleButton.click
                         rectangleButton.color = rectangleButton.click ? "red" : "blue"
+                        mission += id + "_"
                     }
                 }
             }

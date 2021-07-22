@@ -15,6 +15,9 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<QmlMqttClient>("MqttClient", 1, 0, "MqttClient");
     qmlRegisterUncreatableType<QmlMqttSubscription>("MqttClient", 1, 0, "MqttSubscription", QLatin1String("Subscriptions are read-only"));
+    qmlRegisterType<DataBase>("Database", 1, 0, "Database");
+    qmlRegisterType<ListModel>("ListModel", 1, 0, "ListModel");
+
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     if (engine.rootObjects().isEmpty())

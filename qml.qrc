@@ -4,7 +4,6 @@
         <file>qml/Dashboard.qml</file>
         <file>qml/GridItem.qml</file>
         <file>qml/GridNavigation.qml</file>
-        <file>qml/Map.qml</file>
         <file>qml/Mapping.qml</file>
         <file>qml/Mission.qml</file>
         <file>qml/Navigation.qml</file>
@@ -14,7 +13,7 @@
         <file>images/loc.png</file>
         <file>images/logo.jpg</file>
         <file>images/map.png</file>
-        <file>images/portrait.png</file>
+        <file>images/bini.png</file>
         <file>images/robot.jpg</file>
         <file>images/robot2.png</file>
         <file>images/ros.png</file>

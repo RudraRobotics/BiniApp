@@ -1,20 +1,20 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs 1.3
 
 
 Rectangle {
     id: mapping
+
     RowLayout {
         id: rowLayout
         height: 25
-        anchors.top: mapItemArea.bottom
         anchors.left: parent.left
         anchors.right: parent.right
+        anchors.top: parent.top
         anchors.margins: 5
-        anchors.topMargin: 5
-        anchors.leftMargin: 5
+        anchors.topMargin: 358
 
         spacing: 5
 
@@ -25,8 +25,6 @@ Rectangle {
         TextField {
             id: snameField
         }
-        //        Text {text: qsTr("Nik name")}
-//        TextField {id: nikField}
 
         Button {
             text: qsTr("Add")
@@ -40,6 +38,7 @@ Rectangle {
 
     }
 
+
     TableView {
         id: tableView
         anchors.left: parent.left
@@ -47,6 +46,9 @@ Rectangle {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.margins: 5
+        anchors.rightMargin: 5
+        anchors.topMargin: 6
+        anchors.bottomMargin: -1
         anchors.leftMargin: 5
 
         TableViewColumn {
@@ -121,39 +123,57 @@ Rectangle {
         }
     }
 
-    Map {
+    Item{
         id: mapItemArea
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 150
-        anchors.rightMargin: 5
+        anchors.bottom: rowLayout.top
+        anchors.bottomMargin: 0
         anchors.leftMargin: 0
-        anchors.topMargin: 0
-        Button {
-            x: 8
-            y: 16
-            text: qsTr("Start")
-            onClicked: {
-                database.inserIntoTable(fnameFieldX.text , fnameFieldY.text, snameField.text)
-                myModel.updateModel() // And updates the data model with a new record
-            }
+        clip: true
+        Image {
+            id: mapImg
+            property point map_origin: "-10.0, -10.0"
+            anchors.fill: parent
+            source: "../maps/map.pgm"
+            fillMode: Image.PreserveAspectCrop
+            // Images are loaded asynchronously, only useful for local images
+            asynchronous: true
         }
-        Button {
-            x: 8
-            y: 53
-            text: qsTr("Done")
-            onClicked: {
-                database.inserIntoTable(fnameFieldX.text , fnameFieldY.text, snameField.text)
-                myModel.updateModel() // And updates the data model with a new record
+
+        MouseArea {
+            id: mapDragArea
+            anchors.fill: parent
+            drag.target: mapImg
+            // Here, the picture will not be dragged out of the display area whether it is larger or smaller than the display frame
+            drag.minimumX: (mapImg.width > mapItemArea.width) ? (mapItemArea.width - mapImg.width) : 0
+            drag.minimumY: (mapImg.height > mapItemArea.height) ? (mapItemArea.height - mapImg.height) : 0
+            drag.maximumX: (mapImg.width > mapItemArea.width) ? 0 : (mapItemArea.width - mapImg.width)
+            drag.maximumY: (mapImg.height > mapItemArea.height) ? 0 : (mapItemArea.height - mapImg.height)
+
+            onWheel: {                                 // Every scroll is a multiple of 120
+                var datla = wheel.angleDelta.y/120
+                if(datla > 0)
+                {
+                    mapImg.scale = mapImg.scale/0.9
+                }
+                else
+                {
+                    mapImg.scale = mapImg.scale*0.9
+                }
             }
+            onClicked: {
+                fnameFieldX.text = (mapImg.map_origin.x + mapDragArea.mouseX)*0.05
+                fnameFieldY.text = (mapImg.map_origin.y + mapDragArea.mouseY)*0.05
+            }
+
         }
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:18}
 }
 ##^##*/

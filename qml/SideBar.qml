@@ -3,12 +3,12 @@ import QtQuick.Controls 2.4
 import QtQuick.Controls.Styles 1.4
 // This is available in all editors.
 
-Rectangle {
+Image {
     id: side_bar
-    color: "#0d20d0"
+    source: "../images/bini.png"
     Column {
         id: column
-        anchors.fill: side_bar
+        anchors.fill: parent
         spacing: 2
 
         Button {

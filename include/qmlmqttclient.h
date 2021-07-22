@@ -54,6 +54,8 @@
 #include <QtCore/QMap>
 #include <QtMqtt/QMqttClient>
 #include <QtMqtt/QMqttSubscription>
+#include <QPointF>
+
 
 class QmlMqttClient;
 
@@ -67,7 +69,7 @@ public:
 
 Q_SIGNALS:
     void topicChanged(QString);
-    void messageReceived(const QString &msg);
+    void messageReceived(const QPointF &msg);
 
 public slots:
     void handleMessage(const QMqttMessage &qmsg);
@@ -82,13 +84,21 @@ private:
 class QmlMqttClient : public QMqttClient
 {
     Q_OBJECT
+    Q_PROPERTY(QPointF pose READ pose WRITE setName)
 public:
     QmlMqttClient(QObject *parent = nullptr);
 
     Q_INVOKABLE QmlMqttSubscription *subscribe(const QString &topic);
     Q_INVOKABLE int publish(const QString &topic, const QString &message, int qos = 0, bool retain = false);
+
+    QPointF pose() const;
+    void setName(const QPointF &pose_);
+
+signals:
+    void varChanged();
 private:
     Q_DISABLE_COPY(QmlMqttClient)
+    QPointF robot_pose;
 };
 
 #endif // QMLMQTTCLIENT_H
