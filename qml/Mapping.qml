@@ -4,10 +4,10 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.3
 
 
-Rectangle {
+Item {
     id: mapping
     property string map_path: "../maps/map1.pgm"
-    property point map_origin: "10.0, 10"
+    property point map_origin: "10.0, 10.0" // in meters
     property real resolution: 0.05
     property point map_size: "384, 384"
 
@@ -23,8 +23,8 @@ Rectangle {
         spacing: 5
 
         Text { text: qsTr("Coordinate:")}
-        TextEdit { id: fnameFieldX ;width: 20 ;readOnly: true }
-        TextEdit { id: fnameFieldY ;width: 20 ;readOnly: true }
+        TextEdit { id: fnameFieldX ;width: 20 ; text: "0.0"; Layout.fillWidth: false;readOnly: true }
+        TextEdit { id: fnameFieldY ;width: 20 ; text: "0.0";readOnly: true }
         Text {text: qsTr("Name")}
         TextField {
             id: snameField
@@ -56,24 +56,22 @@ Rectangle {
         anchors.leftMargin: 5
 
         TableViewColumn {
+            role: "nik"
+            title: "Name"
+        }
+        TableViewColumn {
             role: "fname"
-            title: "Table Name"
+            title: "x"
         }
         TableViewColumn {
             role: "sname"
-            title: "Last name"
-        }
-        TableViewColumn {
-            role: "nik"
-            title: "Nik name"
+            title: "y"
         }
 
         model: myModel
 
-        // Setting lines in TableView to intercept mouse left click
         rowDelegate: Rectangle {
             anchors.fill: parent
-            color: styleData.selected ? 'skyblue' : (styleData.alternate ? 'whitesmoke' : 'white');
             MouseArea {
                 anchors.fill: parent
                 acceptedButtons: Qt.RightButton | Qt.LeftButton
@@ -129,22 +127,21 @@ Rectangle {
 
     Item{
         id: mapItemArea
+        height: mapping.height*0.75
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 174
         anchors.leftMargin: 0
         clip: true
         Image {
             id: mapImg
-            anchors.fill: parent
+            anchors.fill: mapItemArea
             source: map_path
             anchors.bottomMargin: 0
-            anchors.leftMargin: 178
+            anchors.leftMargin: 0
             anchors.topMargin: 0
-            anchors.rightMargin: 159
-            fillMode: Image.PreserveAspectFit
+            anchors.rightMargin: 0
+            fillMode: Image.Stretch
             // Images are loaded asynchronously, only useful for local images
             asynchronous: true
             Image {
@@ -161,45 +158,38 @@ Rectangle {
         MouseArea {
             id: mapDragArea
             anchors.fill: mapImg
-            anchors.rightMargin: 0
-            anchors.bottomMargin: 0
-            anchors.leftMargin: 1
-            anchors.topMargin: 0
-            //            drag.target: mapImg
-//            // Here, the picture will not be dragged out of the display area whether it is larger or smaller than the display frame
-//            drag.minimumX: (mapImg.width > mapItemArea.width) ? (mapItemArea.width - mapImg.width) : 0
-//            drag.minimumY: (mapImg.height > mapItemArea.height) ? (mapItemArea.height - mapImg.height) : 0
-//            drag.maximumX: (mapImg.width > mapItemArea.width) ? 0 : (mapItemArea.width - mapImg.width)
-//            drag.maximumY: (mapImg.height > mapItemArea.height) ? 0 : (mapItemArea.height - mapImg.height)
+            drag.target: mapImg
+            // Here, the picture will not be dragged out of the display area whether it is larger or smaller than the display frame
+            drag.minimumX: (mapImg.width > mapItemArea.width) ? (mapItemArea.width - mapImg.width) : 0
+            drag.minimumY: (mapImg.height > mapItemArea.height) ? (mapItemArea.height - mapImg.height) : 0
+            drag.maximumX: (mapImg.width > mapItemArea.width) ? 0 : (mapItemArea.width - mapImg.width)
+            drag.maximumY: (mapImg.height > mapItemArea.height) ? 0 : (mapItemArea.height - mapImg.height)
 
-//            onWheel: {                                 // Every scroll is a multiple of 120
-//                var datla = wheel.angleDelta.y/120
-//                if(datla > 0)
-//                {
-//                    mapImg.scale = mapImg.scale/0.9
-//                }
-//                else
-//                {
-//                    mapImg.scale = mapImg.scale*0.9
-//                }
-//            }
+            onWheel: {                                 // Every scroll is a multiple of 120
+                var datla = wheel.angleDelta.y/120
+                if(datla > 0)
+                {
+                    mapImg.scale = mapImg.scale/0.9
+                }
+                else
+                {
+                    mapImg.scale = mapImg.scale*0.9
+                }
+            }
+
             onClicked: {
-                var x_real_pos = map_size.x*resolution-(mapDragArea.mouseX*resolution-map_origin.x*resolution)+map_size.x*resolution
-                var y_real_pos = map_size.y*resolution-(mapDragArea.mouseY*resolution-map_origin.y*resolution)
-                console.log(mapImg.width, mapImg.height)
-                fnameFieldX.text = x_real_pos
-                fnameFieldY.text = y_real_pos
+                fnameFieldX.text =  (mapDragArea.mouseX * (map_size.x/mapImg.width)*resolution-map_origin.x)/mapImg.scale
+                fnameFieldY.text = (map_origin.y - mapDragArea.mouseY * (map_size.y/mapImg.height)*resolution)/mapImg.scale
                 loc_icon.x = mapDragArea.mouseX
                 loc_icon.y = mapDragArea.mouseY
                 loc_icon.visible = true
             }
-
         }
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}
+    D{i:0;autoSize:true;height:480;width:640}D{i:20}
 }
 ##^##*/

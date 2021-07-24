@@ -14,6 +14,7 @@ Item {
 
     function addMessage(payload)
     {
+        robot.visible = true
         // robot pose should be in pixel unit
         mqtt_data.x = map_origin.x/0.05 + payload.x/0.05
         mqtt_data.y = map_origin.y/0.05 + payload.y/0.05
@@ -47,6 +48,7 @@ Item {
                 height: 15
                 source: "../images/robot.jpg"
                 fillMode: Image.PreserveAspectFit
+                visible: false
             }
             Image {
                 id: robot1
@@ -56,6 +58,7 @@ Item {
                 height: 15
                 source: "../images/robot.jpg"
                 fillMode: Image.PreserveAspectFit
+                visible: false
             }
             Image {
                 id: robot3
@@ -65,6 +68,7 @@ Item {
                 height: 15
                 source: "../images/robot.jpg"
                 fillMode: Image.PreserveAspectFit
+                visible: false
             }
         }
 

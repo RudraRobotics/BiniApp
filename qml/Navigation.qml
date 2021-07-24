@@ -49,9 +49,29 @@ Item {
         }
         onClicked: {
             serve.highlighted = !serve.highlighted
-            client.publish(comboBox.currentText+"_cmd", "mission_" + gridNavigation.mission, 0, false)
-            pageLoader.source = "Mission.qml"
+            console.log(gridNavigation.mission.length)
+            if(gridNavigation.mission.length==0) {
+                onClicked: popup.open()
+            }
+            else {
+                client.publish(comboBox.currentText+"_cmd", "mission_" + gridNavigation.mission, 0, false)
+                pageLoader.source = "Mission.qml"
+            }
         }
+    }
+
+    Popup {
+        id: popup
+        x: 100
+        y: 100
+        contentItem: Text {
+            text: "Please select destination locations"
+        }
+        width: navigation.width*0.5
+        height: navigation.height*0.5
+        modal: true
+        focus: true
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
     }
 
     Button {
@@ -108,7 +128,12 @@ Item {
         text: qsTr("Select Robot")
         anchors.left: gridNavigation.right
         anchors.right: parent.right
-        font.pixelSize: 12
+        font.pixelSize: 14
+        wrapMode: Text.NoWrap
+        font.bold: false
+        minimumPointSize: 19
+        minimumPixelSize: 19
+        fontSizeMode: Text.FixedSize
         anchors.rightMargin: 16
         anchors.leftMargin: 9
     }
@@ -118,6 +143,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:1.33;height:480;width:640}D{i:2}D{i:4}D{i:7}D{i:12}
+    D{i:0;autoSize:true;formeditorZoom:1.33;height:480;width:640}
 }
 ##^##*/

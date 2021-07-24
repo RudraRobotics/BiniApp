@@ -7,7 +7,10 @@
         <file>qml/Mapping.qml</file>
         <file>qml/Mission.qml</file>
         <file>qml/Navigation.qml</file>
-        <file>qml/SideBar.qml</file>
+
+        <file>qml/sidebar/MainMenu.qml</file>
+        <file>qml/sidebar/SetupSubMenu.qml</file>
+
         <file>images/eva.jpg</file>
         <file>images/eve.jpg</file>
         <file>images/loc.png</file>
@@ -17,6 +20,8 @@
         <file>images/robot.jpg</file>
         <file>images/robot2.png</file>
         <file>images/ros.png</file>
+        <file>images/dashboard.png</file>
+
         <file>maps/map.pgm</file>
         <file>maps/map.yaml</file>
         <file>maps/map1.pgm</file>

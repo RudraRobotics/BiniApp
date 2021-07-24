@@ -12,8 +12,9 @@ import MqttClient 1.0
 
 ApplicationWindow {
     id: window
-    width: Screen.width
+    title: qsTr("BiniApp")
     height: Screen.height
+    width: Screen.width
     visible: true
 
     // Initializtion of all the custum qml types
@@ -26,44 +27,38 @@ ApplicationWindow {
     MqttClient {
         property int port_id: 1883
         id: client
-        hostname: "192.168.1.94"
+        hostname: "localhost"
         port: port_id
         Component.onCompleted: {
             connectToHost()
         }
     }
 
-
-    SideBar {
-        id: sideBar
+    Loader {
+        id: sideBarLoader
+        width: window.width/4
         anchors.left: parent.left
-        anchors.right: pageLoader.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.rightMargin: 0
-        anchors.bottomMargin: 0
-        anchors.leftMargin: 0
-        anchors.topMargin: 0
+
+        source: "sidebar/MainMenu.qml"
     }
 
     Loader {
         id: pageLoader
-        x: 434
-        width: 1486
+        anchors.left: sideBarLoader.right
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.rightMargin: 0
-        anchors.bottomMargin: 0
-        anchors.topMargin: 0
 
         source: "Dashboard.qml"
+        anchors.leftMargin: 0
     }
 
 }
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.5}
+    D{i:0;formeditorZoom:0.75}D{i:5}
 }
 ##^##*/

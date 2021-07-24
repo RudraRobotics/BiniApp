@@ -4,18 +4,18 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.3
 
-Component {
+Item {
     id: contactsDelegate
     Rectangle {
         id: wrapper
+
+        property bool isBlue: true
         width: 80
         height: 80
-        property bool isBlue: true
         color: isBlue ? "blue" : "red"
         Text {
             id: contactInfo
             text: name
-            anchors.fill: parent
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             color: "white"
