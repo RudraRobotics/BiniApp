@@ -14,10 +14,11 @@ Rectangle {
 
             Rectangle {
                 id: rectangleButton
-                width: 80
-                height: 80
                 color: "blue"
                 property bool click: false
+                width: 80
+                height: 80
+                anchors.margins: 10
                 Text {
                     id: contactInfo
                     text: nik
@@ -33,7 +34,7 @@ Rectangle {
                     onClicked: {
                         rectangleButton.click = !rectangleButton.click
                         rectangleButton.color = rectangleButton.click ? "red" : "blue"
-                        mission += id + "_"
+                        mission += fname+"_"+sname+"_"
                     }
                 }
             }

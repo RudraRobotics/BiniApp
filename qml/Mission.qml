@@ -9,13 +9,15 @@ Item {
 
     property var tempSubscription: 0
     property point mqtt_data: "1000, 1000"
-    property point map_origin: "10.0, 10.0"
+    property point map_origin: "10.0, 10"
+    property string map_path: "../maps/map1.pgm"
 
     function addMessage(payload)
     {
         // robot pose should be in pixel unit
         mqtt_data.x = map_origin.x/0.05 + payload.x/0.05
         mqtt_data.y = map_origin.y/0.05 + payload.y/0.05
+//        console.log(mqtt_data)
     }
 
     Item{
@@ -31,14 +33,16 @@ Item {
             id: mapImg
             x: mapItemArea.width/2-mapImg.width/2
             y: mapItemArea.height/2-mapImg.height/2
-            z: 1
-            source: "../maps/map.pgm"
+
+            source: map_path
+            scale: 2
+            fillMode: Image.PreserveAspectCrop
             asynchronous: true
 
             Image {
                 id: robot
                 x: mqtt_data.x
-                y: mqtt_data.y
+                y: mapImg.height - mqtt_data.y
                 width: 10
                 height: 15
                 source: "../images/robot.jpg"
@@ -86,30 +90,32 @@ Item {
                 }
             }
         }
+
+        Text {
+            id: text2
+            x: 511
+            y: 55
+            text: qsTr("Battery status: 24 V")
+            font.pixelSize: 12
+        }
         Component.onCompleted: {
-            tempSubscription = client.subscribe("bini1")
+            tempSubscription = client.subscribe("bini1_data")
             tempSubscription.messageReceived.connect(addMessage)
         }
     }
 
     Text {
-        id: pose_txt
-        text:  "pose:"+ mqtt_data
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        id: text1
+        x: -73
+        y: -88
+        text: qsTr("Bini_1")
         font.pixelSize: 12
-        anchors.rightMargin: 429
-        anchors.leftMargin: 8
-        anchors.bottomMargin: 13
-        anchors.topMargin: 448
     }
 
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:1.66;height:480;width:640}D{i:7}
+    D{i:0;autoSize:true;formeditorZoom:1.33;height:480;width:640}
 }
 ##^##*/

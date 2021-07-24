@@ -34,9 +34,9 @@ Item {
         text: "SERVE"
         anchors.left: gridNavigation.right
         anchors.right: parent.right
-        anchors.top: parent.top
+        anchors.top: comboBox.bottom
         anchors.rightMargin: 8
-        anchors.topMargin: 8
+        anchors.topMargin: 20
         anchors.leftMargin: 6
 
         background: Rectangle {
@@ -49,7 +49,7 @@ Item {
         }
         onClicked: {
             serve.highlighted = !serve.highlighted
-            client.publish(comboBox.currentText+"mission", gridNavigation.mission, 0, false)
+            client.publish(comboBox.currentText+"_cmd", "mission_" + gridNavigation.mission, 0, false)
             pageLoader.source = "Mission.qml"
         }
     }
@@ -60,9 +60,9 @@ Item {
         anchors.left: gridNavigation.right
         anchors.right: parent.right
         anchors.top: serve.bottom
-        anchors.rightMargin: 8
-        anchors.topMargin: 13
-        anchors.leftMargin: 6
+        anchors.rightMargin: 11
+        anchors.topMargin: 20
+        anchors.leftMargin: 3
 
         background: Rectangle {
             color: "#ded3d3"
@@ -87,31 +87,30 @@ Item {
         anchors.left: gridNavigation.right
         anchors.right: parent.right
         anchors.top: text1.bottom
-        anchors.rightMargin: 8
-        anchors.leftMargin: 12
-        anchors.topMargin: 12
+        anchors.rightMargin: 11
+        anchors.leftMargin: 9
+        anchors.topMargin: 20
         currentIndex: 2
         textRole: "text"
         model: ListModel {
             id: cbItems
-            ListElement { text: "Bini1"; }
-            ListElement { text: "Bini2"; }
-            ListElement { text: "Bini3"; }
+            ListElement { text: "bini1"; }
+            ListElement { text: "bini2"; }
+            ListElement { text: "bini3"; }
         }
         onCurrentIndexChanged: console.debug(cbItems.get(currentIndex).text + ", " + cbItems.get(currentIndex).color)
     }
 
     Text {
         id: text1
+        y: 13
         height: 31
         text: qsTr("Select Robot")
         anchors.left: gridNavigation.right
         anchors.right: parent.right
-        anchors.top: reset.bottom
         font.pixelSize: 12
-        anchors.rightMargin: 13
-        anchors.leftMargin: 12
-        anchors.topMargin: 33
+        anchors.rightMargin: 16
+        anchors.leftMargin: 9
     }
 
 }

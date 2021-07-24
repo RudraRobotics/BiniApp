@@ -19,5 +19,7 @@
         <file>images/ros.png</file>
         <file>maps/map.pgm</file>
         <file>maps/map.yaml</file>
+        <file>maps/map1.pgm</file>
+        <file>maps/map1.yaml</file>
     </qresource>
 </RCC>
