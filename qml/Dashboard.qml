@@ -4,7 +4,7 @@ Image {
     anchors.left: parent.left
     anchors.top: parent.top
     anchors.bottom: parent.bottom
-    source: "../images/dashboard.png"
+    source: "../images/ros.png"
     fillMode: Image.PreserveAspectFit
 }
 

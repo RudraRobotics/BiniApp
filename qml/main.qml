@@ -16,6 +16,7 @@ ApplicationWindow {
     height: Screen.height
     width: Screen.width
     visible: true
+    color: "#515151"
 
     // Initializtion of all the custum qml types
     Database {
@@ -59,6 +60,6 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:5}
+    D{i:0;formeditorZoom:0.75}
 }
 ##^##*/

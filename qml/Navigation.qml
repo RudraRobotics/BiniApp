@@ -50,13 +50,15 @@ Item {
         onClicked: {
             serve.highlighted = !serve.highlighted
             console.log(gridNavigation.mission.length)
-            if(gridNavigation.mission.length==0) {
-                onClicked: popup.open()
-            }
-            else {
-                client.publish(comboBox.currentText+"_cmd", "mission_" + gridNavigation.mission, 0, false)
-                pageLoader.source = "Mission.qml"
-            }
+            client.publish(comboBox.currentText+"_cmd", "mission_" + gridNavigation.mission, 0, false)
+            pageLoader.source = "Mission.qml"
+//            if(gridNavigation.mission.length==0) {
+//                onClicked: popup.open()
+//            }
+//            else {
+//                client.publish(comboBox.currentText+"_cmd", "mission_" + gridNavigation.mission, 0, false)
+//                pageLoader.source = "Mission.qml"
+//            }
         }
     }
 

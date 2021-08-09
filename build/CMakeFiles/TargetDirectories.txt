@@ -1,0 +1,4 @@
+/home/ubuntu/BiniApp/build/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/BiniApp/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/BiniApp/build/CMakeFiles/BiniApp.dir
+/home/ubuntu/BiniApp/build/CMakeFiles/BiniApp_autogen.dir

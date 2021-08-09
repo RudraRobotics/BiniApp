@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Controls 2.3
 import QtQml 2.12
 
@@ -21,25 +21,14 @@ Item {
 //        console.log(mqtt_data)
     }
 
-    Item{
+
+    Flickable {
         id: mapItemArea
-        anchors.bottomMargin: 0
+        anchors.fill: parent
         clip: true
-        property point origin: "30, 42"
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        Image {
-            id: mapImg
-            x: mapItemArea.width/2-mapImg.width/2
-            y: mapItemArea.height/2-mapImg.height/2
+        contentWidth: mapImg.width; contentHeight: mapImg.height
 
-            source: map_path
-            scale: 2
-            fillMode: Image.PreserveAspectCrop
-            asynchronous: true
-
+        Image { id: mapImg; source: "../maps/map.pgm"; fillMode: Image.PreserveAspectFit; PinchHandler { }
             Image {
                 id: robot
                 x: mqtt_data.x
@@ -71,49 +60,6 @@ Item {
                 visible: false
             }
         }
-
-        MouseArea {
-            id: mapDragArea
-            anchors.fill: mapImg
-            drag.target: mapImg
-            // Here, the picture will not be dragged out of the display area whether it is larger or smaller than the display frame
-            drag.minimumX: (mapImg.width > mapItemArea.width) ? (mapItemArea.width - mapImg.width) : 0
-            drag.minimumY: (mapImg.height > mapItemArea.height) ? (mapItemArea.height - mapImg.height) : 0
-            drag.maximumX: (mapImg.width > mapItemArea.width) ? 0 : (mapItemArea.width - mapImg.width)
-            drag.maximumY: (mapImg.height > mapItemArea.height) ? 0 : (mapItemArea.height - mapImg.height)
-
-            onWheel: {                                 // Every scroll is a multiple of 120
-                var datla = wheel.angleDelta.y/120
-                if(datla > 0)
-                {
-                    mapImg.scale = mapImg.scale/0.9
-                }
-                else
-                {
-                    mapImg.scale = mapImg.scale*0.9
-                }
-            }
-        }
-
-        Text {
-            id: text2
-            x: 511
-            y: 55
-            text: qsTr("Battery status: 24 V")
-            font.pixelSize: 12
-        }
-        Component.onCompleted: {
-            tempSubscription = client.subscribe("bini1_data")
-            tempSubscription.messageReceived.connect(addMessage)
-        }
-    }
-
-    Text {
-        id: text1
-        x: -73
-        y: -88
-        text: qsTr("Bini_1")
-        font.pixelSize: 12
     }
 
 }
