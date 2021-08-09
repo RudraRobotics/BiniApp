@@ -12,6 +12,7 @@ Image {
 
         Button {
             id: button_back
+            height: side_bar.height*0.1
             text: qsTr("Back")
             anchors.left: column.left
             anchors.right: column.right
@@ -26,6 +27,7 @@ Image {
         }
         Button {
             id: button_mapping
+            height: side_bar.height*0.1
             text: qsTr("Mapping")
             anchors.left: column.left
             anchors.right: column.right

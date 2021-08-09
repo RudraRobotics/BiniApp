@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.3
+import QtQuick.Controls 2.12
 
 
 Item {
@@ -25,6 +26,7 @@ Item {
             fillMode: Image.PreserveAspectFit
             PinchHandler { }
             MultiPointTouchArea {
+                id: multiPointTouchArea
                 anchors.fill: parent
                 touchPoints: [
                     TouchPoint { id: point1 },
@@ -77,6 +79,7 @@ Item {
         anchors.leftMargin: 5
         anchors.bottomMargin: 5
         anchors.topMargin: 5
+        clip: true
 
         TableViewColumn {
             role: "nik"
@@ -90,22 +93,40 @@ Item {
             role: "sname"
             title: "y"
         }
-
-        model: myModel
-    }
-
-    // The context menu offers deleting a row from the database
-    Menu {
-        id: contextMenu
-
-        MenuItem {
-            text: qsTr("Remove")
-            onTriggered: {
-                /* Call the dialog box that will clarify the intention to remove the row from the database
-                 * */
-                dialogDelete.open()
+        TableViewColumn {
+            delegate: Button {
+                text: "option"
+                onClicked: popup.open()
             }
         }
+
+        Popup {
+            id: popup
+            x: 100
+            y: 100
+            width: 200
+            height: 300
+            modal: true
+            focus: true
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+            ColumnLayout {
+                Button {
+                    id: button1
+                    text: "delete"
+                    onClicked: {
+                        database.removeRecord(myModel.getId(tableView.currentRow))
+                        myModel.updateModel();
+                        popup.close()
+                    }
+                }
+                Button {
+                    id: button2
+                    text: "edit"
+                }
+            }
+        }
+
+        model: myModel
     }
 
     // Dialog of confirmation the removal line from the database

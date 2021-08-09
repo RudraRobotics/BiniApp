@@ -30,7 +30,7 @@ Item {
 
     Button {
         id: serve
-        height: 36
+        height: navigation.height*0.1
         text: "SERVE"
         anchors.left: gridNavigation.right
         anchors.right: parent.right
@@ -39,26 +39,16 @@ Item {
         anchors.topMargin: 20
         anchors.leftMargin: 6
 
-        background: Rectangle {
-            color: "#ded3d3"
-            implicitWidth: 100
-            implicitHeight: 40
-            border.color: "#26282a"
-            border.width: 1
-            radius: 5
-        }
         onClicked: {
-            serve.highlighted = !serve.highlighted
-            console.log(gridNavigation.mission.length)
             client.publish(comboBox.currentText+"_cmd", "mission_" + gridNavigation.mission, 0, false)
             pageLoader.source = "Mission.qml"
-//            if(gridNavigation.mission.length==0) {
-//                onClicked: popup.open()
-//            }
-//            else {
-//                client.publish(comboBox.currentText+"_cmd", "mission_" + gridNavigation.mission, 0, false)
-//                pageLoader.source = "Mission.qml"
-//            }
+            if(gridNavigation.mission.length==0) {
+                onClicked: popup.open()
+            }
+            else {
+                client.publish(comboBox.currentText+"_cmd", "mission_" + gridNavigation.mission, 0, false)
+                pageLoader.source = "Mission.qml"
+            }
         }
     }
 
@@ -78,6 +68,7 @@ Item {
 
     Button {
         id: reset
+        height: navigation.height*0.1
         text: qsTr("RESET")
         anchors.left: gridNavigation.right
         anchors.right: parent.right
@@ -86,14 +77,6 @@ Item {
         anchors.topMargin: 20
         anchors.leftMargin: 3
 
-        background: Rectangle {
-            color: "#ded3d3"
-            implicitWidth: 100
-            implicitHeight: 40
-            border.color: "#26282a"
-            border.width: 1
-            radius: 5
-        }
         onClicked: {
             reset.highlighted = !reset.highlighted
         }
@@ -106,6 +89,7 @@ Item {
 
     ComboBox {
         id: comboBox
+        height: navigation.height*0.10
         anchors.left: gridNavigation.right
         anchors.right: parent.right
         anchors.top: text1.bottom

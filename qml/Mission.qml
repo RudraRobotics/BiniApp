@@ -28,7 +28,12 @@ Item {
         clip: true
         contentWidth: mapImg.width; contentHeight: mapImg.height
 
-        Image { id: mapImg; source: "../maps/map.pgm"; fillMode: Image.PreserveAspectFit; PinchHandler { }
+        Image {
+            id: mapImg
+            source: "../maps/map1.pgm";
+            scale: 1
+            fillMode: Image.PreserveAspectFit;
+            PinchHandler { }
             Image {
                 id: robot
                 x: mqtt_data.x
@@ -59,6 +64,10 @@ Item {
                 fillMode: Image.PreserveAspectFit
                 visible: false
             }
+        }
+        Component.onCompleted: {
+            tempSubscription = client.subscribe("bini1_data")
+            tempSubscription.messageReceived.connect(addMessage)
         }
     }
 

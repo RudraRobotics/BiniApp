@@ -16,7 +16,6 @@ ApplicationWindow {
     height: Screen.height
     width: Screen.width
     visible: true
-    color: "#515151"
 
     // Initializtion of all the custum qml types
     Database {
@@ -28,7 +27,7 @@ ApplicationWindow {
     MqttClient {
         property int port_id: 1883
         id: client
-        hostname: "localhost"
+        hostname: "192.168.1.114"
         port: port_id
         Component.onCompleted: {
             connectToHost()

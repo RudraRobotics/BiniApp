@@ -13,6 +13,7 @@ Image {
 
         Button {
             id: button_dashboard
+            height: side_bar.height*0.1
             text: qsTr("Home")
             anchors.left: column.left
             anchors.right: column.right
@@ -30,6 +31,7 @@ Image {
 
         Button {
             id: button_navigation
+            height: side_bar.height*0.1
             text: qsTr("Navigation")
             anchors.left: column.left
             anchors.right: column.right
@@ -45,6 +47,7 @@ Image {
 
         Button {
             id: button_setup
+            height: side_bar.height*0.1
             text: qsTr("Setup")
             anchors.left: column.left
             anchors.right: column.right
