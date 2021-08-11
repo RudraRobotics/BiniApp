@@ -7,8 +7,6 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.3
 import QtQml 2.12
 
-import Database 1.0
-import ListModel 1.0
 import MqttClient 1.0
 
 ApplicationWindow {
@@ -21,13 +19,6 @@ ApplicationWindow {
     Material.theme: Material.Dark
     Material.accent: Material.Purple
 
-    // Initializtion of all the custum qml types
-    Database {
-        id: database
-    }
-    ListModel {
-        id: myModel
-    }
     MqttClient {
         property int port_id: 1883
         id: client

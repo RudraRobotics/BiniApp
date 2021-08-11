@@ -10,9 +10,12 @@ SOURCES += \
         src/listmodel.cpp \
         src/main.cpp \
         src/database.cpp \
-        src/qmlmqttclient.cpp
+        src/qmlmqttclient.cpp \
+        src/tablemodel.cpp
 
 RESOURCES += qml.qrc
+
+INCLUDEPATH += tmp/moc/release_shared
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -28,4 +31,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     include/database.h \
     include/listmodel.h \
-    include/qmlmqttclient.h
+    include/qmlmqttclient.h \
+    include/tablemodel.h

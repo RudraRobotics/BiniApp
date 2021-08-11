@@ -2,6 +2,8 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Dialogs 1.2
+import QtQuick.Controls.Styles 1.4
+import TableModel 0.1
 
 
 Item {
@@ -72,55 +74,79 @@ Item {
 
     }
 
-    ListModel {
-        id: myModel
-        ListElement { type: "Dog"; age: 8 }
-        ListElement { type: "Cat"; age: 5 }
-    }
-
     TableView {
-        id: tableView
         anchors.left: parent.left
-        anchors.top: rowLayout.bottom
         anchors.right: parent.right
+        anchors.top: rowLayout.bottom
         anchors.bottom: parent.bottom
-        anchors.rightMargin: 5
-        anchors.leftMargin: 5
-        anchors.bottomMargin: 5
         anchors.topMargin: 5
+        columnSpacing: 1
+        rowSpacing: 1
         clip: true
 
-//            model: myModel
+        model: TableModel {}
 
-        delegate: myModel
-
-        Popup {
-            id: popup
-            x: 100
-            y: 100
-            width: 200
-            height: 300
-            modal: true
-            focus: true
-            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-            ColumnLayout {
-                Button {
-                    id: button1
-                    text: "delete"
-                    onClicked: {
-                        database.removeRecord(myModel.getId(tableView.currentRow))
-                        myModel.updateModel();
-                        popup.close()
-                    }
-                }
-                Button {
-                    id: button2
-                    text: "edit"
-                }
+        delegate: Rectangle {
+            implicitWidth: 100
+            implicitHeight: 50
+            Text {
+                text: display
             }
         }
-
     }
+
+
+//    TableView {
+//        id: tableView
+//        anchors.left: parent.left
+//        anchors.top: rowLayout.bottom
+//        anchors.right: parent.right
+//        anchors.bottom: parent.bottom
+//        anchors.rightMargin: 5
+//        anchors.leftMargin: 5
+//        anchors.bottomMargin: 5
+//        anchors.topMargin: 5
+//        clip: true
+
+//        model: libraryModel
+
+//        delegate: Rectangle {
+//            implicitWidth: 100
+//            implicitHeight: 50
+//            Text {
+//                text: title
+//            }
+//            Text {
+//                text: author
+//            }
+//        }
+
+////        Popup {
+////            id: popup
+////            x: 100
+////            y: 100
+////            width: 200
+////            height: 300
+////            modal: true
+////            focus: true
+////            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+////            ColumnLayout {
+////                Button {
+////                    id: button1
+////                    text: "delete"
+////                    onClicked: {
+////                        database.removeRecord(myModel.getId(tableView.currentRow))
+////                        myModel.updateModel();
+////                        popup.close()
+////                    }
+////                }
+////                Button {
+////                    id: button2
+////                    text: "edit"
+////                }
+////            }
+////        }
+//    }
 
     // Dialog of confirmation the removal line from the database
     MessageDialog {

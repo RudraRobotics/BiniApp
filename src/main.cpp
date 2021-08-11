@@ -5,9 +5,7 @@
 #include <QtQuickControls2>
 
 #include "include/qmlmqttclient.h"
-#include "include/database.h"
-#include "include/listmodel.h"
-
+#include "include/tablemodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,12 +13,9 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("Material");
 
     QQmlApplicationEngine engine;
-
+    qmlRegisterType<TableModel>("TableModel", 0, 1, "TableModel");
     qmlRegisterType<QmlMqttClient>("MqttClient", 1, 0, "MqttClient");
     qmlRegisterUncreatableType<QmlMqttSubscription>("MqttClient", 1, 0, "MqttSubscription", QLatin1String("Subscriptions are read-only"));
-    qmlRegisterType<DataBase>("Database", 1, 0, "Database");
-    qmlRegisterType<ListModel>("ListModel", 1, 0, "ListModel");
-
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     if (engine.rootObjects().isEmpty())
@@ -28,3 +23,5 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
+
+#include "main.moc"
