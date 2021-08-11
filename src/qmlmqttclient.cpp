@@ -85,11 +85,16 @@ void QmlMqttSubscription::handleMessage(const QMqttMessage &qmsg)
     emit messageReceived(pose);
 }
 
-int QmlMqttClient::publish(const QString &topic, const QString &message, int qos, bool retain)
+int QmlMqttClient::publish(const QString &topic, const QList<QPointF> &mission, int qos, bool retain)
 {
-    qDebug() << "Msg published:" << topic << "," << message;
-    auto result = QMqttClient::publish(QMqttTopicName(topic), message.toUtf8(), qos, retain);
-    return result;
+    qDebug() << "Msg published:" << topic << "," << mission;
+//    QString data;
+//    for(auto pose : mission) {
+//        data += pose.t
+//    }
+//    auto result = QMqttClient::publish(QMqttTopicName(topic), data.toUtf8(), qos, retain);
+//    return result;
+    return 1;
 }
 
 QPointF QmlMqttClient::pose() const

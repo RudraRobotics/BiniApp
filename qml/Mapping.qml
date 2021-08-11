@@ -1,8 +1,7 @@
 import QtQuick 2.12
-import QtQuick.Controls 1.4
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.3
 import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
+import QtQuick.Dialogs 1.2
 
 
 Item {
@@ -55,19 +54,29 @@ Item {
         TextEdit { id: fnameFieldX ; text: "0.0"; readOnly: true }
         TextEdit { id: fnameFieldY ; text: "0.0"; readOnly: true }
         Text {text: qsTr("Name")}
-        TextField { id: snameField }
+        TextField { id: snameField; placeholderText: qsTr("Enter name") }
 
         Button {
             text: qsTr("Add")
             // Make a new entry in the database
             onClicked: {
-                database.inserIntoTable(fnameFieldX.text , fnameFieldY.text, snameField.text)
-                myModel.updateModel() // And updates the data model with a new record
+                if(snameField.length) {
+                    database.inserIntoTable(fnameFieldX.text , fnameFieldY.text, snameField.text)
+                    myModel.updateModel() // And updates the data model with a new record
+                }
+                else {
+                    snameField.focus = true
+                }
             }
         }
 
     }
 
+    ListModel {
+        id: myModel
+        ListElement { type: "Dog"; age: 8 }
+        ListElement { type: "Cat"; age: 5 }
+    }
 
     TableView {
         id: tableView
@@ -81,24 +90,9 @@ Item {
         anchors.topMargin: 5
         clip: true
 
-        TableViewColumn {
-            role: "nik"
-            title: "Name"
-        }
-        TableViewColumn {
-            role: "fname"
-            title: "x"
-        }
-        TableViewColumn {
-            role: "sname"
-            title: "y"
-        }
-        TableViewColumn {
-            delegate: Button {
-                text: "option"
-                onClicked: popup.open()
-            }
-        }
+//            model: myModel
+
+        delegate: myModel
 
         Popup {
             id: popup
@@ -126,7 +120,6 @@ Item {
             }
         }
 
-        model: myModel
     }
 
     // Dialog of confirmation the removal line from the database

@@ -16,16 +16,15 @@ Item {
 
     GridNavigation {
         id: gridNavigation
+        width: navigation.width*0.75
 
         color: "#d8d1d1"
         anchors.left: parent.left
-        anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
-        anchors.rightMargin: 160
-        anchors.leftMargin: 0
-        anchors.topMargin: 0
+        anchors.bottomMargin: 5
+        anchors.leftMargin: 5
+        anchors.topMargin: 5
     }
 
     Button {
@@ -42,13 +41,13 @@ Item {
         onClicked: {
             client.publish(comboBox.currentText+"_cmd", "mission_" + gridNavigation.mission, 0, false)
             pageLoader.source = "Mission.qml"
-            if(gridNavigation.mission.length==0) {
-                onClicked: popup.open()
-            }
-            else {
-                client.publish(comboBox.currentText+"_cmd", "mission_" + gridNavigation.mission, 0, false)
-                pageLoader.source = "Mission.qml"
-            }
+//            if(!gridNavigation.mission.columnCount()) {
+//                onClicked: popup.open()
+//            }
+//            else {
+//                client.publish(comboBox.currentText, gridNavigation.mission, 0, false)
+//                pageLoader.source = "Mission.qml"
+//            }
         }
     }
 
@@ -79,6 +78,7 @@ Item {
 
         onClicked: {
             reset.highlighted = !reset.highlighted
+            gridNavigation.mission.clear()
         }
 
         Connections {

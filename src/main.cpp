@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QLoggingCategory>
+#include <QQuickStyle>
+#include <QtQuickControls2>
 
 #include "include/qmlmqttclient.h"
 #include "include/database.h"
@@ -10,6 +12,7 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    QQuickStyle::setStyle("Material");
 
     QQmlApplicationEngine engine;
 
