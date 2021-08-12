@@ -23,7 +23,7 @@ Item {
 
         Image {
             id: image
-            source: "../maps/map1.pgm"
+            source: "../maps/map.pgm"
             fillMode: Image.PreserveAspectFit
             PinchHandler { }
             MultiPointTouchArea {

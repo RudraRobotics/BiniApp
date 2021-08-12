@@ -15,7 +15,7 @@ SOURCES += \
 
 RESOURCES += qml.qrc
 
-INCLUDEPATH += tmp/moc/release_shared
+#INCLUDEPATH += tmp/moc/release_shared
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

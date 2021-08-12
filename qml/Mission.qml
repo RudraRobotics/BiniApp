@@ -30,7 +30,7 @@ Item {
 
         Image {
             id: mapImg
-            source: "../maps/map1.pgm";
+            source: "../maps/map.pgm"
             scale: 1
             fillMode: Image.PreserveAspectFit;
             PinchHandler { }
