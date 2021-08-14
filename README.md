@@ -8,3 +8,7 @@ Mission planner features:
 1. Multiple destination selection.  
 2. Mission execute, cancel and update feature.  
 3. Real time display of all deployed robots in given map.   
+
+  #### TODO:  
+  1. Adding edit and delete feature in mapping setup page.  
+  2. Mission planer page specific for catering mode, where the grid navigation page will not be presetn for selecting location names.  
