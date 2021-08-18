@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.12
 import "../Core"
 import "../"
 import "../delegates"
+import DataBase 1.0
 
 Item {
     id: planner
@@ -12,6 +13,8 @@ Item {
     property string default_map: "../../maps/map.pgm"
 
     ListModel { id: listModel1 }
+
+    DataBase { id: dataBase }
 
     ListView {
         id: listView
@@ -52,6 +55,13 @@ Item {
         onBaseBtnClicked: flickableMap.enable_way_pnts = true
 
         onResetItems: listModel1.clear()
+
+        onSaveBtnClicked: {
+            if(listModel1.count) {
+                console.log('save')
+//                dataBase.inserIntoTable()
+            }
+        }
     }
 
     FlickableMap {
@@ -74,12 +84,15 @@ Item {
                     listView.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y': posListModel.get(i).sprite_item.y})
                 }
             }
+
+            if(listModel1.count>1)
+                missionPlannerTopMenu.enable_save_btn = true
         }
 
         onPoseChanged: {
             for (let i = 0; i < posListModel.count; i++) {
                 console.log(posListModel.get(i).sprite_item.active, posListModel.get(i).sprite_item.x, posListModel.get(i).sprite_item.y)
-                if(posListModel.get(i).sprite_item.active) {
+                if(posListModel.get(i).sprite_item.scale === 2) {
                     listView.currentIndex = i
                     missionPlannerTopMenu.x_pos = posListModel.get(i).sprite_item.x
                     missionPlannerTopMenu.y_pos = posListModel.get(i).sprite_item.y

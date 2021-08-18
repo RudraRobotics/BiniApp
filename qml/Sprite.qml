@@ -17,12 +17,13 @@ Image {
     Component.onCompleted: {
         onXChanged.connect(poseChanged)
         onYChanged.connect(poseChanged)
-        mouseArea.clicked.connect(locClicked)
+        tapArea.tapped.connect(locClicked)
         objCreated
     }
 
     TapHandler {
-        target: locIconImg
+        id: tapArea
+        margin: 10
         onTapped: {
             locIconImg.active =! locIconImg.active
             locIconImg.scale = locIconImg.active ? 2 : 1
