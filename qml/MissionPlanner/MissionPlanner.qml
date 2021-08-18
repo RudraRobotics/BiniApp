@@ -29,6 +29,8 @@ Item {
         z: 1
         delegate: MissionListDelegate {}
         model: listModel1
+        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+        focus: true
     }
 
     MissionPlannerTopMenu {
@@ -80,7 +82,7 @@ Item {
                 listModel1.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
 
             for (let i = 0; i < posListModel.count; i++) {
-                if(posListModel.get(i).sprite_item.scale === 2) {
+                if(posListModel.get(i).sprite_item.acive) {
                     listView.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y': posListModel.get(i).sprite_item.y})
                 }
             }
@@ -92,7 +94,7 @@ Item {
         onPoseChanged: {
             for (let i = 0; i < posListModel.count; i++) {
                 console.log(posListModel.get(i).sprite_item.active, posListModel.get(i).sprite_item.x, posListModel.get(i).sprite_item.y)
-                if(posListModel.get(i).sprite_item.scale === 2) {
+                if(posListModel.get(i).sprite_item.active) {
                     listView.currentIndex = i
                     missionPlannerTopMenu.x_pos = posListModel.get(i).sprite_item.x
                     missionPlannerTopMenu.y_pos = posListModel.get(i).sprite_item.y

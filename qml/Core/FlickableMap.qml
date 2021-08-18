@@ -30,7 +30,6 @@ Item {
             if(count > 0) {
                 objCreated()
                 get(count - 1).sprite_item.onPoseChanged.connect(poseChanged)
-                get(count - 1).sprite_item.onLocClicked.connect(MyScript.locClicked)
             }
         }
     }

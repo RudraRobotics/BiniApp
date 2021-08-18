@@ -8,29 +8,19 @@ Image {
     z: 1
     fillMode: Image.PreserveAspectFit
 
-    property bool active: false
-    property alias scale: locIconImg.scale
+    property bool active: dragHandler.active
 
     signal poseChanged
-    signal locClicked
 
     Component.onCompleted: {
         onXChanged.connect(poseChanged)
         onYChanged.connect(poseChanged)
-        tapArea.tapped.connect(locClicked)
         objCreated
     }
 
-    TapHandler {
-        id: tapArea
-        margin: 10
-        onTapped: {
-            locIconImg.active =! locIconImg.active
-            locIconImg.scale = locIconImg.active ? 2 : 1
-        }
+    DragHandler {
+        id: dragHandler
     }
-
-    DragHandler {}
 }
 
 
