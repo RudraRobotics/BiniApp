@@ -21,14 +21,8 @@ Image {
         objCreated
     }
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        drag.target: parent
-
-        hoverEnabled: true
-
-        onClicked: {
+    TapHandler {
+        onTapped: {
             if(locIconImg.scale == 1) {
                 locIconImg.scale = 2
                 active = true
@@ -39,6 +33,28 @@ Image {
             }
         }
     }
+
+    DragHandler {}
+
+
+//    MouseArea {
+//        id: mouseArea
+//        anchors.fill: parent
+//        drag.target: parent
+
+//        hoverEnabled: true
+
+//        onClicked: {
+//            if(locIconImg.scale == 1) {
+//                locIconImg.scale = 2
+//                active = true
+//            }
+//            else {
+//                locIconImg.scale = 1
+//                active = false
+//            }
+//        }
+//    }
 }
 
 

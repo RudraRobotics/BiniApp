@@ -2,10 +2,7 @@ import QtQuick 2.12
 import "../componentCreation.js" as MyScript
 
 
-Flickable {
-
-    contentHeight: mapImg.height
-    contentWidth: mapImg.width
+Item {
 
     property alias x_pos: mouseArea.mouseX
     property alias y_pos: mouseArea.mouseY
@@ -40,7 +37,8 @@ Flickable {
 
     Image {
         id: mapImg
-        PinchHandler { }
+        PinchHandler {}
+        DragHandler {}
         MouseArea {
             id: mouseArea
             anchors.fill: parent

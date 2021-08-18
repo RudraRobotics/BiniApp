@@ -4,58 +4,27 @@ import QtQml 2.12
 import QtQuick.Layouts 1.12
 import "../Core"
 import "../"
-
+import "../delegates"
 
 Item {
     id: planner
 
-    property string default_map: "../../maps/map.pgm"
+    property string default_map: "../../maps/map1.pgm"
 
-    ListModel {
-        id: listModel1
-        ListElement {
-            name: ""
-            x: 0
-            y: 0
-        }
-    }
-
-    Item {
-        id: itemDelegate
-        width: 100
-        height: 50
-        anchors.fill: parent
-        RowLayout {
-            id: row1
-            anchors.fill: parent
-            spacing: 6
-            Rectangle {
-                color: "#686868"
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                TextField {
-                    opacity: 1
-                    anchors.fill: parent
-                    placeholderText: 'Enter location name'
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pointSize: 14
-                }
-            }
-
-        }
-    }
+    ListModel { id: listModel1 }
 
     ListView {
         id: listView
-        width: 100
+        width: planner.width*0.2
         height: 200
         anchors.left: parent.left
         anchors.top: missionPlannerTopMenu.bottom
+        spacing: 0
         anchors.leftMargin: 5
         anchors.topMargin: 5
         clip: true
         z: 1
-        delegate: itemDelegate
+        delegate: MissionListDelegate {}
         model: listModel1
     }
 
@@ -81,6 +50,8 @@ Item {
 
         onWayPntBtnClicked: flickableMap.enable_way_pnts = enable_way_pnts
         onBaseBtnClicked: flickableMap.enable_way_pnts = true
+
+        onResetItems: listModel1.clear()
     }
 
     FlickableMap {
@@ -89,10 +60,15 @@ Item {
         map_path: default_map
 
         onObjCreated: {
+            var i = posListModel.count - 1
             if(posListModel.count === 1) {
                 missionPlannerTopMenu.enable_base_btn = false
                 missionPlannerTopMenu.enable_waypnt_btn = true
+                listModel1.append({'name': 'Base', 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
             }
+            else
+                listModel1.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
+
             for (let i = 0; i < posListModel.count; i++) {
                 if(posListModel.get(i).sprite_item.scale === 2) {
                     listView.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y': posListModel.get(i).sprite_item.y})
@@ -104,6 +80,7 @@ Item {
             for (let i = 0; i < posListModel.count; i++) {
                 console.log(posListModel.get(i).sprite_item.active, posListModel.get(i).sprite_item.x, posListModel.get(i).sprite_item.y)
                 if(posListModel.get(i).sprite_item.active) {
+                    listView.currentIndex = i
                     missionPlannerTopMenu.x_pos = posListModel.get(i).sprite_item.x
                     missionPlannerTopMenu.y_pos = posListModel.get(i).sprite_item.y
                 }
