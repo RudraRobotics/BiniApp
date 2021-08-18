@@ -48,12 +48,11 @@
 **
 ****************************************************************************/
 
-#include "qmlmqttclient.h"
+#include "include/qmlmqttclient.h"
 #include <QDebug>
-#include <std_msgs/String.h>
 
-QmlMqttClient::QmlMqttClient(QObject *parent)
-    : QMqttClient(parent)
+
+QmlMqttClient::QmlMqttClient(QObject *parent)  : QMqttClient(parent)
 {
 }
 
@@ -78,11 +77,32 @@ QmlMqttSubscription::~QmlMqttSubscription()
 
 void QmlMqttSubscription::handleMessage(const QMqttMessage &qmsg)
 {
-    emit messageReceived(qmsg.payload());
+    const QString topic = qmsg.topic().name();
+    auto items = qmsg.payload().split('_');
+    QPointF pose;
+    pose.setX(items.at(0).toFloat());
+    pose.setY(items.at(1).toFloat());
+    emit messageReceived(pose);
 }
 
-int QmlMqttClient::publish(const QString &topic, const QString &message, int qos, bool retain)
+int QmlMqttClient::publish(const qint64 &area_ind, const qint64 &robot_ind, int qos, bool retain)
 {
-    auto result = QMqttClient::publish(QMqttTopicName(topic), message.toUtf8(), qos, retain);
-    return result;
+    qDebug() << "Msg published:" << area_ind << "," << robot_ind;
+//    QString data;
+//    for(auto pose : mission) {
+//        data += pose.t
+//    }
+//    auto result = QMqttClient::publish(QMqttTopicName(topic), data.toUtf8(), qos, retain);
+//    return result;
+    return 1;
+}
+
+QPointF QmlMqttClient::pose() const
+{
+    return robot_pose;
+}
+
+void QmlMqttClient::setName(const QPointF &pose_)
+{
+    robot_pose = pose_;
 }

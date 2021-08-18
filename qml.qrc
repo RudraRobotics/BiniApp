@@ -1,24 +1,31 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
-        <file>qml/Dashboard.qml</file>
-        <file>qml/GridItem.qml</file>
-        <file>qml/GridNavigation.qml</file>
-        <file>qml/Map.qml</file>
-        <file>qml/Mapping.qml</file>
-        <file>qml/Mission.qml</file>
-        <file>qml/Navigation.qml</file>
-        <file>qml/SideBar.qml</file>
+        <file>qml/MissionCmd.qml</file>
         <file>images/eva.jpg</file>
         <file>images/eve.jpg</file>
         <file>images/loc.png</file>
         <file>images/logo.jpg</file>
         <file>images/map.png</file>
-        <file>images/portrait.png</file>
+        <file>images/bini.png</file>
         <file>images/robot.jpg</file>
         <file>images/robot2.png</file>
         <file>images/ros.png</file>
+        <file>images/dashboard.png</file>
         <file>maps/map.pgm</file>
         <file>maps/map.yaml</file>
+        <file>maps/map1.pgm</file>
+        <file>maps/map1.yaml</file>
+        <file>qml/componentCreation.js</file>
+        <file>qml/Sprite.qml</file>
+        <file>qml/AreaListView.qml</file>
+        <file>qml/MissionPlanner/MissionPlanner.qml</file>
+        <file>qml/MissionPlanner/MissionPlannerTopMenu.qml</file>
+        <file>qml/Core/FlickableMap.qml</file>
+        <file>icons/qt-logo.png</file>
+        <file>icons/qt-logo@2x.png</file>
+        <file>icons/qt-logo@3x.png</file>
+        <file>icons/qt-logo@4x.png</file>
+        <file>qml/rough.qml</file>
     </qresource>
 </RCC>

@@ -8,10 +8,6 @@ class ListModel : public QSqlQueryModel
 {
     Q_OBJECT
 public:
-    /* We list all the roles that will be used in the TableView.
-     * As you can see, they have to be in the memory above the parameter Qt::UserRole.
-     * Due to the fact that the information below this address is not for customizations
-     * */
     enum Roles {
         IdRole = Qt::UserRole + 1,      // id
         FNameRole,                      // Firt name
