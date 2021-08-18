@@ -10,9 +10,9 @@ Rectangle {
     property alias x_pos: xPos.text
     property alias y_pos: yPos.text
     property alias enable_way_pnts: wayPointBtn.highlighted
-    property alias enable_waypnt_btn: wayPointBtn.visible
-    property alias enable_base_btn: baseBtn.visible
-    property alias enable_save_btn: saveBtn.visible
+    property alias enable_waypnt_btn: wayPointBtn.enabled
+    property alias enable_base_btn: baseBtn.enabled
+    property alias enable_save_btn: saveBtn.enabled
 
     signal wayPntBtnClicked
     signal baseBtnClicked
@@ -68,7 +68,13 @@ Rectangle {
             Layout.leftMargin: 5
             Layout.topMargin: 5
             Layout.fillHeight: true
-            visible: false
+            enabled: false
+            onClicked: {
+                console.log(areaName.length)
+                if(!areaName.length) {
+                    areaName.focus = true
+                }
+            }
         }
 
         Button {
@@ -105,7 +111,7 @@ Rectangle {
             Layout.margins: 5
             Layout.topMargin: 5
             Layout.fillHeight: true
-            visible: false
+            enabled: false
             onClicked: highlighted =! highlighted
         }
 
@@ -119,11 +125,11 @@ Rectangle {
             Layout.fillWidth: true
             Layout.leftMargin: 5
             onClicked: {
-                baseBtn.visible = true
-                wayPointBtn.visible = false
+                baseBtn.enabled = true
+                wayPointBtn.enabled = false
                 baseBtn.highlighted = false
                 wayPointBtn.highlighted = false
-                saveBtn.visible = false
+                saveBtn.enabled = false
             }
         }
 

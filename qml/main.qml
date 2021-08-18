@@ -13,8 +13,8 @@ import MqttClient 1.0
 ApplicationWindow {
     id: window
     title: qsTr("BiniApp")
-    height: Screen.height
-    width: screen.width
+    height: 800
+    width: 1280
     visible: true
 
     Material.theme: Material.Dark
