@@ -26,7 +26,6 @@
         <file>icons/qt-logo@2x.png</file>
         <file>icons/qt-logo@3x.png</file>
         <file>icons/qt-logo@4x.png</file>
-        <file>qml/rough.qml</file>
         <file>qml/delegates/MissionListDelegate.qml</file>
         <file>qml/MockData/MissionListModel.qml</file>
     </qresource>
