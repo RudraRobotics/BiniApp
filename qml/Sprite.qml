@@ -22,39 +22,14 @@ Image {
     }
 
     TapHandler {
+        target: locIconImg
         onTapped: {
-            if(locIconImg.scale == 1) {
-                locIconImg.scale = 2
-                active = true
-            }
-            else {
-                locIconImg.scale = 1
-                active = false
-            }
+            locIconImg.active =! locIconImg.active
+            locIconImg.scale = locIconImg.active ? 2 : 1
         }
     }
 
     DragHandler {}
-
-
-//    MouseArea {
-//        id: mouseArea
-//        anchors.fill: parent
-//        drag.target: parent
-
-//        hoverEnabled: true
-
-//        onClicked: {
-//            if(locIconImg.scale == 1) {
-//                locIconImg.scale = 2
-//                active = true
-//            }
-//            else {
-//                locIconImg.scale = 1
-//                active = false
-//            }
-//        }
-//    }
 }
 
 
