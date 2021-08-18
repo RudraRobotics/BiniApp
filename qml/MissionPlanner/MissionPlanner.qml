@@ -9,7 +9,7 @@ import "../delegates"
 Item {
     id: planner
 
-    property string default_map: "../../maps/map1.pgm"
+    property string default_map: "../../maps/map.pgm"
 
     ListModel { id: listModel1 }
 

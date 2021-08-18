@@ -4,8 +4,8 @@ import "../componentCreation.js" as MyScript
 
 Item {
 
-    property alias x_pos: mouseArea.mouseX
-    property alias y_pos: mouseArea.mouseY
+    property alias x_pos: tapArea.x_pos
+    property alias y_pos: tapArea.y_pos
     property alias map_path: mapImg.source
     property alias posListModel: posListModel
     property bool enable_way_pnts: false
@@ -39,10 +39,13 @@ Item {
         id: mapImg
         PinchHandler {}
         DragHandler {}
-        MouseArea {
-            id: mouseArea
-            anchors.fill: parent
-            onClicked: {
+        TapHandler {
+            id: tapArea
+            property real x_pos: 0.0
+            property real y_pos: 0.0
+            onTapped: {
+                x_pos = point.position.x
+                y_pos = point.position.y
                 if(enable_way_pnts && MyScript.sprite.length === 0) {
                     MyScript.createSpriteObjects()
                     posListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})

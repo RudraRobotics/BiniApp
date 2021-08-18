@@ -52,9 +52,8 @@ ApplicationWindow {
             delegate: ItemDelegate {
                 text: name
                 width: parent.width
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
+                TapHandler {
+                    onTapped: {
                         font.bold = !font.bold
                         if(index==0)
                             pageLoader.source = "MissionPlanner/MissionPlanner.qml"
