@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
-        <file>qml/MissionCmd.qml</file>
         <file>images/eva.jpg</file>
         <file>images/eve.jpg</file>
         <file>images/loc.png</file>
@@ -28,5 +27,10 @@
         <file>icons/qt-logo@4x.png</file>
         <file>qml/delegates/MissionListDelegate.qml</file>
         <file>qml/MockData/MissionListModel.qml</file>
+        <file>qml/MissionCmd/MissionCmd.qml</file>
+        <file>qml/MissionCmd/MissionCmdTopMenu.qml</file>
+        <file>qml/MockData/MenuListModel.qml</file>
+        <file>qml/delegates/MenuListDelegate.qml</file>
+        <file>qml/Setup/RobotSetup.qml</file>
     </qresource>
 </RCC>

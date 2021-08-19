@@ -36,6 +36,9 @@ Item {
 
     Image {
         id: mapImg
+        source: "../../maps/map1.pgm"
+        x: (parent.width-width)/2
+        y: (parent.height-height)/2
         PinchHandler {}
         DragHandler {}
         TapHandler {

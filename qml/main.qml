@@ -6,6 +6,9 @@ import QtQuick.Window 2.12
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.3
 import QtQml 2.12
+import "MockData"
+import "Setup"
+import "delegates"
 
 import MqttClient 1.0
 
@@ -39,29 +42,9 @@ ApplicationWindow {
 
             headerPositioning: ListView.OverlayHeader
 
-            model: ListModel {
-                        id: sidebarModel
-                        ListElement {
-                            name: "MissionPlanner"
-                        }
-                        ListElement {
-                            name: "MissionCmd"
-                        }
-                    }
+            model: MenuListModel {}
 
-            delegate: ItemDelegate {
-                text: name
-                width: parent.width
-                TapHandler {
-                    onTapped: {
-                        font.bold = !font.bold
-                        if(index==0)
-                            pageLoader.source = "MissionPlanner/MissionPlanner.qml"
-                        else if(index==1)
-                            pageLoader.source = "MissionCmd.qml"
-                    }
-                }
-            }
+            delegate: MenuListDelegate {}
 
             ScrollIndicator.vertical: ScrollIndicator { }
         }
@@ -79,6 +62,6 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:3}
+    D{i:0;formeditorZoom:0.66}
 }
 ##^##*/
