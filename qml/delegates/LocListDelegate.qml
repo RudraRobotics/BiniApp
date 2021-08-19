@@ -27,6 +27,7 @@ Component {
                 verticalAlignment: Text.AlignVCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pointSize: 12
+                onPressed: locListView.currentIndex = index
             }
         }
     }
