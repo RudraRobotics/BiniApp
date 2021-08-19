@@ -32,5 +32,7 @@
         <file>qml/MockData/MenuListModel.qml</file>
         <file>qml/delegates/MenuListDelegate.qml</file>
         <file>qml/Setup/RobotSetup.qml</file>
+        <file>qml/Database.js</file>
+        <file>qml/delegates/LocListDelegate.qml</file>
     </qresource>
 </RCC>

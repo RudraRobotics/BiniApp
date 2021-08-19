@@ -18,10 +18,10 @@ Component {
             anchors.bottomMargin: 1
             anchors.topMargin: 1
 
-            Text {
+            TextField {
                 id: textField
                 color: "#ffffff"
-                text: mission_name
+                text: loc_name
                 anchors.verticalCenter: parent.verticalCenter
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

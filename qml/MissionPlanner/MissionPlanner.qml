@@ -2,22 +2,24 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQml 2.12
 import QtQuick.Layouts 1.12
+import QtQuick.LocalStorage 2.0
+
 import "../Core"
 import "../"
 import "../delegates"
-import DataBase 1.0
+import "../Database.js" as JS
 
 Item {
     id: planner
 
     property string default_map: "../../maps/map.pgm"
 
-    ListModel { id: listModel1 }
-
-    DataBase { id: dataBase }
+    ListModel {
+        id: locListModel
+    }
 
     ListView {
-        id: listView
+        id: areaListView
         width: planner.width*0.2
         height: 200
         anchors.left: parent.left
@@ -27,8 +29,30 @@ Item {
         anchors.topMargin: 5
         clip: true
         z: 1
+        model: areaListModel
         delegate: MissionListDelegate {}
-        model: listModel1
+        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+        focus: true
+    }
+
+    ListModel {
+        id: areaListModel
+        Component.onCompleted: JS.dbReadMissions()
+    }
+
+    ListView {
+        id: locListView
+        x: 443
+        z: 1
+        width: 192
+        height: planner.height*0.3
+        anchors.right: parent.right
+        anchors.top: missionPlannerTopMenu.bottom
+        anchors.rightMargin: 5
+        anchors.topMargin: 5
+
+        delegate: LocListDelegate {}
+        model: locListModel
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
         focus: true
     }
@@ -56,12 +80,14 @@ Item {
         onWayPntBtnClicked: flickableMap.enable_way_pnts = enable_way_pnts
         onBaseBtnClicked: flickableMap.enable_way_pnts = true
 
-        onResetItems: listModel1.clear()
+        onResetItems: locListModel.clear()
 
         onSaveBtnClicked: {
-            if(listModel1.count) {
-                console.log('save')
-//                dataBase.inserIntoTable()
+            if(mission_name.length && locListModel.count) {
+                JS.dbInsertMission(mission_name)
+                locListModel.clear()
+                mission_name = ''
+                flickableMap.resetItems()
             }
         }
     }
@@ -76,18 +102,18 @@ Item {
             if(posListModel.count === 1) {
                 missionPlannerTopMenu.enable_base_btn = false
                 missionPlannerTopMenu.enable_waypnt_btn = true
-                listModel1.append({'name': 'Base', 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
+                locListModel.append({'loc_name': 'Base', 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
             }
             else
-                listModel1.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
+                locListModel.append({'loc_name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
 
             for (let i = 0; i < posListModel.count; i++) {
                 if(posListModel.get(i).sprite_item.acive) {
-                    listView.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y': posListModel.get(i).sprite_item.y})
+                    locListView.append({'loc_name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y': posListModel.get(i).sprite_item.y})
                 }
             }
 
-            if(listModel1.count>1)
+            if(locListModel.count>1)
                 missionPlannerTopMenu.enable_save_btn = true
         }
 
@@ -95,7 +121,7 @@ Item {
             for (let i = 0; i < posListModel.count; i++) {
                 console.log(posListModel.get(i).sprite_item.active, posListModel.get(i).sprite_item.x, posListModel.get(i).sprite_item.y)
                 if(posListModel.get(i).sprite_item.active) {
-                    listView.currentIndex = i
+                    locListView.currentIndex = i
                     missionPlannerTopMenu.x_pos = posListModel.get(i).sprite_item.x
                     missionPlannerTopMenu.y_pos = posListModel.get(i).sprite_item.y
                 }
@@ -104,10 +130,11 @@ Item {
     }
 
 
+
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}
+    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}D{i:6}
 }
 ##^##*/

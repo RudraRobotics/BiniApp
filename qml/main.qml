@@ -9,9 +9,9 @@ import QtQml 2.12
 import "MockData"
 import "Setup"
 import "delegates"
+import "Database.js" as JS
 
 import MqttClient 1.0
-
 
 ApplicationWindow {
     id: window
@@ -24,6 +24,10 @@ ApplicationWindow {
     Material.accent: Material.Purple
 
     readonly property bool inPortrait: window.width < window.height
+
+    Component.onCompleted: {
+        JS.dbInit()
+    }
 
     Drawer {
         id: drawer

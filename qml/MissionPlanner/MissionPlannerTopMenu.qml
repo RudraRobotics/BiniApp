@@ -9,6 +9,7 @@ Rectangle {
 
     property alias x_pos: xPos.text
     property alias y_pos: yPos.text
+    property alias mission_name: areaName.text
     property alias enable_way_pnts: wayPointBtn.highlighted
     property alias enable_waypnt_btn: wayPointBtn.enabled
     property alias enable_base_btn: baseBtn.enabled
@@ -130,6 +131,7 @@ Rectangle {
                 baseBtn.highlighted = false
                 wayPointBtn.highlighted = false
                 saveBtn.enabled = false
+                areaName.text = ''
             }
         }
 
