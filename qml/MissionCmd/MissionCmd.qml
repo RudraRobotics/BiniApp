@@ -8,7 +8,7 @@ Item {
     property string default_map: "../../maps/map.pgm"
 
     MissionCmdTopMenu {
-        height: 100
+        height: flickableMap.height*0.1
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
