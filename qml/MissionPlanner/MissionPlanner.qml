@@ -17,6 +17,9 @@ Item {
     ListModel {
         id: locListModel
     }
+    Component.onCompleted: {
+        JS.dbInit()
+    }
 
     ListView {
         id: areaListView
