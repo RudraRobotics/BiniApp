@@ -86,11 +86,11 @@ Item {
         onResetItems: locListModel.clear()
 
         onSaveBtnClicked: {
-            if(mission_name.length && locListModel.count) {
-                JS.dbInsertMission(mission_name)
+            if(areaName.length>0 && locListModel.count>0) {
+                JS.dbInsertMission(areaName)
                 locListModel.clear()
-                mission_name = ''
                 flickableMap.resetItems()
+                areaName = ''
             }
         }
     }
