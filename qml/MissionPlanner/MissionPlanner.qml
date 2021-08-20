@@ -18,8 +18,9 @@ Item {
         JS.dbInit()
     }
 
-    function updateLocList() {
-
+    function resetAll() {
+        locListModel.clear()
+        flickableMap.resetItems()
     }
 
     ListModel {
@@ -42,7 +43,10 @@ Item {
         delegate: MissionListDelegate {}
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
         focus: true
-        onCurrentIndexChanged: JS.dbReadLocs(areaListModel.get(currentIndex).mission_id)
+        onCurrentIndexChanged: {
+            resetAll()
+            JS.dbReadLocs(areaListModel.get(currentIndex).mission_id)
+        }
     }
 
     ListModel {
@@ -83,20 +87,20 @@ Item {
         y_pos: flickableMap.y_pos
 
         // Signal handlers
-        Component.onCompleted: resetItems.connect(flickableMap.resetItems)
         onMapChanged: flickableMap.map_path = map_path
 
         onWayPntBtnClicked: flickableMap.enable_way_pnts = enable_way_pnts
         onBaseBtnClicked: flickableMap.enable_way_pnts = true
 
-        onResetItems: locListModel.clear()
+        onResetItems: resetAll()
 
         onSaveBtnClicked: {
             if(areaName.length>0 && locListModel.count>0) {
-                JS.dbInsertMission(areaName)
-                locListModel.clear()
-                flickableMap.resetItems()
+                var mission_id = JS.dbInsertMission(areaName)
+                areaListModel.append({'mission_id': mission_id, 'mission_name': areaName})
+                areaListView.currentIndex = -1
             }
+            resetAll()
         }
     }
 
@@ -127,7 +131,6 @@ Item {
 
         onPoseChanged: {
             for (let i = 0; i < posListModel.count; i++) {
-                console.log(posListModel.get(i).sprite_item.active, posListModel.get(i).sprite_item.x, posListModel.get(i).sprite_item.y)
                 if(posListModel.get(i).sprite_item.active) {
                     locListView.currentIndex = i
                     missionPlannerTopMenu.x_pos = posListModel.get(i).sprite_item.x

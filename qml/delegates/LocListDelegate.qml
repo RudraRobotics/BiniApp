@@ -4,7 +4,7 @@ import QtQml 2.12
 
 Component {
     Item {
-        width: 180; height: 60
+        width: 180; height: 40
 
         Rectangle {
             id: rectangle
