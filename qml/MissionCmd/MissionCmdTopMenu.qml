@@ -58,7 +58,7 @@ Rectangle {
             Layout.leftMargin: 5
             Layout.topMargin: 5
             Layout.fillHeight: true
-            textRole: "robot_name"
+            textRole: "name"
             model: robotListModel
         }
 

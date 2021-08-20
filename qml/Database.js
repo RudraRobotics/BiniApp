@@ -84,7 +84,7 @@ function dbReadRobots()
         for (var i = 0; i < results.rows.length; i++) {
             robotListModel.append({
                                   robot_id: results.rows.item(i).robot_id,
-                                  robot_name: results.rows.item(i).name,
+                                  name: results.rows.item(i).name,
                                   connection: results.rows.item(i).connection
                                 })
         }

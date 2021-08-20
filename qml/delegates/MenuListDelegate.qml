@@ -7,8 +7,8 @@ ItemDelegate {
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.horizontalCenter: parent.horizontalCenter
-    font.pointSize: 12
-    anchors.leftMargin: 0
+    font.pointSize: 14
+    anchors.leftMargin: 10
     anchors.rightMargin: 0
     TapHandler {
         onTapped: {

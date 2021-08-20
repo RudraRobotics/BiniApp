@@ -20,18 +20,26 @@ Item {
             id: columnLayout
             anchors.fill: parent
 
-            Text {
-                id: text1
-                text: qsTr("Robot information")
-                font.pixelSize: 16
-                horizontalAlignment: Text.AlignLeft
+            Rectangle {
+                height: 20
+                opacity: 0.7
+                color: "#354dc1"
+                Layout.margins: 5
                 Layout.rightMargin: 5
                 Layout.bottomMargin: 5
-                font.bold: true
-                Layout.topMargin: 20
-                Layout.leftMargin: 10
+                Layout.topMargin: 5
+                Layout.leftMargin: 5
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                Text {
+                    text: qsTr("Robot information")
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    font.bold: true
+                    font.pointSize: 12
+                    anchors.leftMargin: 10
+                }
             }
 
             RowLayout {
@@ -104,20 +112,26 @@ Item {
 
             Button {
                 id: button
-                width: 100
+                width: 50
                 height: 40
                 text: qsTr("Save")
                 Layout.rightMargin: 600
                 Layout.minimumWidth: 100
                 Layout.preferredWidth: 100
-                Layout.fillWidth: true
+                Layout.fillWidth: false
                 Layout.fillHeight: true
                 Layout.bottomMargin: 5
                 Layout.leftMargin: 5
                 Layout.topMargin: 5
                 onClicked: {
-//                    JS.dbInsertRobot(name.text, connection.text)
-                    robotListModel.append({'name': name.text, 'connection': connection.text})
+                    if(name.text.length && connection.left) {
+                        JS.dbInsertRobot(name.text, connection.text)
+                        robotListModel.append({'name': name.text, 'connection': connection.text})
+                    }
+                    else {
+                        name.focus = true
+                        connection.focus = true
+                    }
                 }
             }
         }
@@ -125,7 +139,10 @@ Item {
 
     ListModel {
         id: robotListModel
-//        Component.onCompleted: JS.dbReadRobots()
+        Component.onCompleted: {
+            clear()
+            JS.dbReadRobots()
+        }
     }
 
     ListView {
@@ -134,6 +151,7 @@ Item {
         anchors.right: parent.right
         anchors.top: rectangle.bottom
         anchors.bottom: parent.bottom
+        clip: true
         anchors.bottomMargin: 0
         anchors.topMargin: 0
         delegate: RobotListDelegate {}
@@ -144,6 +162,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:2}D{i:12}
+    D{i:0;autoSize:true;height:480;width:640}
 }
 ##^##*/
