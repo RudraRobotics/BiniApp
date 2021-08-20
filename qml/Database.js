@@ -1,5 +1,3 @@
-
-// Initialize local sqllite database
 function dbInit()
 {
     var db = LocalStorage.openDatabaseSync("BINI_APP_DB", "", "Local Sql database for Bini app", 1000000)
@@ -18,7 +16,6 @@ function dbInit()
     };
 }
 
-// Get the object handler of local sqllite database
 function dbGetHandle()
 {
     try {
@@ -32,24 +29,13 @@ function dbGetHandle()
 function dbInsertMission(name)
 {
     var db = dbGetHandle()
-    var rowid = 0;
+    var mission_id = 0;
     db.transaction(function (tx) {
         tx.executeSql('INSERT INTO mission (name) VALUES(?)', [name])
         var result = tx.executeSql('SELECT last_insert_rowid()')
-        rowid = result.insertId
+        mission_id = result.insertId
     })
-    var loc_id = dbInsertMissionPnts(rowid)
-    areaListModel.append({
-                          mission_id: rowid,
-                          mission_name: name
-                     })
-//    return rowid;
-}
 
-function dbInsertMissionPnts(mission_id)
-{
-    var db = dbGetHandle()
-    var rowid = 0;
     db.transaction(function (tx) {
         for (var i = 0; i < locListModel.count; i++) {
             tx.executeSql('INSERT INTO mission_points (mission_id, name, x, y) VALUES(?, ?, ?, ?)',
@@ -58,29 +44,9 @@ function dbInsertMissionPnts(mission_id)
                            locListModel.get(i).x,
                            locListModel.get(i).y
                           ])
-            var result = tx.executeSql('SELECT last_insert_rowid()')
-            rowid = result.insertId
         }
     })
-}
-
-function dbUpdateListView() {
-//    var db = dbGetHandle()
-//    areaListModel.clear()
-//    db.transaction(function (tx) {
-//        const query = 'SELECT mission.mission_id, mission_points.mission_pnt_id, mission.name as mission_name, mission_points.name as loc_name, mission_points.x, mission_points.y FROM mission, mission_points WHERE mission.mission_id = mission_points.mission_id';
-//        var results = tx.executeSql(query)
-//        for (var i = 0; i < results.rows.length; i++) {
-//            areaListModel.append({
-//                                mission_id: results.rows.item(i).mission_id,
-//                                loc_id: results.rows.item(i).mission_pnt_id,
-//                                mission_name: results.rows.item(i).mission_name,
-//                                loc_name: results.rows.item(i).loc_name,
-//                                x: results.rows.item(i).x,
-//                                y: results.rows.item(i).y
-//                             })
-//        }
-//    })
+    return mission_id;
 }
 
 function dbReadMissions()
@@ -97,6 +63,40 @@ function dbReadMissions()
         }
     })
 }
+
+function dbReadLocs(mission_id)
+{
+    var db = dbGetHandle()
+    db.transaction(function (tx) {
+        var results = tx.executeSql('SELECT name, x, y FROM mission_points WHERE mission_id=?', [mission_id])
+        for (var i = 0; i < results.rows.length; i++) {
+            locListModel.append({
+                                 name: results.rows.item(i).name,
+                                 x: results.rows.item(i).x,
+                                 y: results.rows.item(i).y
+                             })
+        }
+    })
+}
+
+//function dbUpdateListView() {
+//    var db = dbGetHandle()
+//    areaListModel.clear()
+//    db.transaction(function (tx) {
+//        const query = 'SELECT mission.mission_id, mission_points.mission_pnt_id, mission.name as mission_name, mission_points.name as loc_name, mission_points.x, mission_points.y FROM mission, mission_points WHERE mission.mission_id = mission_points.mission_id';
+//        var results = tx.executeSql(query)
+//        for (var i = 0; i < results.rows.length; i++) {
+//            areaListModel.append({
+//                                mission_id: results.rows.item(i).mission_id,
+//                                loc_id: results.rows.item(i).mission_pnt_id,
+//                                mission_name: results.rows.item(i).mission_name,
+//                                loc_name: results.rows.item(i).loc_name,
+//                                x: results.rows.item(i).x,
+//                                y: results.rows.item(i).y
+//                             })
+//        }
+//    })
+//}
 
 //function dbReadAll()
 //{
@@ -117,36 +117,19 @@ function dbReadMissions()
 //    })
 //}
 
-function dbReadLocs(mission_id)
-{
-    var db = dbGetHandle()
-    locListModel.clear()
-    console.log(mission_id)
-    db.transaction(function (tx) {
-        var results = tx.executeSql('SELECT name, x, y FROM mission_points WHERE mission_id=?', [mission_id])
-        for (var i = 0; i < results.rows.length; i++) {
-            locListModel.append({
-                                 name: results.rows.item(i).name,
-                                 x: results.rows.item(i).x,
-                                 y: results.rows.item(i).y
-                             })
-        }
-    })
-}
+//function dbUpdate(Pdate, Pdesc, Pdistance, Prowid)
+//{
+//    var db = dbGetHandle()
+//    db.transaction(function (tx) {
+//        tx.executeSql(
+//                    'update trip_log set date=?, trip_desc=?, distance=? where rowid = ?', [Pdate, Pdesc, Pdistance, Prowid])
+//    })
+//}
 
-function dbUpdate(Pdate, Pdesc, Pdistance, Prowid)
-{
-    var db = dbGetHandle()
-    db.transaction(function (tx) {
-        tx.executeSql(
-                    'update trip_log set date=?, trip_desc=?, distance=? where rowid = ?', [Pdate, Pdesc, Pdistance, Prowid])
-    })
-}
-
-function dbDeleteRow(Prowid)
-{
-    var db = dbGetHandle()
-    db.transaction(function (tx) {
-        tx.executeSql('delete from trip_log where rowid = ?', [Prowid])
-    })
-}
+//function dbDeleteRow(Prowid)
+//{
+//    var db = dbGetHandle()
+//    db.transaction(function (tx) {
+//        tx.executeSql('delete from trip_log where rowid = ?', [Prowid])
+//    })
+//}
