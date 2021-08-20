@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Dialogs 1.2
 import QtQml 2.12
-
+import "../Database.js" as JS
 
 Rectangle {
     height: 100
@@ -22,6 +22,16 @@ Rectangle {
         }
     }
 
+    ListModel {
+        id: areaListModel
+        Component.onCompleted: JS.dbReadMissions()
+    }
+
+    ListModel {
+        id: robotListModel
+        Component.onCompleted: JS.dbReadRobots()
+    }
+
     RowLayout {
         id: rowLayout
         anchors.fill: parent
@@ -36,13 +46,9 @@ Rectangle {
             Layout.bottomMargin: 5
             Layout.leftMargin: 5
             Layout.topMargin: 5
-            model: ListModel {
-                ListElement { text: "Drink Area 1" }
-                ListElement { text: "Drink Area 2" }
-                ListElement { text: "Snak Area 1" }
-            }
+            textRole: "mission_name"
+            model: areaListModel
         }
-
 
         ComboBox {
             id: comboBox1
@@ -52,11 +58,8 @@ Rectangle {
             Layout.leftMargin: 5
             Layout.topMargin: 5
             Layout.fillHeight: true
-            model: ListModel {
-                ListElement { text: "Bini 1" }
-                ListElement { text: "Bini 2" }
-                ListElement { text: "Bini 3" }
-            }
+            textRole: "robot_name"
+            model: robotListModel
         }
 
         Button {

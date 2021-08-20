@@ -64,6 +64,22 @@ function dbReadMissions()
     })
 }
 
+function dbReadRobots()
+{
+    var db = dbGetHandle()
+    db.transaction(function (tx) {
+        tx.executeSql('INSERT INTO robot (name, connection) VALUES(?, ?), (?, ?)', ['Bini1', '192.168.1.33', 'Bini2', '192.168.1.33'])
+        var results = tx.executeSql('SELECT robot_id, name, connection FROM robot')
+        for (var i = 0; i < results.rows.length; i++) {
+            robotListModel.append({
+                                  robot_id: results.rows.item(i).robot_id,
+                                  robot_name: results.rows.item(i).name,
+                                  connection: results.rows.item(i).connection
+                                })
+        }
+    })
+}
+
 function dbReadLocs(mission_id)
 {
     var db = dbGetHandle()
