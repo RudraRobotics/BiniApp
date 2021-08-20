@@ -90,17 +90,22 @@ Item {
         onMapChanged: flickableMap.map_path = map_path
 
         onWayPntBtnClicked: flickableMap.enable_way_pnts = enable_way_pnts
-        onBaseBtnClicked: flickableMap.enable_way_pnts = true
+        onBaseBtnClicked: {
+            areaListView.currentIndex = -1
+            flickableMap.enable_way_pnts = true
+        }
 
-        onResetItems: resetAll()
-
+        onResetItems: {
+            areaListView.currentIndex = -1
+            resetAll()
+        }
         onSaveBtnClicked: {
             if(areaName.length>0 && locListModel.count>0) {
                 var mission_id = JS.dbInsertMission(areaName)
                 areaListModel.append({'mission_id': mission_id, 'mission_name': areaName})
                 areaListView.currentIndex = -1
+                resetAll()
             }
-            resetAll()
         }
     }
 
