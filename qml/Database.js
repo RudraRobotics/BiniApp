@@ -49,6 +49,18 @@ function dbInsertMission(name)
     return mission_id;
 }
 
+function dbInsertRobot(name, address)
+{
+    var db = dbGetHandle()
+    var robot_id = 0;
+    db.transaction(function (tx) {
+        tx.executeSql('INSERT INTO robot (name, connection) VALUES(?, ?)', [name, address])
+        var result = tx.executeSql('SELECT last_insert_rowid()')
+        robot_id = result.insertId
+    })
+    return robot_id;
+}
+
 function dbReadMissions()
 {
     var db = dbGetHandle()
@@ -68,7 +80,6 @@ function dbReadRobots()
 {
     var db = dbGetHandle()
     db.transaction(function (tx) {
-        tx.executeSql('INSERT INTO robot (name, connection) VALUES(?, ?), (?, ?)', ['Bini1', '192.168.1.33', 'Bini2', '192.168.1.33'])
         var results = tx.executeSql('SELECT robot_id, name, connection FROM robot')
         for (var i = 0; i < results.rows.length; i++) {
             robotListModel.append({

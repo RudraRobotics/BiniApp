@@ -34,5 +34,6 @@
         <file>qml/Setup/RobotSetup.qml</file>
         <file>qml/Database.js</file>
         <file>qml/delegates/LocListDelegate.qml</file>
+        <file>qml/delegates/RobotListDelegate.qml</file>
     </qresource>
 </RCC>
