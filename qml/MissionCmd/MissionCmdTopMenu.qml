@@ -3,7 +3,10 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Dialogs 1.2
 import QtQml 2.12
+
 import "../Database.js" as JS
+
+import MqttClient 1.0
 
 Rectangle {
     height: 100
@@ -25,6 +28,16 @@ Rectangle {
     ListModel {
         id: areaListModel
         Component.onCompleted: JS.dbReadMissions()
+    }
+
+    MqttClient {
+        property int port_id: 1883
+        id: client
+        hostname: "localhost"
+        port: port_id
+        Component.onCompleted: {
+            connectToHost()
+        }
     }
 
     ListModel {
@@ -52,7 +65,7 @@ Rectangle {
 
 
         ComboBox {
-            id: comboBox
+            id: missionComboBox
             Layout.minimumHeight: 10
             Layout.minimumWidth: 10
             Layout.fillHeight: true
@@ -78,7 +91,7 @@ Rectangle {
         }
 
         ComboBox {
-            id: comboBox1
+            id: robotComboBox
             Layout.fillWidth: true
             Layout.margins: 5
             Layout.bottomMargin: 5
@@ -88,6 +101,8 @@ Rectangle {
             textRole: "name"
             model: robotListModel
         }
+
+        ListModel { id: locListModel }
 
         Button {
             id: baseBtn
@@ -99,6 +114,20 @@ Rectangle {
             Layout.topMargin: 5
             Layout.fillHeight: true
             highlighted: false
+            onClicked: {
+                var data = ''
+                data += robotTxt.text
+                data += '_'
+                locListModel.clear()
+                JS.dbReadLocs(areaListModel.get(missionComboBox.currentIndex).mission_id)
+                for(var i = 0; i < locListModel.count; i++) {
+                   data += locListModel.get(i).x
+                   data += '_'
+                   data += locListModel.get(i).y
+                   data += '_'
+                }
+                client.publish(data)
+            }
         }
 
 

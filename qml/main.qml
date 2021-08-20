@@ -11,7 +11,6 @@ import "Setup"
 import "delegates"
 import "Database.js" as JS
 
-import MqttClient 1.0
 import QtQuick.LocalStorage 2.0
 
 ApplicationWindow {

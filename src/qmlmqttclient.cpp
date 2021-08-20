@@ -85,16 +85,11 @@ void QmlMqttSubscription::handleMessage(const QMqttMessage &qmsg)
     emit messageReceived(pose);
 }
 
-int QmlMqttClient::publish(const qint64 &area_ind, const qint64 &robot_ind, int qos, bool retain)
+int QmlMqttClient::publish(const QString &data)
 {
-    qDebug() << "Msg published:" << area_ind << "," << robot_ind;
-//    QString data;
-//    for(auto pose : mission) {
-//        data += pose.t
-//    }
-//    auto result = QMqttClient::publish(QMqttTopicName(topic), data.toUtf8(), qos, retain);
-//    return result;
-    return 1;
+    qDebug() << "Msg published:" << data;
+    auto result = QMqttClient::publish(QMqttTopicName("bini_cmd"), data.toUtf8(), 0, false);
+    return result;
 }
 
 QPointF QmlMqttClient::pose() const

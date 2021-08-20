@@ -89,7 +89,7 @@ public:
     QmlMqttClient(QObject *parent = nullptr);
 
     Q_INVOKABLE QmlMqttSubscription *subscribe(const QString &topic);
-    Q_INVOKABLE int publish(const qint64 &area_ind, const qint64 &robot_ind, int qos = 0, bool retain = false);
+    Q_INVOKABLE int publish(const QString &data);
 
     QPointF pose() const;
     void setName(const QPointF &pose_);

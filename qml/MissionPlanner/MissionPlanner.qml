@@ -9,6 +9,8 @@ import "../"
 import "../delegates"
 import "../Database.js" as JS
 
+import MqttClient 1.0
+
 Item {
     id: planner
 
@@ -22,6 +24,16 @@ Item {
     ListModel {
         id: areaListModel
         Component.onCompleted: JS.dbReadMissions()
+    }
+
+    MqttClient {
+        property int port_id: 1883
+        id: client
+        hostname: "localhost"
+        port: port_id
+        Component.onCompleted: {
+            connectToHost()
+        }
     }
 
     ListView {
