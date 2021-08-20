@@ -116,7 +116,7 @@ Rectangle {
             highlighted: false
             onClicked: {
                 var data = ''
-                data += robotTxt.text
+                data += robotComboBox.currentText
                 data += '_'
                 locListModel.clear()
                 JS.dbReadLocs(areaListModel.get(missionComboBox.currentIndex).mission_id)
