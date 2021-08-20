@@ -12,6 +12,7 @@ import "delegates"
 import "Database.js" as JS
 
 import MqttClient 1.0
+import QtQuick.LocalStorage 2.0
 
 ApplicationWindow {
     id: window
@@ -24,6 +25,10 @@ ApplicationWindow {
     Material.accent: Material.Purple
 
     readonly property bool inPortrait: window.width < window.height
+
+    Component.onCompleted: {
+        JS.dbInit()
+    }
 
     Drawer {
         id: drawer

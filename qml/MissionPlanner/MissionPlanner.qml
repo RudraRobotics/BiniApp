@@ -14,10 +14,6 @@ Item {
 
     property string default_map: "../../maps/map.pgm"
 
-    Component.onCompleted: {
-        JS.dbInit()
-    }
-
     function resetAll() {
         locListModel.clear()
         flickableMap.resetItems()
@@ -39,6 +35,8 @@ Item {
         anchors.topMargin: 5
         clip: true
         z: 1
+        headerPositioning: ListView.OverlayHeader
+        header: MissionListHeader {}
         model: areaListModel
         delegate: MissionListDelegate {}
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
@@ -63,7 +61,9 @@ Item {
         anchors.top: missionPlannerTopMenu.bottom
         anchors.rightMargin: 5
         anchors.topMargin: 5
-
+        clip: true
+        headerPositioning: ListView.OverlayHeader
+        header: LocListHeader {}
         delegate: LocListDelegate {}
         model: locListModel
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
@@ -151,6 +151,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}D{i:6}
+    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}
 }
 ##^##*/

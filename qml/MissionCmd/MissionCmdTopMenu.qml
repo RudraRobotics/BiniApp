@@ -36,6 +36,21 @@ Rectangle {
         id: rowLayout
         anchors.fill: parent
 
+
+
+        Text {
+            id: areaTxt
+            color: "#ffffff"
+            text: qsTr("Area")
+            font.pixelSize: 14
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            Layout.margins: 5
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+        }
+
+
         ComboBox {
             id: comboBox
             Layout.minimumHeight: 10
@@ -48,6 +63,18 @@ Rectangle {
             Layout.topMargin: 5
             textRole: "mission_name"
             model: areaListModel
+        }
+
+        Text {
+            id: robotTxt
+            color: "#ffffff"
+            text: qsTr("Robot")
+            font.pixelSize: 14
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            Layout.margins: 5
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
 
         ComboBox {
@@ -74,6 +101,7 @@ Rectangle {
             highlighted: false
         }
 
+
         Button {
             id: wayPointBtn
             text: qsTr("Return")
@@ -84,6 +112,8 @@ Rectangle {
             Layout.topMargin: 5
             Layout.fillHeight: true
         }
+
+
 
     }
 }

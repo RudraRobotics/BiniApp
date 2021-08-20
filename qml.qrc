@@ -35,5 +35,7 @@
         <file>qml/Database.js</file>
         <file>qml/delegates/LocListDelegate.qml</file>
         <file>qml/delegates/RobotListDelegate.qml</file>
+        <file>qml/delegates/MissionListHeader.qml</file>
+        <file>qml/delegates/LocListHeader.qml</file>
     </qresource>
 </RCC>
