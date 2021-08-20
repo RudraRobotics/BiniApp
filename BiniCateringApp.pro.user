@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.15.2, 2021-08-19T04:45:25. -->
+<!-- Written by QtCreator 4.15.2, 2021-08-20T03:24:51. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -8,7 +8,7 @@
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">1</value>
+  <value type="int">0</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
@@ -494,6 +494,7 @@
     <valuelist type="QVariantList" key="AndroidDeviceAbis">
      <value type="QString">x86</value>
     </valuelist>
+    <value type="QString" key="AndroidDeviceSerialNumber">emulator-5554</value>
     <value type="int" key="AndroidVersion.ApiLevel">23</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.0">
@@ -560,7 +561,6 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">0</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">BiniCateringApp</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidRunConfiguration:/home/ubuntu/BiniApp/BiniCateringApp.pro</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/ubuntu/BiniApp/BiniCateringApp.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>

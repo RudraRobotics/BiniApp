@@ -38,23 +38,30 @@ function dbInsertMission(name)
         var result = tx.executeSql('SELECT last_insert_rowid()')
         rowid = result.insertId
     })
-//    var loc_id = dbInsertMissionPnts(rowid, 'loc1', 1.1, 3.3)
+    var loc_id = dbInsertMissionPnts(rowid)
     areaListModel.append({
-                        mission_name: name
+                          mission_id: rowid,
+                          mission_name: name
                      })
 //    return rowid;
 }
 
-function dbInsertMissionPnts(mission_id, name, x, y)
+function dbInsertMissionPnts(mission_id)
 {
     var db = dbGetHandle()
     var rowid = 0;
     db.transaction(function (tx) {
-        tx.executeSql('INSERT INTO mission_points (mission_id, name, x, y) VALUES(?, ?, ?, ?)', [mission_id, name, x, y])
-        var result = tx.executeSql('SELECT last_insert_rowid()')
-        rowid = result.insertId
+        for (var i = 0; i < locListModel.count; i++) {
+            tx.executeSql('INSERT INTO mission_points (mission_id, name, x, y) VALUES(?, ?, ?, ?)',
+                          [mission_id,
+                           locListModel.get(i).name,
+                           locListModel.get(i).x,
+                           locListModel.get(i).y
+                          ])
+            var result = tx.executeSql('SELECT last_insert_rowid()')
+            rowid = result.insertId
+        }
     })
-    return rowid;
 }
 
 function dbUpdateListView() {
@@ -80,28 +87,46 @@ function dbReadMissions()
 {
     var db = dbGetHandle()
     db.transaction(function (tx) {
-        const query = 'SELECT name FROM mission';
+        const query = 'SELECT mission_id, name FROM mission';
         var results = tx.executeSql(query)
         for (var i = 0; i < results.rows.length; i++) {
             areaListModel.append({
+                                  mission_id: results.rows.item(i).mission_id,
                                   mission_name: results.rows.item(i).name
                                 })
         }
     })
 }
 
-function dbReadAll()
+//function dbReadAll()
+//{
+//    var db = dbGetHandle()
+//    db.transaction(function (tx) {
+//        const query = 'SELECT mission.mission_id, mission_points.mission_pnt_id, mission.name as mission_name, mission_points.name as loc_name, mission_points.x, mission_points.y FROM mission, mission_points WHERE mission.mission_id = mission_points.mission_id';
+//        var results = tx.executeSql(query)
+//        for (var i = 0; i < results.rows.length; i++) {
+//            areaListModel.append({
+//                                 mission_id: results.rows.item(i).mission_id,
+//                                 loc_id: results.rows.item(i).mission_pnt_id,
+//                                 mission_name: results.rows.item(i).mission_name,
+//                                 loc_name: results.rows.item(i).loc_name,
+//                                 x: results.rows.item(i).x,
+//                                 y: results.rows.item(i).y
+//                             })
+//        }
+//    })
+//}
+
+function dbReadLocs(mission_id)
 {
     var db = dbGetHandle()
+    locListModel.clear()
+    console.log(mission_id)
     db.transaction(function (tx) {
-        const query = 'SELECT mission.mission_id, mission_points.mission_pnt_id, mission.name as mission_name, mission_points.name as loc_name, mission_points.x, mission_points.y FROM mission, mission_points WHERE mission.mission_id = mission_points.mission_id';
-        var results = tx.executeSql(query)
+        var results = tx.executeSql('SELECT name, x, y FROM mission_points WHERE mission_id=?', [mission_id])
         for (var i = 0; i < results.rows.length; i++) {
-            areaListModel.append({
-                                 mission_id: results.rows.item(i).mission_id,
-                                 loc_id: results.rows.item(i).mission_pnt_id,
-                                 mission_name: results.rows.item(i).mission_name,
-                                 loc_name: results.rows.item(i).loc_name,
+            locListModel.append({
+                                 name: results.rows.item(i).name,
                                  x: results.rows.item(i).x,
                                  y: results.rows.item(i).y
                              })

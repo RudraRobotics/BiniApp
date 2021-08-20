@@ -21,7 +21,7 @@ Component {
             TextField {
                 id: textField
                 color: "#ffffff"
-                text: loc_name
+                text: name
                 anchors.verticalCenter: parent.verticalCenter
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

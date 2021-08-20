@@ -14,11 +14,17 @@ Item {
 
     property string default_map: "../../maps/map.pgm"
 
-    ListModel {
-        id: locListModel
-    }
     Component.onCompleted: {
         JS.dbInit()
+    }
+
+    function updateLocList() {
+
+    }
+
+    ListModel {
+        id: areaListModel
+        Component.onCompleted: JS.dbReadMissions()
     }
 
     ListView {
@@ -36,11 +42,11 @@ Item {
         delegate: MissionListDelegate {}
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
         focus: true
+        onCurrentIndexChanged: JS.dbReadLocs(areaListModel.get(currentIndex).mission_id)
     }
 
     ListModel {
-        id: areaListModel
-        Component.onCompleted: JS.dbReadMissions()
+        id: locListModel
     }
 
     ListView {
@@ -90,7 +96,6 @@ Item {
                 JS.dbInsertMission(areaName)
                 locListModel.clear()
                 flickableMap.resetItems()
-                areaName = ''
             }
         }
     }
@@ -105,14 +110,14 @@ Item {
             if(posListModel.count === 1) {
                 missionPlannerTopMenu.enable_base_btn = false
                 missionPlannerTopMenu.enable_waypnt_btn = true
-                locListModel.append({'loc_name': 'Base', 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
+                locListModel.append({'name': 'Base', 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
             }
             else
-                locListModel.append({'loc_name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
+                locListModel.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
 
             for (let i = 0; i < posListModel.count; i++) {
                 if(posListModel.get(i).sprite_item.acive) {
-                    locListView.append({'loc_name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y': posListModel.get(i).sprite_item.y})
+                    locListView.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y': posListModel.get(i).sprite_item.y})
                 }
             }
 
