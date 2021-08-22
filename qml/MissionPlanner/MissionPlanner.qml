@@ -22,11 +22,6 @@ Item {
         flickableMap.enable_way_pnts = false
     }
 
-    ListModel {
-        id: areaListModel
-        Component.onCompleted: JS.dbReadMissions()
-    }
-
     MqttClient {
         property int port_id: 1883
         id: client
@@ -35,6 +30,11 @@ Item {
         Component.onCompleted: {
             connectToHost()
         }
+    }
+
+    ListModel {
+        id: areaListModel
+        Component.onCompleted: JS.dbReadMissions()
     }
 
     ListView {

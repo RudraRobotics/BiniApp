@@ -93,7 +93,6 @@ function dbReadRobots()
 
 function dbReadWayPnts(mission_id)
 {
-    console.log(mission_id)
     var db = dbGetHandle()
     db.transaction(function (tx) {
         var results = tx.executeSql('SELECT name, x, y FROM mission_points WHERE mission_id=?', [mission_id])

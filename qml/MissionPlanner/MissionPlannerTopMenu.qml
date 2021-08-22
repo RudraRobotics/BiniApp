@@ -14,6 +14,7 @@ Rectangle {
     property alias enable_waypnt_btn: wayPointBtn.enabled
     property alias enable_base_btn: baseBtn.enabled
     property alias enable_save_btn: saveBtn.enabled
+    property alias saveBtn: saveBtn.text
 
     signal wayPntBtnClicked
     signal baseBtnClicked
