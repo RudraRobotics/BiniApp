@@ -26,10 +26,8 @@
         <file>icons/qt-logo@3x.png</file>
         <file>icons/qt-logo@4x.png</file>
         <file>qml/delegates/MissionListDelegate.qml</file>
-        <file>qml/MockData/MissionListModel.qml</file>
         <file>qml/MissionCmd/MissionCmd.qml</file>
         <file>qml/MissionCmd/MissionCmdTopMenu.qml</file>
-        <file>qml/MockData/MenuListModel.qml</file>
         <file>qml/delegates/MenuListDelegate.qml</file>
         <file>qml/Setup/RobotSetup.qml</file>
         <file>qml/Database.js</file>
@@ -37,5 +35,7 @@
         <file>qml/delegates/RobotListDelegate.qml</file>
         <file>qml/delegates/MissionListHeader.qml</file>
         <file>qml/delegates/LocListHeader.qml</file>
+        <file>qml/delegates/ActiveMissionListDelegate.qml</file>
+        <file>qml/delegates/ActiveRobotListDelegate.qml</file>
     </qresource>
 </RCC>

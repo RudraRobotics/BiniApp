@@ -19,7 +19,6 @@ Item {
         anchors.rightMargin: 5
         anchors.leftMargin: 5
         anchors.topMargin: 5
-
     }
 
     ListModel {
@@ -43,10 +42,8 @@ Item {
         delegate: ActiveMissionListDelegate {}
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
         focus: true
-
-        onCountChanged: {
-            missionCmdTopMenu.resetActiveRobots()
-        }
+        onCountChanged: missionCmdTopMenu.resetActiveRobots()
+        onCurrentIndexChanged: missionCmdTopMenu.resetActiveRobots1()
     }
 
     ListModel {

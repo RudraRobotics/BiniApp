@@ -15,6 +15,7 @@ Rectangle {
     color: "#4a4a4a"
 
     signal resetActiveRobots
+    signal resetActiveRobots1
 
     function find(model, criteria) {
       for(var i = 0; i < model.count; ++i) if (criteria(model.get(i))) return model.get(i)
@@ -22,11 +23,22 @@ Rectangle {
     }
 
     onResetActiveRobots: {
-        console.log('index chnged')
-//        console.log(areaListModel.get(missionComboBox.currentIndex).mission_id, robotComboBox.currentText)
         activeRobotListModel.clear()
-        for(let i=0;i<allActiveRobots.count;i++) {
-            console.log(i, allActiveRobots.get(i).mission_id, allActiveRobots.get(i).name)
+        for(let i=0;i<allActiveMission.count;i++) {
+            console.log(areaListModel.get(missionComboBox.currentIndex).mission_id, allActiveMission.get(i).mission_id)
+            if(areaListModel.get(missionComboBox.currentIndex).mission_id === allActiveMission.get(i).mission_id) {
+                activeRobotListModel.append({'robot_id': allActiveMission.get(i).robot_id, 'name': allActiveMission.get(i).name})
+            }
+        }
+    }
+
+    onResetActiveRobots1: {
+        activeRobotListModel.clear()
+        for(let i=0;i<allActiveMission.count;i++) {
+            console.log(areaListModel.get(missionComboBox.currentIndex).mission_id, allActiveMission.get(i).mission_id)
+            if(areaListModel.get(activeAreaListView.currentIndex).mission_id === allActiveMission.get(i).mission_id) {
+                activeRobotListModel.append({'robot_id': allActiveMission.get(i).robot_id, 'name': allActiveMission.get(i).name})
+            }
         }
     }
 
@@ -63,7 +75,7 @@ Rectangle {
     }
 
     ListModel {
-        id: allActiveRobots
+        id: allActiveMission
     }
 
     RowLayout {
@@ -138,6 +150,14 @@ Rectangle {
             onClicked: {
                 if(!find(activeAreaListModel, function(item) { return item.mission_id === areaListModel.get(missionComboBox.currentIndex).mission_id }))
                     activeAreaListModel.append({'mission_id': areaListModel.get(missionComboBox.currentIndex).mission_id, 'mission_name': missionComboBox.currentText})
+
+                if(!find(allActiveMission, function(item) { return item.active_mission === areaListModel.get(missionComboBox.currentIndex).mission_id+'_'+robotListModel.get(robotComboBox.currentIndex).robot_id }))
+                {
+                    allActiveMission.append({'active_mission': areaListModel.get(missionComboBox.currentIndex).mission_id+'_'+robotListModel.get(robotComboBox.currentIndex).robot_id,
+                                            'mission_id': areaListModel.get(missionComboBox.currentIndex).mission_id, 'robot_id': robotListModel.get(robotComboBox.currentIndex).robot_id,
+                                            'name': robotListModel.get(robotComboBox.currentIndex).name})
+                    activeRobotListModel.append({'robot_id':robotListModel.get(robotComboBox.currentIndex).robot_id, 'mission_id':areaListModel.get(missionComboBox.currentIndex).mission_id, 'name':robotListModel.get(robotComboBox.currentIndex).name })
+                }
             }
         }
 
