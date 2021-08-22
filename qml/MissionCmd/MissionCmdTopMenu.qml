@@ -158,6 +158,7 @@ Rectangle {
                                             'name': robotListModel.get(robotComboBox.currentIndex).name})
                     activeRobotListModel.append({'robot_id':robotListModel.get(robotComboBox.currentIndex).robot_id, 'mission_id':areaListModel.get(missionComboBox.currentIndex).mission_id, 'name':robotListModel.get(robotComboBox.currentIndex).name })
                 }
+                robotListModel.remove(robotListModel.get(robotComboBox.currentIndex))
             }
         }
 
