@@ -56,7 +56,8 @@ Item {
         focus: true
         onCurrentIndexChanged: {
             resetAll()
-            JS.dbReadWayPnts(areaListModel.get(currentIndex).mission_id)
+            if(currentIndex>-1)
+                JS.dbReadWayPnts(areaListModel.get(currentIndex).mission_id)
         }
     }
 

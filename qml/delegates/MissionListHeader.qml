@@ -27,8 +27,8 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             font.pointSize: 12
         }
-        TapHandler {
-            onTapped: areaListView.currentIndex = index
-        }
+//        TapHandler {
+//            onTapped: areaListView.currentIndex = index
+//        }
     }
 }
