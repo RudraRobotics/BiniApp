@@ -16,6 +16,11 @@ Rectangle {
 
     signal resetActiveRobots
 
+    function find(model, criteria) {
+      for(var i = 0; i < model.count; ++i) if (criteria(model.get(i))) return model.get(i)
+      return null
+    }
+
     onResetActiveRobots: {
         console.log('index chnged')
 //        console.log(areaListModel.get(missionComboBox.currentIndex).mission_id, robotComboBox.currentText)
@@ -131,19 +136,8 @@ Rectangle {
             Layout.fillHeight: true
             highlighted: false
             onClicked: {
-                if(activeAreaListModel.count==0) {
+                if(!find(activeAreaListModel, function(item) { return item.mission_id === areaListModel.get(missionComboBox.currentIndex).mission_id }))
                     activeAreaListModel.append({'mission_id': areaListModel.get(missionComboBox.currentIndex).mission_id, 'mission_name': missionComboBox.currentText})
-                }
-                else {
-                    for(var i=0;i<activeAreaListModel.count;i++) {
-                        var mission_unmatch_count = 0
-                        if(areaListModel.get(missionComboBox.currentIndex).mission_id !== activeAreaListModel.get(i).mission_id) {
-                            mission_unmatch_count++
-                        }
-                        if(mission_unmatch_count==activeAreaListModel.count)
-                            activeAreaListModel.append({'mission_id': areaListModel.get(missionComboBox.currentIndex).mission_id, 'mission_name': missionComboBox.currentText})
-                    }
-                }
             }
         }
 
