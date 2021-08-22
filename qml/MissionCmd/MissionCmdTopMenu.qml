@@ -114,20 +114,6 @@ Rectangle {
             Layout.topMargin: 5
             Layout.fillHeight: true
             highlighted: false
-            onClicked: {
-                var data = ''
-                data += robotComboBox.currentText
-                data += '_'
-                locListModel.clear()
-                JS.dbReadLocs(areaListModel.get(missionComboBox.currentIndex).mission_id)
-                for(var i = 0; i < locListModel.count; i++) {
-                   data += locListModel.get(i).x
-                   data += '_'
-                   data += locListModel.get(i).y
-                   data += '_'
-                }
-                client.publish(data)
-            }
         }
 
 
