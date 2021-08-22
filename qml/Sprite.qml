@@ -15,7 +15,7 @@ Image {
     Component.onCompleted: {
         onXChanged.connect(poseChanged)
         onYChanged.connect(poseChanged)
-        objCreated
+//        objCreated
     }
 
     DragHandler {

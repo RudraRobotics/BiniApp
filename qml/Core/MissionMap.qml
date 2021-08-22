@@ -49,12 +49,12 @@ Item {
                 x_pos = point.position.x
                 y_pos = point.position.y
                 if(enable_way_pnts && MyScript.sprite.length === 0) {
-                    MyScript.createSpriteObjects(x_pos, y_pos)
+                    MyScript.createSpriteObjects1()
                     posListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
                     enable_way_pnts = false
                 }
                 else if(enable_way_pnts && MyScript.sprite.length > 0) {
-                    MyScript.createSpriteObjects(x_pos, y_pos)
+                    MyScript.createSpriteObjects()
                     posListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
                 }
             }

@@ -40,7 +40,7 @@ Item {
         header: MissionListHeader {}
         model: activeAreaListModel
         delegate: ActiveMissionListDelegate {}
-        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+        highlight: Rectangle { color: "#6aabff"; radius: 5 }
         focus: true
         onCountChanged: missionCmdTopMenu.resetActiveRobots()
         onCurrentIndexChanged: missionCmdTopMenu.resetActiveRobots1()
@@ -65,11 +65,11 @@ Item {
         header: LocListHeader { name: 'Robots' }
         delegate: ActiveRobotListDelegate {}
         model: activeRobotListModel
-        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+//        highlight: Rectangle { color: "#6aabff"; radius: 5 }
         focus: true
     }
 
-    FlickableMap {
+    MissionMap {
         id: flickableMap
         anchors.fill: parent
         map_path: default_map

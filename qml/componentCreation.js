@@ -11,9 +11,19 @@ function createSpriteObjects() {
     }
 }
 
-function destroySpriteObject(ind) {
-    sprite[ind].destroy()
+function createSpriteObjects1(x, y) {
+    component = Qt.createComponent("Sprite.qml");
+    sprite.push(component.createObject(parent, {x: x, y: y}));
+
+    if (sprite[sprite.length - 1] == null) {
+        // Error Handling
+        console.log("Error creating object");
+    }
 }
+
+//function destroySpriteObject(ind) {
+//    sprite[ind].destroy()
+//}
 
 function resetSpriteObjects() {
     for (let i = 0; i < sprite.length; i++) {

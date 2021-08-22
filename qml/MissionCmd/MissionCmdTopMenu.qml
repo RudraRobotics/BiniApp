@@ -24,20 +24,24 @@ Rectangle {
 
     onResetActiveRobots: {
         activeRobotListModel.clear()
+        MyScript.resetSpriteObjects()
         for(let i=0;i<allActiveMission.count;i++) {
             console.log(areaListModel.get(missionComboBox.currentIndex).mission_id, allActiveMission.get(i).mission_id)
             if(areaListModel.get(missionComboBox.currentIndex).mission_id === allActiveMission.get(i).mission_id) {
                 activeRobotListModel.append({'robot_id': allActiveMission.get(i).robot_id, 'name': allActiveMission.get(i).name})
+                MyScript.createSpriteObjects1(flickableMap.width/2, flickableMap.height/2+robotComboBox.currentIndex*10)
             }
         }
     }
 
     onResetActiveRobots1: {
         activeRobotListModel.clear()
+        MyScript.resetSpriteObjects()
         for(let i=0;i<allActiveMission.count;i++) {
             console.log(areaListModel.get(missionComboBox.currentIndex).mission_id, allActiveMission.get(i).mission_id)
             if(areaListModel.get(activeAreaListView.currentIndex).mission_id === allActiveMission.get(i).mission_id) {
                 activeRobotListModel.append({'robot_id': allActiveMission.get(i).robot_id, 'name': allActiveMission.get(i).name})
+                MyScript.createSpriteObjects1(flickableMap.width/2, flickableMap.height/2+robotComboBox.currentIndex*10)
             }
         }
     }
@@ -153,10 +157,11 @@ Rectangle {
 
                 if(!find(allActiveMission, function(item) { return item.active_mission === areaListModel.get(missionComboBox.currentIndex).mission_id+'_'+robotListModel.get(robotComboBox.currentIndex).robot_id }))
                 {
-                    allActiveMission.append({'active_mission': areaListModel.get(missionComboBox.currentIndex).mission_id+'_'+robotListModel.get(robotComboBox.currentIndex).robot_id,
+                    allActiveMission.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1], 'active_mission': areaListModel.get(missionComboBox.currentIndex).mission_id+'_'+robotListModel.get(robotComboBox.currentIndex).robot_id,
                                             'mission_id': areaListModel.get(missionComboBox.currentIndex).mission_id, 'robot_id': robotListModel.get(robotComboBox.currentIndex).robot_id,
                                             'name': robotListModel.get(robotComboBox.currentIndex).name})
-                    activeRobotListModel.append({'robot_id':robotListModel.get(robotComboBox.currentIndex).robot_id, 'mission_id':areaListModel.get(missionComboBox.currentIndex).mission_id, 'name':robotListModel.get(robotComboBox.currentIndex).name })
+                    MyScript.createSpriteObjects1(flickableMap.width/2, flickableMap.height/2+robotComboBox.currentIndex*10)
+                    activeRobotListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1], 'robot_id':robotListModel.get(robotComboBox.currentIndex).robot_id, 'mission_id':areaListModel.get(missionComboBox.currentIndex).mission_id, 'name':robotListModel.get(robotComboBox.currentIndex).name })
                 }
                 robotListModel.remove(robotListModel.get(robotComboBox.currentIndex))
             }
