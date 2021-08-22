@@ -70,7 +70,7 @@ function dbReadMissions()
         for (var i = 0; i < results.rows.length; i++) {
             areaListModel.append({
                                   mission_id: results.rows.item(i).mission_id,
-                                  mission_name: results.rows.item(i).name
+                                  name: results.rows.item(i).name
                                 })
         }
     })
@@ -91,9 +91,8 @@ function dbReadRobots()
     })
 }
 
-function dbReadWayPnts(mission_id)
+function dbReadLocs(mission_id)
 {
-    console.log(mission_id)
     var db = dbGetHandle()
     db.transaction(function (tx) {
         var results = tx.executeSql('SELECT name, x, y FROM mission_points WHERE mission_id=?', [mission_id])

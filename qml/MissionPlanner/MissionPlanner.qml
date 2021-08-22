@@ -19,6 +19,7 @@ Item {
     function resetAll() {
         locListModel.clear()
         flickableMap.resetItems()
+        flickableMap.enable_way_pnts = false
     }
 
     ListModel {
@@ -55,7 +56,7 @@ Item {
         focus: true
         onCurrentIndexChanged: {
             resetAll()
-            JS.dbReadLocs(areaListModel.get(currentIndex).mission_id)
+            JS.dbReadWayPnts(areaListModel.get(currentIndex).mission_id)
         }
     }
 

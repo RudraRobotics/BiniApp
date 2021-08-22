@@ -6,7 +6,6 @@ import QtQuick.Window 2.12
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.3
 import QtQml 2.12
-import "MockData"
 import "Setup"
 import "delegates"
 import "Database.js" as JS
@@ -46,7 +45,18 @@ ApplicationWindow {
 
             headerPositioning: ListView.OverlayHeader
 
-            model: MenuListModel {}
+            model: ListModel {
+                id: sidebarModel
+                ListElement {
+                    name: "MissionPlanner"
+                }
+                ListElement {
+                    name: "MissionCmd"
+                }
+                ListElement {
+                    name: "Setup"
+                }
+            }
 
             delegate: MenuListDelegate {}
 
