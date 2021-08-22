@@ -17,7 +17,7 @@ Item {
         anchors.bottomMargin: 1
         anchors.topMargin: 1
 
-        TextField {
+        Text {
             id: textField
             color: "#ffffff"
             text: mission_name
@@ -26,8 +26,8 @@ Item {
             verticalAlignment: Text.AlignVCenter
             anchors.horizontalCenter: parent.horizontalCenter
             font.pointSize: 12
-            onPressed: {
-                 activeAreaListView.currentIndex = index
+            TapHandler {
+                onTapped: activeAreaListView.currentIndex = index
             }
         }
     }

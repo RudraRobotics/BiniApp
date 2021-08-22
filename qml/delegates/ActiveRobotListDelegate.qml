@@ -17,7 +17,7 @@ Item {
         anchors.bottomMargin: 1
         anchors.topMargin: 1
 
-        TextField {
+        Text {
             id: textField
             color: "#ffffff"
             text: name
@@ -26,9 +26,9 @@ Item {
             verticalAlignment: Text.AlignVCenter
             anchors.horizontalCenter: parent.horizontalCenter
             font.pointSize: 12
-            onPressed: {
-                activeRobotListView.currentIndex = index
-            }
+//            onPressed: {
+//                activeRobotListView.currentIndex = index
+//            }
         }
     }
 }
