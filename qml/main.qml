@@ -24,9 +24,9 @@ ApplicationWindow {
 
     readonly property bool inPortrait: window.width < window.height
 
-    Component.onCompleted: {
-        JS.dbInit()
-    }
+//    Component.onCompleted: {
+//        JS.dbInit()
+//    }
 
     Drawer {
         id: drawer

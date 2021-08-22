@@ -3,6 +3,7 @@ import QtQuick.Controls 2.3
 import QtQml 2.12
 import "../Core"
 import "../delegates"
+import "../componentCreation.js" as MyScript
 
 Item {
 
@@ -22,11 +23,11 @@ Item {
     }
 
     ListModel {
-        id: areaListModel
+        id: activeAreaListModel
     }
 
     ListView {
-        id: areaListView
+        id: activeAreaListView
         width: parent.width*0.2
         height: 200
         anchors.left: parent.left
@@ -38,22 +39,22 @@ Item {
         z: 1
         headerPositioning: ListView.OverlayHeader
         header: MissionListHeader {}
-        model: areaListModel
-        delegate: MissionListDelegate {}
+        model: activeAreaListModel
+        delegate: ActiveMissionListDelegate {}
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
         focus: true
-        onCurrentIndexChanged: {
-            resetAll()
-            JS.dbReadWayPnts(areaListModel.get(currentIndex).mission_id)
+
+        onCountChanged: {
+            missionCmdTopMenu.resetActiveRobots()
         }
     }
 
     ListModel {
-        id: robotListModel
+        id: activeRobotListModel
     }
 
     ListView {
-        id: wayPntListView
+        id: activeRobotListView
         x: 443
         z: 1
         width: 192
@@ -65,8 +66,8 @@ Item {
         clip: true
         headerPositioning: ListView.OverlayHeader
         header: LocListHeader { name: 'Robots' }
-        delegate: RobotListDelegate {}
-        model: robotListModel
+        delegate: ActiveRobotListDelegate {}
+        model: activeRobotListModel
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
         focus: true
     }

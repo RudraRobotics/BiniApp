@@ -5,6 +5,7 @@ import QtQuick.Dialogs 1.2
 import QtQml 2.12
 
 import "../Database.js" as JS
+import "../componentCreation.js" as MyScript
 
 import MqttClient 1.0
 
@@ -12,6 +13,17 @@ Rectangle {
     height: 100
     opacity: 0.7
     color: "#4a4a4a"
+
+    signal resetActiveRobots
+
+    onResetActiveRobots: {
+        console.log('index chnged')
+//        console.log(areaListModel.get(missionComboBox.currentIndex).mission_id, robotComboBox.currentText)
+        activeRobotListModel.clear()
+        for(let i=0;i<allActiveRobots.count;i++) {
+            console.log(i, allActiveRobots.get(i).mission_id, allActiveRobots.get(i).name)
+        }
+    }
 
     FileDialog {
         id: fileDialog
@@ -43,6 +55,10 @@ Rectangle {
     ListModel {
         id: robotListModel
         Component.onCompleted: JS.dbReadRobots()
+    }
+
+    ListModel {
+        id: allActiveRobots
     }
 
     RowLayout {
@@ -114,6 +130,21 @@ Rectangle {
             Layout.topMargin: 5
             Layout.fillHeight: true
             highlighted: false
+            onClicked: {
+                if(activeAreaListModel.count==0) {
+                    activeAreaListModel.append({'mission_id': areaListModel.get(missionComboBox.currentIndex).mission_id, 'mission_name': missionComboBox.currentText})
+                }
+                else {
+                    for(var i=0;i<activeAreaListModel.count;i++) {
+                        var mission_unmatch_count = 0
+                        if(areaListModel.get(missionComboBox.currentIndex).mission_id !== activeAreaListModel.get(i).mission_id) {
+                            mission_unmatch_count++
+                        }
+                        if(mission_unmatch_count==activeAreaListModel.count)
+                            activeAreaListModel.append({'mission_id': areaListModel.get(missionComboBox.currentIndex).mission_id, 'mission_name': missionComboBox.currentText})
+                    }
+                }
+            }
         }
 
 
@@ -127,8 +158,6 @@ Rectangle {
             Layout.topMargin: 5
             Layout.fillHeight: true
         }
-
-
 
     }
 }
