@@ -17,7 +17,7 @@ Item {
     property string default_map: "../../maps/map.pgm"
 
     function resetAll() {
-        locListModel.clear()
+        wayPntListModel.clear()
         flickableMap.resetItems()
         flickableMap.enable_way_pnts = false
     }
@@ -61,11 +61,11 @@ Item {
     }
 
     ListModel {
-        id: locListModel
+        id: wayPntListModel
     }
 
     ListView {
-        id: locListView
+        id: wayPntListView
         x: 443
         z: 1
         width: 192
@@ -78,7 +78,7 @@ Item {
         headerPositioning: ListView.OverlayHeader
         header: LocListHeader {}
         delegate: LocListDelegate {}
-        model: locListModel
+        model: wayPntListModel
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
         focus: true
     }
@@ -113,7 +113,7 @@ Item {
             resetAll()
         }
         onSaveBtnClicked: {
-            if(areaName.length>0 && locListModel.count>0) {
+            if(areaName.length>0 && wayPntListModel.count>0) {
                 var mission_id = JS.dbInsertMission(areaName)
                 areaListModel.append({'mission_id': mission_id, 'mission_name': areaName})
                 areaListView.currentIndex = -1
@@ -132,25 +132,25 @@ Item {
             if(posListModel.count === 1) {
                 missionPlannerTopMenu.enable_base_btn = false
                 missionPlannerTopMenu.enable_waypnt_btn = true
-                locListModel.append({'name': 'Base', 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
+                wayPntListModel.append({'name': 'Base', 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
             }
             else
-                locListModel.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
+                wayPntListModel.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
 
             for (let i = 0; i < posListModel.count; i++) {
                 if(posListModel.get(i).sprite_item.acive) {
-                    locListView.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y': posListModel.get(i).sprite_item.y})
+                    wayPntListView.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y': posListModel.get(i).sprite_item.y})
                 }
             }
 
-            if(locListModel.count>1)
+            if(wayPntListModel.count>1)
                 missionPlannerTopMenu.enable_save_btn = true
         }
 
         onPoseChanged: {
             for (let i = 0; i < posListModel.count; i++) {
                 if(posListModel.get(i).sprite_item.active) {
-                    locListView.currentIndex = i
+                    wayPntListView.currentIndex = i
                     missionPlannerTopMenu.x_pos = posListModel.get(i).sprite_item.x
                     missionPlannerTopMenu.y_pos = posListModel.get(i).sprite_item.y
                 }

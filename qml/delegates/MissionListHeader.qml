@@ -4,6 +4,7 @@ import QtQml 2.12
 
 Item {
     width: 180; height: 40
+    z: 2
     Rectangle {
         id: rectangle
         opacity: 0.7

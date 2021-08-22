@@ -37,12 +37,12 @@ function dbInsertMission(name)
     })
 
     db.transaction(function (tx) {
-        for (var i = 0; i < locListModel.count; i++) {
+        for (var i = 0; i < wayPntListModel.count; i++) {
             tx.executeSql('INSERT INTO mission_points (mission_id, name, x, y) VALUES(?, ?, ?, ?)',
                           [mission_id,
-                           locListModel.get(i).name,
-                           locListModel.get(i).x,
-                           locListModel.get(i).y
+                           wayPntListModel.get(i).name,
+                           wayPntListModel.get(i).x,
+                           wayPntListModel.get(i).y
                           ])
         }
     })
@@ -98,7 +98,7 @@ function dbReadWayPnts(mission_id)
     db.transaction(function (tx) {
         var results = tx.executeSql('SELECT name, x, y FROM mission_points WHERE mission_id=?', [mission_id])
         for (var i = 0; i < results.rows.length; i++) {
-            locListModel.append({
+            wayPntListModel.append({
                                  name: results.rows.item(i).name,
                                  x: results.rows.item(i).x,
                                  y: results.rows.item(i).y
