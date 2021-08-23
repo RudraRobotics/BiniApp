@@ -9,6 +9,15 @@ Item {
     property alias map_path: mapImg.source
     property alias spriteListModel: spriteListModel
     property bool enable_way_pnts: false
+    ListModel {
+        id: spriteListModel
+        onCountChanged: {
+            if(count > 0) {
+                objCreated()
+                get(count - 1).sprite_item.onPoseChanged.connect(poseChanged)
+            }
+        }
+    }
 
     signal resetItems
     signal objCreated
@@ -17,17 +26,6 @@ Item {
     onResetItems: {
         MyScript.resetSpriteObjects()
         spriteListModel.clear()
-    }
-
-    ListModel {
-        id: spriteListModel
-
-        onCountChanged: {
-            if(count > 0) {
-                objCreated()
-                get(count - 1).sprite_item.onPoseChanged.connect(poseChanged)
-            }
-        }
     }
 
     Image {

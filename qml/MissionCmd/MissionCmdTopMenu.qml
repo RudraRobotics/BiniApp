@@ -19,7 +19,7 @@ Rectangle {
     property alias robotComboBoxCurrentIndex: robotComboBox.currentIndex
     property alias robotComboBoxCurrentText: robotComboBox.currentText
 
-    signal saveBtnClicked
+    signal serveBtnClicked
 
     FileDialog {
         id: fileDialog
@@ -108,7 +108,7 @@ Rectangle {
             Layout.topMargin: 5
             Layout.fillHeight: true
             highlighted: false
-            onClicked: saveBtnClicked()
+            onClicked: serveBtnClicked()
         }
 
 

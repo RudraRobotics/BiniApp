@@ -1,28 +1,13 @@
 import QtQuick 2.12
 import "../../js/componentCreation.js" as MyScript
+import "../../js/Database.js" as JS
 
 
 Item {
-
-//    property alias x_pos: tapArea.x_pos
-//    property alias y_pos: tapArea.y_pos
     property alias map_path: mapImg.source
     property alias posListModel: posListModel
     property bool enable_way_pnts: false
-
-    signal resetItems
-    signal objCreated
-    signal poseChanged
-    signal createSprite(string name)
-
-    onResetItems: {
-        MyScript.resetSpriteObjects()
-        posListModel.clear()
-    }
-
-    onCreateSprite: {
-        MyScript.createSpriteObjects(flickableMap.width/2, flickableMap.height/2, "../images/bini.png", name)
-    }
+    property real active_mission_id: -1
 
     ListModel {
         id: posListModel
@@ -37,6 +22,34 @@ Item {
                 get(count - 1).sprite_item.onPoseChanged.connect(poseChanged)
             }
         }
+    }
+
+    signal resetItems
+    signal objCreated
+    signal updateActiveMission(real mission_id)
+
+    signal poseChanged
+    signal createSprite(string name)
+
+    onUpdateActiveMission: {
+        console.log(mission_id)
+        if(mission_id !== active_mission_id) {
+            MyScript.resetMissionWayPnts()
+            var results = JS.dbReadWayPnts(mission_id)
+            for (var i = 0; i < results.rows.length; i++) {
+                MyScript.createMissionWayPnt(results.rows.item(i).x, results.rows.item(i).y, "../images/loc.png", results.rows.item(i).name, false)
+            }
+        }
+        active_mission_id = mission_id
+    }
+
+    onResetItems: {
+        MyScript.resetSpriteObjects()
+        posListModel.clear()
+    }
+
+    onCreateSprite: {
+        MyScript.createSpriteObjects(flickableMap.width/2, flickableMap.height/2, "../images/bini.png", name, true)
     }
 
     Image {

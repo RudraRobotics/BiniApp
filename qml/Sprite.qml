@@ -3,11 +3,12 @@ import QtQml 2.12
 
 Item {
     id: item1
-    width: 90
-    height: 70
+    width: 60
+    height: 50
     property alias name: itemTxt.text
     property bool active: dragHandler.active
     property alias source: locIconImg.source
+    property alias drag_enabled: dragHandler.enabled
 
     signal poseChanged
     Image {
@@ -42,6 +43,8 @@ Item {
             font.pixelSize: 14
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.NoWrap
+            clip: false
         }
     }
     Component.onCompleted: {

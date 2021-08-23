@@ -32,7 +32,10 @@ Item {
         anchors.rightMargin: 5
         anchors.leftMargin: 5
         anchors.topMargin: 5
-        onSaveBtnClicked: MyJS.clicked()
+        onServeBtnClicked: {
+            MyJS.clicked()
+            flickableMap.updateActiveMission(areaListModel.get(missionComboBoxCurrentIndex).mission_id)
+        }
     }
 
     ListView {
@@ -52,8 +55,15 @@ Item {
         delegate: ActiveMissionListDelegate {}
         highlight: Rectangle { color: "#6aabff"; radius: 5 }
         focus: true
-        onCountChanged: MyJS.resetActiveRobots()
-        onCurrentIndexChanged: MyJS.resetActiveRobots1()
+        onCountChanged: {
+            MyJS.resetActiveRobots()
+            flickableMap.updateActiveMission(missionCmdTopMenu.areaListModel.get(currentIndex).mission_id)
+        }
+
+        onCurrentIndexChanged: {
+            MyJS.resetActiveRobots1()
+            flickableMap.updateActiveMission(missionCmdTopMenu.areaListModel.get(currentIndex).mission_id)
+        }
     }
 
     ListView {

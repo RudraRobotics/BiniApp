@@ -94,8 +94,9 @@ function dbReadRobots()
 function dbReadWayPnts(mission_id)
 {
     var db = dbGetHandle()
+    var results
     db.transaction(function (tx) {
-        var results = tx.executeSql('SELECT name, x, y FROM mission_points WHERE mission_id=?', [mission_id])
+        results = tx.executeSql('SELECT name, x, y FROM mission_points WHERE mission_id=?', [mission_id])
         for (var i = 0; i < results.rows.length; i++) {
             wayPntListModel.append({
                                  name: results.rows.item(i).name,
@@ -104,4 +105,5 @@ function dbReadWayPnts(mission_id)
                              })
         }
     })
+    return results
 }
