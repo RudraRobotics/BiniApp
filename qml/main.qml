@@ -11,6 +11,7 @@ import "delegates"
 import "Database.js" as JS
 
 import QtQuick.LocalStorage 2.0
+import MqttClient 1.0
 
 ApplicationWindow {
     id: window
@@ -27,6 +28,16 @@ ApplicationWindow {
 //    Component.onCompleted: {
 //        JS.dbInit()
 //    }
+
+    MqttClient {
+        property int port_id: 1883
+        id: client
+        hostname: "localhost"
+        port: port_id
+        Component.onCompleted: {
+            connectToHost()
+        }
+    }
 
     Drawer {
         id: drawer
