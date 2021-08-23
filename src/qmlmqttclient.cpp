@@ -85,10 +85,10 @@ void QmlMqttSubscription::handleMessage(const QMqttMessage &qmsg)
     emit messageReceived(pose);
 }
 
-int QmlMqttClient::publish(const QString &data)
+int QmlMqttClient::publish(const QString &topic, const QString &data)
 {
-    qDebug() << "Msg published:" << data;
-    auto result = QMqttClient::publish(QMqttTopicName("bini_cmd"), data.toUtf8(), 0, false);
+    qDebug() << "Msg published:" << topic <<' '<< data;
+    auto result = QMqttClient::publish(QMqttTopicName(topic), data.toUtf8(), 0, false);
     return result;
 }
 

@@ -13,7 +13,7 @@ function createSpriteObjects() {
 
 function createSpriteObjects1(x, y) {
     component = Qt.createComponent("Sprite.qml");
-    sprite.push(component.createObject(parent, {x: x, y: y}));
+    sprite.push(component.createObject(parent, {x: x, y: y, source: "../images/bini.png"}));
 
     if (sprite[sprite.length - 1] == null) {
         // Error Handling

@@ -38,5 +38,6 @@
         <file>qml/delegates/ActiveMissionListDelegate.qml</file>
         <file>qml/delegates/ActiveRobotListDelegate.qml</file>
         <file>qml/Core/MissionMap.qml</file>
+        <file>images/bini.xcf</file>
     </qresource>
 </RCC>

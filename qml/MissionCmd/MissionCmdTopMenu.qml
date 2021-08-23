@@ -6,7 +6,6 @@ import QtQml 2.12
 
 import "../Database.js" as JS
 import "../componentCreation.js" as MyScript
-
 import MqttClient 1.0
 
 Rectangle {
@@ -20,6 +19,31 @@ Rectangle {
     function find(model, criteria) {
       for(var i = 0; i < model.count; ++i) if (criteria(model.get(i))) return model.get(i)
       return null
+    }
+
+    ListModel { id: wayPntListModel }
+
+    function publishData() {
+        var data = ''
+        wayPntListModel.clear()
+        JS.dbReadWayPnts(areaListModel.get(missionComboBox.currentIndex).mission_id)
+        for(var i = 0; i < wayPntListModel.count; i++) {
+           data += wayPntListModel.get(i).x
+           data += '_'
+           data += wayPntListModel.get(i).y
+           data += '_'
+        }
+        client.publish(robotComboBox.currentText, data)
+    }
+
+    MqttClient {
+        property int port_id: 1883
+        id: client
+        hostname: "localhost"
+        port: port_id
+        Component.onCompleted: {
+            connectToHost()
+        }
     }
 
     onResetActiveRobots: {
@@ -61,16 +85,6 @@ Rectangle {
     ListModel {
         id: areaListModel
         Component.onCompleted: JS.dbReadMissions()
-    }
-
-    MqttClient {
-        property int port_id: 1883
-        id: client
-        hostname: "localhost"
-        port: port_id
-        Component.onCompleted: {
-            connectToHost()
-        }
     }
 
     ListModel {
@@ -139,8 +153,6 @@ Rectangle {
             model: robotListModel
         }
 
-        ListModel { id: locListModel }
-
         Button {
             id: baseBtn
             text: qsTr("Serve")
@@ -163,8 +175,10 @@ Rectangle {
                     MyScript.createSpriteObjects1(flickableMap.width/2, flickableMap.height/2+robotComboBox.currentIndex*10)
                     activeRobotListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1], 'robot_id':robotListModel.get(robotComboBox.currentIndex).robot_id, 'mission_id':areaListModel.get(missionComboBox.currentIndex).mission_id, 'name':robotListModel.get(robotComboBox.currentIndex).name })
                 }
+                publishData()
                 robotListModel.remove(robotListModel.get(robotComboBox.currentIndex))
             }
+
         }
 
 
