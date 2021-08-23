@@ -4,8 +4,8 @@ import QtQuick.Layouts 1.12
 import QtQuick.Dialogs 1.2
 import QtQml 2.12
 
-import "../Database.js" as JS
-import "../componentCreation.js" as MyScript
+import "../../js/Database.js" as JS
+import "../../js/componentCreation.js" as MyScript
 
 Rectangle {
     height: 100

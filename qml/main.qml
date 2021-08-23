@@ -8,7 +8,7 @@ import QtQuick.Layouts 1.3
 import QtQml 2.12
 import "Setup"
 import "delegates"
-import "Database.js" as JS
+import "../js/Database.js" as JS
 
 import QtQuick.LocalStorage 2.0
 import MqttClient 1.0

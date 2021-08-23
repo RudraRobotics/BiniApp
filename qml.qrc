@@ -15,7 +15,6 @@
         <file>maps/map.yaml</file>
         <file>maps/map1.pgm</file>
         <file>maps/map1.yaml</file>
-        <file>qml/componentCreation.js</file>
         <file>qml/Sprite.qml</file>
         <file>qml/AreaListView.qml</file>
         <file>qml/MissionPlanner/MissionPlanner.qml</file>
@@ -30,7 +29,6 @@
         <file>qml/MissionCmd/MissionCmdTopMenu.qml</file>
         <file>qml/delegates/MenuListDelegate.qml</file>
         <file>qml/Setup/RobotSetup.qml</file>
-        <file>qml/Database.js</file>
         <file>qml/delegates/LocListDelegate.qml</file>
         <file>qml/delegates/RobotListDelegate.qml</file>
         <file>qml/delegates/MissionListHeader.qml</file>
@@ -41,5 +39,7 @@
         <file>images/bini.xcf</file>
         <file>js/MissionPlanner.js</file>
         <file>js/MissionCmd.js</file>
+        <file>js/componentCreation.js</file>
+        <file>js/Database.js</file>
     </qresource>
 </RCC>

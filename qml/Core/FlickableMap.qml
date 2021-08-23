@@ -1,5 +1,5 @@
 import QtQuick 2.12
-import "../componentCreation.js" as MyScript
+import "../../js/componentCreation.js" as MyScript
 
 
 Item {

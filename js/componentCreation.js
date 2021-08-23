@@ -2,7 +2,7 @@ var component;
 var sprite = []
 
 function createSpriteObjects(x, y, source, name) {
-    component = Qt.createComponent("Sprite.qml");
+    component = Qt.createComponent("../qml/Sprite.qml");
     sprite.push(component.createObject(mapImg, {x: x-15, y: y-15, source: source, name: name}));
 
     if (sprite[sprite.length - 1] == null) {

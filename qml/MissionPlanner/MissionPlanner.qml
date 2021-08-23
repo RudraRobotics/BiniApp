@@ -7,7 +7,7 @@ import QtQuick.LocalStorage 2.0
 import "../Core"
 import "../"
 import "../delegates"
-import "../Database.js" as JS
+import "../../js/Database.js" as JS
 import "../../js/MissionPlanner.js" as MyJS
 
 import MqttClient 1.0
