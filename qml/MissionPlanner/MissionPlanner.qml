@@ -112,7 +112,7 @@ Item {
         onResetBtnClicked: {
             baseBtnEnable = true
             wayPointBtnEnable = false
-            baseBtnEnable = false
+            baseBtnHighlighted = false
             wayPointBtnHighlighted = false
             saveBtnEnable = false
             areaNameTxt = ''
@@ -136,6 +136,7 @@ Item {
                 areaListView.currentIndex = -1
                 MyJS.resetAll()
             }
+            areaNameTxt = ''
         }
     }
 
