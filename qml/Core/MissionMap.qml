@@ -13,10 +13,15 @@ Item {
     signal resetItems
     signal objCreated
     signal poseChanged
+    signal createSprite
 
     onResetItems: {
         MyScript.resetSpriteObjects()
         posListModel.clear()
+    }
+
+    onCreateSprite: {
+        MyScript.createSpriteObjects1(mapImg.width/2, mapImg.height/2)
     }
 
     ListModel {

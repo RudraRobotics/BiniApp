@@ -32,7 +32,7 @@ ApplicationWindow {
     MqttClient {
         property int port_id: 1883
         id: client
-        hostname: "localhost"
+        hostname: "192.168.1.130"
         port: port_id
         Component.onCompleted: {
             connectToHost()
