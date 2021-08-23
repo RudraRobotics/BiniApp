@@ -8,6 +8,7 @@ import "../Core"
 import "../"
 import "../delegates"
 import "../Database.js" as JS
+import "MissionPlanner.js" as MyJS
 
 import MqttClient 1.0
 
@@ -15,12 +16,6 @@ Item {
     id: planner
 
     property string default_map: "../../maps/map.pgm"
-
-    function resetAll() {
-        wayPntListModel.clear()
-        flickableMap.resetItems()
-        flickableMap.enable_way_pnts = false
-    }
 
     MqttClient {
         property int port_id: 1883
@@ -55,7 +50,7 @@ Item {
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
         focus: true
         onCurrentIndexChanged: {
-            resetAll()
+            MyJS.resetAll()
             if(currentIndex>-1)
                 JS.dbReadWayPnts(areaListModel.get(currentIndex).mission_id)
         }
@@ -111,14 +106,14 @@ Item {
 
         onResetItems: {
             areaListView.currentIndex = -1
-            resetAll()
+            MyJS.resetAll()
         }
         onSaveBtnClicked: {
             if(areaName.length>0 && wayPntListModel.count>0) {
                 var mission_id = JS.dbInsertMission(areaName)
                 areaListModel.append({'mission_id': mission_id, 'mission_name': areaName})
                 areaListView.currentIndex = -1
-                resetAll()
+                MyJS.resetAll()
             }
         }
     }

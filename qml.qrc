@@ -40,5 +40,6 @@
         <file>qml/Core/MissionMap.qml</file>
         <file>images/bini.xcf</file>
         <file>qml/MissionCmd/MissionCmd.js</file>
+        <file>qml/MissionPlanner/MissionPlanner.js</file>
     </qresource>
 </RCC>
