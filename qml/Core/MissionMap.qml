@@ -4,8 +4,8 @@ import "../componentCreation.js" as MyScript
 
 Item {
 
-    property alias x_pos: tapArea.x_pos
-    property alias y_pos: tapArea.y_pos
+//    property alias x_pos: tapArea.x_pos
+//    property alias y_pos: tapArea.y_pos
     property alias map_path: mapImg.source
     property alias posListModel: posListModel
     property bool enable_way_pnts: false
@@ -13,7 +13,7 @@ Item {
     signal resetItems
     signal objCreated
     signal poseChanged
-    signal createSprite
+    signal createSprite(string name)
 
     onResetItems: {
         MyScript.resetSpriteObjects()
@@ -21,7 +21,7 @@ Item {
     }
 
     onCreateSprite: {
-        MyScript.createSpriteObjects1(mapImg.width/2, mapImg.height/2)
+        MyScript.createSpriteObjects(flickableMap.width/2, flickableMap.height/2, "../images/bini.png", name)
     }
 
     ListModel {
@@ -46,24 +46,6 @@ Item {
         y: (parent.height-height)/2
         PinchHandler {}
         DragHandler {}
-        TapHandler {
-            id: tapArea
-            property real x_pos: 0.0
-            property real y_pos: 0.0
-            onTapped: {
-                x_pos = point.position.x
-                y_pos = point.position.y
-                if(enable_way_pnts && MyScript.sprite.length === 0) {
-                    MyScript.createSpriteObjects1()
-                    posListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
-                    enable_way_pnts = false
-                }
-                else if(enable_way_pnts && MyScript.sprite.length > 0) {
-                    MyScript.createSpriteObjects()
-                    posListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
-                }
-            }
-        }
     }
 }
 

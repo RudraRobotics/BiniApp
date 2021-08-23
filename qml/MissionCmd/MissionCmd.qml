@@ -37,7 +37,7 @@ Item {
         for(let i=0;i<allActiveMission.count;i++) {
             if(missionCmdTopMenu.areaListModel.get(missionCmdTopMenu.missionComboBoxCurrentIndex).mission_id === allActiveMission.get(i).mission_id) {
                 activeRobotListModel.append({'robot_id': allActiveMission.get(i).robot_id, 'name': allActiveMission.get(i).name})
-                flickableMap.createSprite(flickableMap.width/2, flickableMap.height/2)
+                flickableMap.createSprite(allActiveMission.get(i).name)
             }
         }
     }
@@ -48,7 +48,7 @@ Item {
         for(let i=0;i<allActiveMission.count;i++) {
             if(missionCmdTopMenu.areaListModel.get(activeAreaListView.currentIndex).mission_id === allActiveMission.get(i).mission_id) {
                 activeRobotListModel.append({'robot_id': allActiveMission.get(i).robot_id, 'name': allActiveMission.get(i).name})
-                flickableMap.createSprite(flickableMap.width/2, flickableMap.height/2)
+                flickableMap.createSprite(allActiveMission.get(i).name)
             }
         }
     }
@@ -83,7 +83,7 @@ Item {
                 allActiveMission.append({'active_mission': areaListModel.get(robotComboBoxCurrentIndex).mission_id+'_'+robotListModel.get(robotComboBoxCurrentIndex).robot_id,
                                         'mission_id': areaListModel.get(missionComboBoxCurrentIndex).mission_id, 'robot_id': robotListModel.get(robotComboBoxCurrentIndex).robot_id,
                                         'name': robotListModel.get(robotComboBoxCurrentIndex).name})
-                flickableMap.createSprite()
+                flickableMap.createSprite(robotListModel.get(robotComboBoxCurrentIndex).name)
                 activeRobotListModel.append({'robot_id':robotListModel.get(robotComboBoxCurrentIndex).robot_id, 'mission_id':areaListModel.get(missionComboBoxCurrentIndex).mission_id, 'name':robotListModel.get(robotComboBoxCurrentIndex).name })
             }
             var data = ''

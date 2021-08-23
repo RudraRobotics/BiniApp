@@ -1,19 +1,9 @@
 var component;
 var sprite = []
 
-function createSpriteObjects() {
+function createSpriteObjects(x, y, source, name) {
     component = Qt.createComponent("Sprite.qml");
-    sprite.push(component.createObject(mapImg, {x: x_pos-15, y: y_pos-30}));
-
-    if (sprite[sprite.length - 1] == null) {
-        // Error Handling
-        console.log("Error creating object");
-    }
-}
-
-function createSpriteObjects1(x, y) {
-    component = Qt.createComponent("Sprite.qml");
-    sprite.push(component.createObject(mapImg, {x: x, y: y, source: "../images/bini.png"}));
+    sprite.push(component.createObject(mapImg, {x: x-15, y: y-15, source: source, name: name}));
 
     if (sprite[sprite.length - 1] == null) {
         // Error Handling

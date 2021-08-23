@@ -48,13 +48,14 @@ Item {
             onTapped: {
                 x_pos = point.position.x
                 y_pos = point.position.y
+                var i = posListModel.count - 1
                 if(enable_way_pnts && MyScript.sprite.length === 0) {
-                    MyScript.createSpriteObjects(x_pos, y_pos)
+                    MyScript.createSpriteObjects(x_pos, y_pos, "../images/loc.png", 'Base')
                     posListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
                     enable_way_pnts = false
                 }
                 else if(enable_way_pnts && MyScript.sprite.length > 0) {
-                    MyScript.createSpriteObjects(x_pos, y_pos)
+                    MyScript.createSpriteObjects(x_pos, y_pos, "../images/loc.png", 'Location'+i)
                     posListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
                 }
             }
