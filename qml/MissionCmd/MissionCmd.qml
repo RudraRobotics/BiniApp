@@ -32,7 +32,7 @@ Item {
         anchors.rightMargin: 5
         anchors.leftMargin: 5
         anchors.topMargin: 5
-        onClicked: MyJS.clicked()
+        onSaveBtnClicked: MyJS.clicked()
     }
 
     ListView {
