@@ -31,3 +31,35 @@ function resetActiveRobots1() {
         }
     }
 }
+
+function clicked()
+{
+    var missionComboBoxCurrentIndex = missionCmdTopMenu.missionComboBoxCurrentIndex
+    var missionComboBoxCurrentText = missionCmdTopMenu.missionComboBoxCurrentText
+    var robotComboBoxCurrentIndex = missionCmdTopMenu.robotComboBoxCurrentIndex
+    var robotComboBoxCurrentText = missionCmdTopMenu.robotComboBoxCurrentText
+
+    if(!find(activeAreaListModel, function(item) { return item.mission_id === missionCmdTopMenu.areaListModel.get(missionComboBoxCurrentIndex).mission_id }))
+        activeAreaListModel.append({'mission_id': missionCmdTopMenu.areaListModel.get(missionComboBoxCurrentIndex).mission_id, 'mission_name': missionComboBoxCurrentText})
+
+    if(!find(allActiveMission, function(item) { return item.active_mission === missionCmdTopMenu.areaListModel.get(missionComboBoxCurrentIndex).mission_id+'_'+missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id }))
+    {
+        allActiveMission.append({'active_mission': missionCmdTopMenu.areaListModel.get(robotComboBoxCurrentIndex).mission_id+'_'+missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
+                                'mission_id': missionCmdTopMenu.areaListModel.get(missionComboBoxCurrentIndex).mission_id, 'robot_id': missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
+                                'name': missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name})
+        flickableMap.createSprite(missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name)
+        activeRobotListModel.append({'robot_id':missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id, 'mission_id':missionCmdTopMenu.areaListModel.get(missionComboBoxCurrentIndex).mission_id, 'name':missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name })
+    }
+    var data = ''
+    wayPntListModel.clear()
+    JS.dbReadWayPnts(missionCmdTopMenu.areaListModel.get(missionComboBoxCurrentIndex).mission_id)
+    for(var i = 0; i < wayPntListModel.count; i++) {
+       data += wayPntListModel.get(i).x
+       data += '_'
+       data += wayPntListModel.get(i).y
+       data += '_'
+    }
+    client.publish(robotComboBoxCurrentText, data)
+    missionCmdTopMenu.robotListModel.remove(missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex))
+}
+

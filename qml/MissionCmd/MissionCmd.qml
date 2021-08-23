@@ -32,31 +32,7 @@ Item {
         anchors.rightMargin: 5
         anchors.leftMargin: 5
         anchors.topMargin: 5
-        onClicked: {
-            if(!MyJS.find(activeAreaListModel, function(item) { return item.mission_id === areaListModel.get(missionComboBoxCurrentIndex).mission_id }))
-                activeAreaListModel.append({'mission_id': areaListModel.get(missionComboBoxCurrentIndex).mission_id, 'mission_name': missionComboBoxCurrentText})
-
-            if(!MyJS.find(allActiveMission, function(item) { return item.active_mission === areaListModel.get(missionComboBoxCurrentIndex).mission_id+'_'+robotListModel.get(robotComboBoxCurrentIndex).robot_id }))
-            {
-                console.log(robotComboBoxCurrentIndex, areaListModel.get(robotComboBoxCurrentIndex).mission_id)
-                allActiveMission.append({'active_mission': areaListModel.get(robotComboBoxCurrentIndex).mission_id+'_'+robotListModel.get(robotComboBoxCurrentIndex).robot_id,
-                                        'mission_id': areaListModel.get(missionComboBoxCurrentIndex).mission_id, 'robot_id': robotListModel.get(robotComboBoxCurrentIndex).robot_id,
-                                        'name': robotListModel.get(robotComboBoxCurrentIndex).name})
-                flickableMap.createSprite(robotListModel.get(robotComboBoxCurrentIndex).name)
-                activeRobotListModel.append({'robot_id':robotListModel.get(robotComboBoxCurrentIndex).robot_id, 'mission_id':areaListModel.get(missionComboBoxCurrentIndex).mission_id, 'name':robotListModel.get(robotComboBoxCurrentIndex).name })
-            }
-            var data = ''
-            wayPntListModel.clear()
-            JS.dbReadWayPnts(areaListModel.get(missionComboBoxCurrentIndex).mission_id)
-            for(var i = 0; i < wayPntListModel.count; i++) {
-               data += wayPntListModel.get(i).x
-               data += '_'
-               data += wayPntListModel.get(i).y
-               data += '_'
-            }
-            client.publish(robotComboBoxCurrentText, data)
-            robotListModel.remove(robotListModel.get(robotComboBoxCurrentIndex))
-        }
+        onClicked: MyJS.clicked()
     }
 
     ListView {
