@@ -9,26 +9,21 @@ Rectangle {
 
     property alias x_pos: xPos.text
     property alias y_pos: yPos.text
-    property alias areaName: areaName.text
-    property alias enable_way_pnts: wayPointBtn.highlighted
-    property alias enable_waypnt_btn: wayPointBtn.enabled
-    property alias enable_base_btn: baseBtn.enabled
-    property alias enable_save_btn: saveBtn.enabled
-    property alias saveBtn: saveBtn.text
+    property alias areaNameTxt: areaName.text
+    property alias areaNameFocus: areaName.focus
+    property alias wayPointBtnHighlighted: wayPointBtn.highlighted
+    property alias wayPointBtnEnable: wayPointBtn.enabled
+    property alias baseBtnEnable: baseBtn.enabled
+    property alias baseBtnHighlighted: baseBtn.highlighted
+    property alias saveBtnEnable: saveBtn.enabled
+    property alias saveBtnTxt: saveBtn.text
 
     signal wayPntBtnClicked
     signal baseBtnClicked
     signal saveBtnClicked
+    signal resetBtnClicked
 
     signal mapChanged(string map_path)
-    signal resetItems
-
-    Component.onCompleted: {
-        resetBtn.clicked.connect(resetItems)
-        wayPointBtn.clicked.connect(wayPntBtnClicked)
-        baseBtn.clicked.connect(baseBtnClicked)
-        saveBtn.clicked.connect(saveBtnClicked)
-    }
 
     FileDialog {
         id: fileDialog
@@ -71,18 +66,7 @@ Rectangle {
             Layout.topMargin: 5
             Layout.fillHeight: true
             enabled: false
-            onClicked: {
-                if(!areaName.length) {
-                    areaName.focus = true
-                }
-                else {
-                    baseBtn.enabled = true
-                    wayPointBtn.enabled = false
-                    baseBtn.highlighted = false
-                    wayPointBtn.highlighted = false
-                    saveBtn.enabled = false
-                }
-            }
+            onClicked: saveBtnClicked()
         }
 
         Button {
@@ -107,7 +91,7 @@ Rectangle {
             Layout.topMargin: 5
             Layout.fillHeight: true
             highlighted: false
-            onClicked: highlighted =! highlighted
+            onClicked: baseBtnClicked()
         }
 
         Button {
@@ -120,7 +104,7 @@ Rectangle {
             Layout.topMargin: 5
             Layout.fillHeight: true
             enabled: false
-            onClicked: highlighted =! highlighted
+            onClicked: wayPntBtnClicked()
         }
 
         Button {
@@ -132,14 +116,7 @@ Rectangle {
             Layout.bottomMargin: 5
             Layout.fillWidth: true
             Layout.leftMargin: 5
-            onClicked: {
-                baseBtn.enabled = true
-                wayPointBtn.enabled = false
-                baseBtn.highlighted = false
-                wayPointBtn.highlighted = false
-                saveBtn.enabled = false
-                areaName.text = ''
-            }
+            onClicked: resetBtnClicked()
         }
 
         ColumnLayout {

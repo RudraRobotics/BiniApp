@@ -98,20 +98,41 @@ Item {
         // Signal handlers
         onMapChanged: flickableMap.map_path = map_path
 
-        onWayPntBtnClicked: flickableMap.enable_way_pnts = enable_way_pnts
+        onWayPntBtnClicked: {
+            flickableMap.enable_way_pnts = wayPointBtnEnable
+            wayPointBtnHighlighted =! wayPointBtnHighlighted
+        }
+
         onBaseBtnClicked: {
+            baseBtnHighlighted =! baseBtnHighlighted
             areaListView.currentIndex = -1
             flickableMap.enable_way_pnts = true
         }
 
-        onResetItems: {
+        onResetBtnClicked: {
+            baseBtnEnable = true
+            wayPointBtnEnable = false
+            baseBtnEnable = false
+            wayPointBtnHighlighted = false
+            saveBtnEnable = false
+            areaNameTxt = ''
             areaListView.currentIndex = -1
             MyJS.resetAll()
         }
         onSaveBtnClicked: {
-            if(areaName.length>0 && wayPntListModel.count>0) {
-                var mission_id = JS.dbInsertMission(areaName)
-                areaListModel.append({'mission_id': mission_id, 'mission_name': areaName})
+            if(!areaNameTxt.length) {
+                areaNameFocus = true
+            }
+            else {
+                baseBtnEnable = true
+                wayPointBtnEnable = false
+                baseBtnHighlighted = false
+                wayPointBtnHighlighted = false
+                saveBtnEnable = false
+            }
+            if(areaNameTxt.length>0 && wayPntListModel.count>0) {
+                let mission_id = JS.dbInsertMission(areaNameTxt)
+                areaListModel.append({'mission_id': parseInt(mission_id), 'mission_name': areaNameTxt})
                 areaListView.currentIndex = -1
                 MyJS.resetAll()
             }
@@ -126,8 +147,8 @@ Item {
         onObjCreated: {
             var i = posListModel.count - 1
             if(posListModel.count === 1) {
-                missionPlannerTopMenu.enable_base_btn = false
-                missionPlannerTopMenu.enable_waypnt_btn = true
+                missionPlannerTopMenu.baseBtnEnable = false
+                missionPlannerTopMenu.wayPointBtnEnable = true
                 wayPntListModel.append({'name': 'Base', 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
             }
             else
@@ -140,7 +161,7 @@ Item {
             }
 
             if(wayPntListModel.count>1)
-                missionPlannerTopMenu.enable_save_btn = true
+                missionPlannerTopMenu.saveBtnEnable = true
         }
 
         onPoseChanged: {
