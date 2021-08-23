@@ -5,7 +5,7 @@ import "../Core"
 import "../delegates"
 import MqttClient 1.0
 import "../Database.js" as JS
-import "MissionCmd.js" as MyJS
+import "../../js/MissionCmd.js" as MyJS
 
 Item {
     property string default_map: "../../maps/map.pgm"

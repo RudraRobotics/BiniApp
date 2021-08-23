@@ -8,7 +8,7 @@ import "../Core"
 import "../"
 import "../delegates"
 import "../Database.js" as JS
-import "MissionPlanner.js" as MyJS
+import "../../js/MissionPlanner.js" as MyJS
 
 import MqttClient 1.0
 
