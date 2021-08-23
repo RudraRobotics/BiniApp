@@ -5,8 +5,6 @@ import QtQuick 2.12
 ItemDelegate {
     text: name
     anchors.left: parent.left
-    anchors.right: parent.right
-    anchors.horizontalCenter: parent.horizontalCenter
     font.pointSize: 14
     anchors.leftMargin: 10
     anchors.rightMargin: 0
