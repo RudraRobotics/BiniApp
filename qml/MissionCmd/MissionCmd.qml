@@ -5,11 +5,9 @@ import "../Core"
 import "../delegates"
 import MqttClient 1.0
 import "../Database.js" as JS
-
+import "MissionCmd.js" as MyJS
 
 Item {
-
-    // ############################################################################ //
     property string default_map: "../../maps/map.pgm"
     property var tempSubscription: 0
 
@@ -18,50 +16,11 @@ Item {
     ListModel { id: activeRobotListModel }
     ListModel { id: wayPntListModel }
 
-    // ############################################################################## //
-    function addMessage(robot_name, data)
-    {
-        // Update given robots position
-        var robot = find(activeRobotListModel, function(item) { return item.name === robot_name })
-        activeRobotListModel.set(robot.robot_id, {"x": data.x, "y": data.y})
-    }
-
-    function find(model, criteria) {
-      for(var i = 0; i < model.count; ++i) if (criteria(model.get(i))) return model.get(i)
-      return null
-    }
-
-    function resetActiveRobots() {
-        activeRobotListModel.clear()
-        flickableMap.resetItems()
-        for(let i=0;i<allActiveMission.count;i++) {
-            if(missionCmdTopMenu.areaListModel.get(missionCmdTopMenu.missionComboBoxCurrentIndex).mission_id === allActiveMission.get(i).mission_id) {
-                activeRobotListModel.append({'robot_id': allActiveMission.get(i).robot_id, 'name': allActiveMission.get(i).name})
-                flickableMap.createSprite(allActiveMission.get(i).name)
-            }
-        }
-    }
-
-    function resetActiveRobots1() {
-        activeRobotListModel.clear()
-        flickableMap.resetItems()
-        for(let i=0;i<allActiveMission.count;i++) {
-            if(missionCmdTopMenu.areaListModel.get(activeAreaListView.currentIndex).mission_id === allActiveMission.get(i).mission_id) {
-                activeRobotListModel.append({'robot_id': allActiveMission.get(i).robot_id, 'name': allActiveMission.get(i).name})
-                flickableMap.createSprite(allActiveMission.get(i).name)
-            }
-        }
-    }
-
-    // ############################################################################# //
-
     Component.onCompleted: {
         tempSubscription = client.subscribe("bini_data")
-        tempSubscription.messageReceived.connect(addMessage)
+        tempSubscription.messageReceived.connect(MyJS.addMessage)
         console.log('bini_data mqtt topic subscribed')
     }
-
-    // ############################################################################# //
 
     MissionCmdTopMenu {
         id: missionCmdTopMenu
@@ -74,10 +33,10 @@ Item {
         anchors.leftMargin: 5
         anchors.topMargin: 5
         onClicked: {
-            if(!find(activeAreaListModel, function(item) { return item.mission_id === areaListModel.get(missionComboBoxCurrentIndex).mission_id }))
+            if(!MyJS.find(activeAreaListModel, function(item) { return item.mission_id === areaListModel.get(missionComboBoxCurrentIndex).mission_id }))
                 activeAreaListModel.append({'mission_id': areaListModel.get(missionComboBoxCurrentIndex).mission_id, 'mission_name': missionComboBoxCurrentText})
 
-            if(!find(allActiveMission, function(item) { return item.active_mission === areaListModel.get(missionComboBoxCurrentIndex).mission_id+'_'+robotListModel.get(robotComboBoxCurrentIndex).robot_id }))
+            if(!MyJS.find(allActiveMission, function(item) { return item.active_mission === areaListModel.get(missionComboBoxCurrentIndex).mission_id+'_'+robotListModel.get(robotComboBoxCurrentIndex).robot_id }))
             {
                 console.log(robotComboBoxCurrentIndex, areaListModel.get(robotComboBoxCurrentIndex).mission_id)
                 allActiveMission.append({'active_mission': areaListModel.get(robotComboBoxCurrentIndex).mission_id+'_'+robotListModel.get(robotComboBoxCurrentIndex).robot_id,
@@ -117,8 +76,8 @@ Item {
         delegate: ActiveMissionListDelegate {}
         highlight: Rectangle { color: "#6aabff"; radius: 5 }
         focus: true
-        onCountChanged: resetActiveRobots()
-        onCurrentIndexChanged: resetActiveRobots1()
+        onCountChanged: MyJS.resetActiveRobots()
+        onCurrentIndexChanged: MyJS.resetActiveRobots1()
     }
 
     ListView {
