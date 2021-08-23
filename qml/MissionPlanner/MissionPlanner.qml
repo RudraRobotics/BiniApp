@@ -146,18 +146,18 @@ Item {
         map_path: default_map
 
         onObjCreated: {
-            var i = posListModel.count - 1
-            if(posListModel.count === 1) {
+            var i = spriteListModel.count - 1
+            if(spriteListModel.count === 1) {
                 missionPlannerTopMenu.baseBtnEnable = false
                 missionPlannerTopMenu.wayPointBtnEnable = true
-                wayPntListModel.append({'name': 'Base', 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
+                wayPntListModel.append({'name': 'Base', 'x': spriteListModel.get(i).sprite_item.x, 'y':spriteListModel.get(i).sprite_item.y})
             }
             else
-                wayPntListModel.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y':posListModel.get(i).sprite_item.y})
+                wayPntListModel.append({'name': 'Location'+i, 'x': spriteListModel.get(i).sprite_item.x, 'y':spriteListModel.get(i).sprite_item.y})
 
-            for (let i = 0; i < posListModel.count; i++) {
-                if(posListModel.get(i).sprite_item.acive) {
-                    wayPntListView.append({'name': 'Location'+i, 'x': posListModel.get(i).sprite_item.x, 'y': posListModel.get(i).sprite_item.y})
+            for (let i = 0; i < spriteListModel.count; i++) {
+                if(spriteListModel.get(i).sprite_item.acive) {
+                    wayPntListView.append({'name': 'Location'+i, 'x': spriteListModel.get(i).sprite_item.x, 'y': spriteListModel.get(i).sprite_item.y})
                 }
             }
 
@@ -166,11 +166,11 @@ Item {
         }
 
         onPoseChanged: {
-            for (let i = 0; i < posListModel.count; i++) {
-                if(posListModel.get(i).sprite_item.active) {
+            for (let i = 0; i < spriteListModel.count; i++) {
+                if(spriteListModel.get(i).sprite_item.active) {
                     wayPntListView.currentIndex = i
-                    missionPlannerTopMenu.x_pos = posListModel.get(i).sprite_item.x
-                    missionPlannerTopMenu.y_pos = posListModel.get(i).sprite_item.y
+                    missionPlannerTopMenu.x_pos = spriteListModel.get(i).sprite_item.x
+                    missionPlannerTopMenu.y_pos = spriteListModel.get(i).sprite_item.y
                 }
             }
         }

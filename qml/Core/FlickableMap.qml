@@ -7,7 +7,7 @@ Item {
     property alias x_pos: tapArea.x_pos
     property alias y_pos: tapArea.y_pos
     property alias map_path: mapImg.source
-    property alias posListModel: posListModel
+    property alias spriteListModel: spriteListModel
     property bool enable_way_pnts: false
 
     signal resetItems
@@ -16,15 +16,11 @@ Item {
 
     onResetItems: {
         MyScript.resetSpriteObjects()
-        posListModel.clear()
+        spriteListModel.clear()
     }
 
     ListModel {
-        id: posListModel
-
-        property real active_ind: 0
-
-        signal posChanged
+        id: spriteListModel
 
         onCountChanged: {
             if(count > 0) {
@@ -48,15 +44,15 @@ Item {
             onTapped: {
                 x_pos = point.position.x
                 y_pos = point.position.y
-                var i = posListModel.count - 1
+                var i = spriteListModel.count - 1
                 if(enable_way_pnts && MyScript.sprite.length === 0) {
                     MyScript.createSpriteObjects(x_pos, y_pos, "../images/loc.png", 'Base')
-                    posListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
+                    spriteListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
                     enable_way_pnts = false
                 }
                 else if(enable_way_pnts && MyScript.sprite.length > 0) {
                     MyScript.createSpriteObjects(x_pos, y_pos, "../images/loc.png", 'Location'+i)
-                    posListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
+                    spriteListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
                 }
             }
         }
