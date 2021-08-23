@@ -69,7 +69,7 @@ public:
 
 Q_SIGNALS:
     void topicChanged(QString);
-    void messageReceived(const QPointF &msg);
+    void messageReceived(const QString robot_name, const QPointF &msg);
 
 public slots:
     void handleMessage(const QMqttMessage &qmsg);

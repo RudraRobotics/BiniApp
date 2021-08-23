@@ -13,7 +13,6 @@ Rectangle {
     opacity: 0.7
     color: "#4a4a4a"
 
-    property point mqtt_data: "1000, 1000"
     property var tempSubscription: 0
 
     signal resetActiveRobots
@@ -24,11 +23,11 @@ Rectangle {
       return null
     }
 
-    function addMessage(payload)
+    function addMessage(robot_name, data)
     {
-        // robot pose should be in pixel unit
-        mqtt_data.x = map_origin.x/0.05 + payload.x/0.05
-        mqtt_data.y = map_origin.y/0.05 + payload.y/0.05
+        // Update given robots position
+        var robot = find(activeRobotListModel, function(item) { return item.name === robot_name })
+        activeRobotListModel.set(robot.robot_id, {"x": data.x, "y": data.y})
     }
 
     ListModel { id: wayPntListModel }

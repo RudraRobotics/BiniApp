@@ -81,9 +81,10 @@ void QmlMqttSubscription::handleMessage(const QMqttMessage &qmsg)
     const QString topic = qmsg.topic().name();
     auto items = qmsg.payload().split('_');
     QPointF pose;
-    pose.setX(items.at(0).toFloat());
-    pose.setY(items.at(1).toFloat());
-    emit messageReceived(pose);
+    QString robot_name = items.at(0);
+    pose.setX(items.at(1).toFloat());
+    pose.setY(items.at(2).toFloat());
+    emit messageReceived(robot_name, pose);
 }
 
 int QmlMqttClient::publish(const QString &topic, const QString &data)
