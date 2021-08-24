@@ -7,7 +7,7 @@ Item {
     property alias map_path: mapImg.source
     property alias posListModel: posListModel
     property bool enable_way_pnts: false
-    property real active_mission_id: -1
+    property real active_mission_id: 0
 
     ListModel {
         id: posListModel
@@ -29,10 +29,10 @@ Item {
     signal updateActiveMission(real mission_id)
 
     signal poseChanged
-    signal createSprite(string name)
+    signal createRobot(real x, real y, string name)
+    signal createWayPnts(string name)
 
     onUpdateActiveMission: {
-        console.log(mission_id)
         if(mission_id !== active_mission_id) {
             MyScript.resetMissionWayPnts()
             var results = JS.dbReadWayPnts(mission_id)
@@ -48,8 +48,12 @@ Item {
         posListModel.clear()
     }
 
-    onCreateSprite: {
-        MyScript.createSpriteObjects(flickableMap.width/2, flickableMap.height/2, "../images/bini.png", name, true)
+    onCreateRobot: {
+        MyScript.createSpriteObjects(x, y, "../images/bini.png", name, true)
+    }
+
+    onCreateWayPnts: {
+        MyScript.createSpriteObjects("../images/bini.png", name, false)
     }
 
     Image {

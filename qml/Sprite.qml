@@ -4,7 +4,7 @@ import QtQml 2.12
 Item {
     id: item1
     width: 60
-    height: 50
+    height: 60
     property alias name: itemTxt.text
     property bool active: dragHandler.active
     property alias source: locIconImg.source
@@ -13,7 +13,7 @@ Item {
     signal poseChanged
     Image {
         id: locIconImg
-        height: parent.height*0.8
+        height: parent.height*0.7
         source: "../images/loc.png"
         anchors.bottomMargin: 0
         z: 1

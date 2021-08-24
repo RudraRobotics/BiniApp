@@ -32,20 +32,7 @@ Item {
         anchors.rightMargin: 5
         anchors.leftMargin: 5
         anchors.topMargin: 5
-        onServeBtnClicked: {
-            if(robotComboBoxCurrentIndex>-1) {
-                MyJS.serveBtnClicked()
-                flickableMap.updateActiveMission(areaListModel.get(missionComboBoxCurrentIndex).mission_id)
-                if(robotListModel.count==0)
-                    serveBtnEnabled = false
-                else {
-                    var item = MyJS.find(wayPntListModel, function(item) { return item.name === 'Base' })
-                    console.log('x,y', item.x, item.y)
-                    if(item)
-                        flickableMap.createSprite(item.x, item.y, missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name)
-                }
-            }
-        }
+        onServeBtnClicked: MyJS.serveBtnClicked()
     }
 
     ListView {

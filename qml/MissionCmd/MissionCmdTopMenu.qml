@@ -36,12 +36,28 @@ Rectangle {
 
     ListModel {
         id: areaListModel
-        Component.onCompleted: JS.dbReadMissions()
+        Component.onCompleted: {
+            var results = JS.dbReadMissions()
+            for (var i = 0; i < results.rows.length; i++) {
+                areaListModel.append({
+                                      mission_id: results.rows.item(i).mission_id,
+                                      mission_name: results.rows.item(i).name
+                                    })
+            }
+        }
     }
 
     ListModel {
         id: robotListModel
-        Component.onCompleted: JS.dbReadRobots()
+        Component.onCompleted: {
+            var results = JS.dbReadRobots()
+            for (var i = 0; i < results.rows.length; i++) {
+                robotListModel.append({
+                                      robot_id: results.rows.item(i).robot_id,
+                                      name: results.rows.item(i).name
+                                    })
+            }
+        }
     }
 
     RowLayout {

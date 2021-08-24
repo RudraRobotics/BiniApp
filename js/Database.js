@@ -64,31 +64,22 @@ function dbInsertRobot(name, address)
 function dbReadMissions()
 {
     var db = dbGetHandle()
+    var results
     db.transaction(function (tx) {
         const query = 'SELECT mission_id, name FROM mission';
-        var results = tx.executeSql(query)
-        for (var i = 0; i < results.rows.length; i++) {
-            areaListModel.append({
-                                  mission_id: results.rows.item(i).mission_id,
-                                  mission_name: results.rows.item(i).name
-                                })
-        }
+        results = tx.executeSql(query)
     })
+    return results
 }
 
 function dbReadRobots()
 {
     var db = dbGetHandle()
+    var results
     db.transaction(function (tx) {
-        var results = tx.executeSql('SELECT robot_id, name, connection FROM robot')
-        for (var i = 0; i < results.rows.length; i++) {
-            robotListModel.append({
-                                  robot_id: results.rows.item(i).robot_id,
-                                  name: results.rows.item(i).name,
-                                  connection: results.rows.item(i).connection
-                                })
-        }
+        results = tx.executeSql('SELECT robot_id, name, connection FROM robot')
     })
+    return results
 }
 
 function dbReadWayPnts(mission_id)
@@ -97,13 +88,6 @@ function dbReadWayPnts(mission_id)
     var results
     db.transaction(function (tx) {
         results = tx.executeSql('SELECT name, x, y FROM mission_points WHERE mission_id=?', [mission_id])
-        for (var i = 0; i < results.rows.length; i++) {
-            wayPntListModel.append({
-                                 name: results.rows.item(i).name,
-                                 x: results.rows.item(i).x,
-                                 y: results.rows.item(i).y
-                             })
-        }
     })
     return results
 }
