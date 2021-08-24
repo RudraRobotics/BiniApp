@@ -54,13 +54,18 @@ function serveBtnClicked()
         if(!find(activeWayPntListModel, function(item) { return item.mission_id === missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id }))
             activeWayPntListModel.append({'mission_id': missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id, 'mission_name': missionComboBoxCurrentText})
 
-        if(!find(allActiveMission, function(item) { return item.active_mission === missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id+'_'+missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id }))
+        if(!find(allActiveMission, function(item) { return item.active_mission === missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id+
+                                                    '_'+missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id }))
         {
-            allActiveMission.append({'active_mission': missionCmdTopMenu.missionListModel.get(robotComboBoxCurrentIndex).mission_id+'_'+missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
-                                    'mission_id': missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id, 'robot_id': missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
+            allActiveMission.append({'active_mission': missionCmdTopMenu.missionListModel.get(robotComboBoxCurrentIndex).mission_id+
+                                                       '_'+missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
+                                    'mission_id': missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id,
+                                        'robot_id': missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
                                     'name': missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name})
     //        flickableMap.createSprite(missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name)
-            activeRobotListModel.append({'robot_id':missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id, 'mission_id':missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id, 'name':missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name })
+            activeRobotListModel.append({'robot_id':missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
+                                            'mission_id':missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id,
+                                            'name':missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name })
         }
         var data = ''
         wayPntListModel.clear()

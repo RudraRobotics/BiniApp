@@ -52,8 +52,5 @@ Item {
 
             contentItem: MissionListHeaderPopup {}
         }
-        //        TapHandler {
-        //            onTapped: areaListView.currentIndex = index
-        //        }
     }
 }

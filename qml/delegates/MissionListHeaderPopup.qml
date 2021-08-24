@@ -26,6 +26,7 @@ Item {
             onClicked: {
                 var result = JS.dbRemoveMission(areaListModel.get(areaListView.currentIndex).mission_id)
                 areaListModel.remove(areaListView.currentIndex)
+                popup.close()
             }
         }
     }

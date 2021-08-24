@@ -5,6 +5,7 @@ Item {
     id: item1
     width: 60
     height: 60
+    z: 2
     property alias name: itemTxt.text
     property bool active: dragHandler.active
     property alias source: locIconImg.source

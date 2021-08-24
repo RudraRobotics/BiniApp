@@ -33,3 +33,5 @@ HEADERS += \
     include/listmodel.h \
     include/qmlmqttclient.h \
     include/tablemodel.h
+
+DISTFILES +=

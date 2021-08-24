@@ -26,6 +26,9 @@ Item {
             onClicked: {
                 var result1 = JS.dbRemoveWayPnt(wayPntListModel.get(wayPntListView.currentIndex).waypnt_id)
                 wayPntListModel.remove(wayPntListView.currentIndex)
+                flickableMap.spriteListModel.get(wayPntListView.currentIndex).sprite_item.destroy()
+                flickableMap.spriteListModel.remove(wayPntListView.currentIndex)
+                popup.close()
             }
         }
     }

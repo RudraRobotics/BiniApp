@@ -35,7 +35,6 @@ Item {
     TapHandler {
         id: tapHandler
         onTapped: {
-            areaListView.active_index = 0
             areaListView.currentIndex = index
         }
     }

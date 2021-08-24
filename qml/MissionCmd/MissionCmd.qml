@@ -49,8 +49,15 @@ Item {
         highlight: Rectangle { color: "#6aabff"; radius: 5 }
         focus: true
 
-        onCurrentIndexChanged: MyJS.updatetMapObjects(currentIndex)
-        onCountChanged: MyJS.updatetMapObjects(count-1)
+        onCurrentIndexChanged: {
+            if(currentIndex>-1)
+                MyJS.updatetMapObjects(currentIndex)
+        }
+
+        onCountChanged: {
+            if(currentIndex>-1)
+                MyJS.updatetMapObjects(count-1)
+        }
     }
 
     ListView {

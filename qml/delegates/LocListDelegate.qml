@@ -29,7 +29,6 @@ Item {
     }
     TapHandler {
         onTapped: {
-            wayPntListView.active_index = 1
             wayPntListView.currentIndex = index
         }
     }

@@ -7,9 +7,9 @@ function dbInit()
             tx.executeSql('DROP TABLE IF EXISTS  robot')
             tx.executeSql('DROP TABLE IF EXISTS mission')
             tx.executeSql('DROP TABLE IF EXISTS mission_points')
-//            tx.executeSql('CREATE TABLE IF NOT EXISTS robot (robot_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL,connection TEXT NOT NULL)')
-//            tx.executeSql('CREATE TABLE IF NOT EXISTS mission (mission_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL)')
-//            tx.executeSql('CREATE TABLE IF NOT EXISTS mission_points (mission_pnt_id INTEGER PRIMARY KEY AUTOINCREMENT, mission_id INTEGER NOT NULL, name TEXT NOT NULL, x INTEGER NOT NULL, y INTEGER NOT NULL, FOREIGN KEY (mission_id) REFERENCES mission (mission_id))')
+            tx.executeSql('CREATE TABLE IF NOT EXISTS robot (robot_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL,connection TEXT NOT NULL)')
+            tx.executeSql('CREATE TABLE IF NOT EXISTS mission (mission_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL)')
+            tx.executeSql('CREATE TABLE IF NOT EXISTS mission_points (mission_pnt_id INTEGER PRIMARY KEY AUTOINCREMENT, mission_id INTEGER NOT NULL, name TEXT NOT NULL, x INTEGER NOT NULL, y INTEGER NOT NULL, FOREIGN KEY (mission_id) REFERENCES mission (mission_id))')
         })
     } catch (err) {
         console.log("Error creating table in database: " + err)
@@ -86,7 +86,7 @@ function dbReadWayPnts(mission_id)
     var db = dbGetHandle()
     var results
     db.transaction(function (tx) {
-        results = tx.executeSql('SELECT name, x, y FROM mission_points WHERE mission_id=?', [mission_id])
+        results = tx.executeSql('SELECT mission_pnt_id, name, x, y FROM mission_points WHERE mission_id=?', [mission_id])
     })
     return results
 }
@@ -118,8 +118,13 @@ function dbRemoveWayPnt(waypnt_id)
 {
     var db = dbGetHandle()
     var results
-    db.transaction(function (tx) {
-        results = tx.executeSql('DELETE FROM mission_points WHERE mission_pnt_id = ?', [waypnt_id])
-    })
+    try {
+        db.transaction(function (tx) {
+            results = tx.executeSql('DELETE FROM mission_points WHERE mission_pnt_id = ?', [waypnt_id])
+        })
+        return results
+    } catch (err) {
+        console.log("Error creating table in database: " + err)
+    };
     return results
 }

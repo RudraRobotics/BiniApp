@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import "../../js/componentCreation.js" as MyScript
+import "../../js/FlickableMap.js" as JScript
 
 
 Item {
