@@ -113,3 +113,13 @@ function dbRemoveMission(mission_id)
     })
     return results
 }
+
+function dbRemoveWayPnt(waypnt_id)
+{
+    var db = dbGetHandle()
+    var results
+    db.transaction(function (tx) {
+        results = tx.executeSql('DELETE FROM mission_points WHERE mission_pnt_id = ?', [waypnt_id])
+    })
+    return results
+}

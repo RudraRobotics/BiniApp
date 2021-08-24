@@ -41,5 +41,8 @@
         <file>js/MissionCmd.js</file>
         <file>js/componentCreation.js</file>
         <file>js/Database.js</file>
+        <file>qml/delegates/MissionListHeaderPopup.qml</file>
+        <file>qml/delegates/LocListHeaderPopup.qml</file>
+        <file>icons/menu.png</file>
     </qresource>
 </RCC>

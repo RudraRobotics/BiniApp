@@ -48,7 +48,7 @@ Item {
         clip: true
         z: 1
         headerPositioning: ListView.OverlayHeader
-        header: MissionListHeader {}
+        header: MissionListHeader { button_visible: false }
         model: activeWayPntListModel
         delegate: ActiveMissionListDelegate {}
         highlight: Rectangle { color: "#6aabff"; radius: 5 }
@@ -70,7 +70,7 @@ Item {
         anchors.topMargin: 5
         clip: true
         headerPositioning: ListView.OverlayHeader
-        header: LocListHeader { name: 'Robots' }
+        header: LocListHeader { name: 'Robots'; button_visible: false }
         delegate: ActiveRobotListDelegate {}
         model: activeRobotListModel
 //        highlight: Rectangle { color: "#6aabff"; radius: 5 }

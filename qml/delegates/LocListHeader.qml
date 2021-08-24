@@ -5,6 +5,7 @@ import QtQml 2.12
 Item {
     width: 180; height: 40
     property alias name: textField.text
+    property alias button_visible: button.visible
     z: 2
     Rectangle {
         id: rectangle
@@ -20,13 +21,35 @@ Item {
 
         Text {
             id: textField
+            width: rectangle.width*0.8
             color: "#ffffff"
             text: "Way Points"
-            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            anchors.horizontalCenter: parent.horizontalCenter
             font.pointSize: 12
+        }
+        Button {
+            id: button
+            text: qsTr("Option")
+            anchors.left: textField.right
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            z: 0
+            anchors.leftMargin: 5
+            anchors.rightMargin: 5
+            anchors.bottomMargin: 0
+            anchors.topMargin: 0
+            onClicked: popup.open()
+        }
+        Popup {
+            id: popup
+            padding: 10
+
+            contentItem: LocListHeaderPopup {}
         }
     }
 }
