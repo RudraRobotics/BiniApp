@@ -8,7 +8,7 @@ import "../Core"
 import "../"
 import "../delegates"
 import "../../js/Database.js" as JS
-import "../../js/MissionPlanner.js" as MyJS
+import "../../js/MissionCmd.js" as MyJS
 
 import MqttClient 1.0
 
@@ -72,6 +72,7 @@ Item {
                     wayPntListModel.append({'waypnt_id': wayPntListArray.rows.item(i).mission_pnt_id, 'name': wayPntListArray.rows.item(i).name, 'x': wayPntListArray.rows.item(i).x, 'y': wayPntListArray.rows.item(i).y})
                 }
             }
+            MyJS.updatetMapObjects(currentIndex)
         }
     }
 

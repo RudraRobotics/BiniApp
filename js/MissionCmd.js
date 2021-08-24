@@ -1,3 +1,9 @@
+function resetAll() {
+    wayPntListModel.clear()
+    flickableMap.resetItems()
+    flickableMap.enable_way_pnts = false
+}
+
 function addMessage(robot_name, data)
 {
     // Update given robots position

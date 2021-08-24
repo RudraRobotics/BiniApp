@@ -125,13 +125,13 @@ Item {
                 Layout.leftMargin: 5
                 Layout.topMargin: 5
                 onClicked: {
-                    if(name.text.length && connection.left) {
+                    if(name.text.length && connectionTxt.length) {
                         var robot_id = JS.dbInsertRobot(name.text, connection.text)
                         robotListModel.append({'robot_id': robot_id, 'name': name.text, 'connection': connection.text})
                     }
                     else {
                         name.focus = true
-                        connection.focus = true
+                        connectionTxt.focus = true
                     }
                 }
             }
@@ -164,7 +164,8 @@ Item {
             for (var i = 0; i < robotListArray.rows.length; i++) {
                 robotListModel.append({
                                       robot_id: robotListArray.rows.item(i).robot_id,
-                                      name: robotListArray.rows.item(i).name
+                                      name: robotListArray.rows.item(i).name,
+                                      address: robotListArray.rows.item(i).connection
                                     })
             }
         }
