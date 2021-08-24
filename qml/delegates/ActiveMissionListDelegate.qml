@@ -26,7 +26,7 @@ Item {
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 12
             TapHandler {
-                onTapped: activeAreaListView.currentIndex = index
+                onTapped: activeMissionListView.currentIndex = index
             }
         }
     }

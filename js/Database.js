@@ -26,7 +26,7 @@ function dbGetHandle()
     return db
 }
 
-function dbInsertMission(name)
+function dbInsertMission(name, wayPntListArray)
 {
     var db = dbGetHandle()
     var mission_id = 0;
@@ -35,14 +35,13 @@ function dbInsertMission(name)
         var result = tx.executeSql('SELECT last_insert_rowid()')
         mission_id = result.insertId
     })
-
     db.transaction(function (tx) {
-        for (var i = 0; i < wayPntListModel.count; i++) {
+        for (var i = 0; i < wayPntListArray.length; i++) {
             tx.executeSql('INSERT INTO mission_points (mission_id, name, x, y) VALUES(?, ?, ?, ?)',
                           [mission_id,
-                           wayPntListModel.get(i).name,
-                           wayPntListModel.get(i).x,
-                           wayPntListModel.get(i).y
+                           wayPntListArray[i].name,
+                           wayPntListArray[i].x,
+                           wayPntListArray[i].y
                           ])
         }
     })

@@ -12,7 +12,7 @@ Rectangle {
     opacity: 0.7
     color: "#4a4a4a"
 
-    property alias areaListModel: areaListModel
+    property alias missionListModel: missionListModel
     property alias robotListModel: robotListModel
     property alias missionComboBoxCurrentIndex: missionComboBox.currentIndex
     property alias missionComboBoxCurrentText: missionComboBox.currentText
@@ -35,11 +35,11 @@ Rectangle {
     }
 
     ListModel {
-        id: areaListModel
+        id: missionListModel
         Component.onCompleted: {
             var results = JS.dbReadMissions()
             for (var i = 0; i < results.rows.length; i++) {
-                areaListModel.append({
+                missionListModel.append({
                                       mission_id: results.rows.item(i).mission_id,
                                       mission_name: results.rows.item(i).name
                                     })
@@ -88,7 +88,7 @@ Rectangle {
             Layout.leftMargin: 5
             Layout.topMargin: 5
             textRole: "mission_name"
-            model: areaListModel
+            model: missionListModel
         }
 
         Text {

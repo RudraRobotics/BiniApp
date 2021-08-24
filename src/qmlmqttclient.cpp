@@ -89,7 +89,7 @@ void QmlMqttSubscription::handleMessage(const QMqttMessage &qmsg)
 
 int QmlMqttClient::publish(const QString &topic, const QString &data)
 {
-    qDebug() << "Msg published:" << topic <<' '<< data;
+//    qDebug() << "Msg published:" << topic <<' '<< data;
     auto result = QMqttClient::publish(QMqttTopicName(topic), data.toUtf8(), 0, false);
     return result;
 }

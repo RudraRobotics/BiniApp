@@ -35,9 +35,9 @@ Item {
     onUpdateActiveMission: {
         if(mission_id !== active_mission_id) {
             MyScript.resetMissionWayPnts()
-            var results = JS.dbReadWayPnts(mission_id)
-            for (var i = 0; i < results.rows.length; i++) {
-                MyScript.createMissionWayPnt(results.rows.item(i).x, results.rows.item(i).y, "../images/loc.png", results.rows.item(i).name, false)
+            var wayPntsArray = JS.dbReadWayPnts(mission_id)
+            for (var i = 0; i < wayPntsArray.rows.length; i++) {
+                MyScript.createMissionWayPnt(wayPntsArray.rows.item(i).x, wayPntsArray.rows.item(i).y, "../images/loc.png", wayPntsArray.rows.item(i).name, false)
             }
         }
         active_mission_id = mission_id

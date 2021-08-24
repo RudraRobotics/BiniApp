@@ -51,8 +51,12 @@ Item {
         focus: true
         onCurrentIndexChanged: {
             MyJS.resetAll()
-            if(currentIndex>-1)
-                JS.dbReadWayPnts(areaListModel.get(currentIndex).mission_id)
+            if(currentIndex>-1) {
+                var areaListArray = JS.dbReadWayPnts(areaListModel.get(currentIndex).mission_id)
+                for (var i = 0; i < areaListArray.rows.length; i++) {
+                    wayPntListModel.append({name: areaListArray.rows.item(i).name, x: areaListArray.rows.item(i).x, y: areaListArray.rows.item(i).y})
+                }
+            }
         }
     }
 
@@ -131,7 +135,17 @@ Item {
                 saveBtnEnable = false
             }
             if(areaNameTxt.length>0 && wayPntListModel.count>0) {
-                let mission_id = JS.dbInsertMission(areaNameTxt)
+                var wayPntListArray = []
+                for(var i=0;i<wayPntListModel.count;i++) {
+                    var data = {
+                         name: wayPntListModel.get(i).name,
+                         x: wayPntListModel.get(i).x,
+                         y: wayPntListModel.get(i).y
+                     }
+                    wayPntListArray.push(data)
+                }
+
+                let mission_id = JS.dbInsertMission(areaNameTxt, wayPntListArray)
                 areaListModel.append({'mission_id': parseInt(mission_id), 'mission_name': areaNameTxt})
                 areaListView.currentIndex = -1
                 MyJS.resetAll()

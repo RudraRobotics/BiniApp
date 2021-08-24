@@ -25,10 +25,6 @@ ApplicationWindow {
 
     readonly property bool inPortrait: window.width < window.height
 
-//    Component.onCompleted: {
-//        JS.dbInit()
-//    }
-
     MqttClient {
         property int port_id: 1883
         id: client

@@ -6,12 +6,13 @@ import "../delegates"
 import MqttClient 1.0
 import "../../js/Database.js" as JS
 import "../../js/MissionCmd.js" as MyJS
+import QtQuick.LocalStorage 2.0
 
 Item {
     property string default_map: "../../maps/map.pgm"
     property var tempSubscription: 0
 
-    ListModel { id: activeAreaListModel }
+    ListModel { id: activeWayPntListModel }
     ListModel { id: allActiveMission }
     ListModel { id: activeRobotListModel }
     ListModel { id: wayPntListModel }
@@ -20,6 +21,7 @@ Item {
         tempSubscription = client.subscribe("bini_data")
         tempSubscription.messageReceived.connect(MyJS.addMessage)
         console.log('bini_data mqtt topic subscribed')
+//        JS.dbInit()
     }
 
     MissionCmdTopMenu {
@@ -32,11 +34,11 @@ Item {
         anchors.rightMargin: 5
         anchors.leftMargin: 5
         anchors.topMargin: 5
-        onServeBtnClicked: MyJS.serveBtnClicked()
+        onServeBtnClicked: MyJS.serveBtnClicked()        
     }
 
     ListView {
-        id: activeAreaListView
+        id: activeMissionListView
         width: parent.width*0.2
         height: 200
         anchors.left: parent.left
@@ -48,14 +50,28 @@ Item {
         z: 1
         headerPositioning: ListView.OverlayHeader
         header: MissionListHeader {}
-        model: activeAreaListModel
+        model: activeWayPntListModel
         delegate: ActiveMissionListDelegate {}
         highlight: Rectangle { color: "#6aabff"; radius: 5 }
         focus: true
 
         onCurrentIndexChanged: {
+            console.log('index changed')
             MyJS.resetActiveRobots()
-            flickableMap.updateActiveMission(missionCmdTopMenu.areaListModel.get(currentIndex).mission_id)
+            flickableMap.updateActiveMission(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id)
+            var item = MyJS.find(wayPntListModel, function(item) { return item.name === 'Base' })
+            console.log('item:', wayPntListModel.count)
+            if(item) {
+                for(var i=0;i<activeRobotListModel.count;i++) {
+                    flickableMap.createRobot(item.x, item.y, activeRobotListModel.get(i).name)
+                }
+            }
+        }
+
+        onCountChanged: {
+            console.log('count changed')
+            MyJS.resetActiveRobots()
+            flickableMap.updateActiveMission(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id)
         }
     }
 
