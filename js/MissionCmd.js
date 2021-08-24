@@ -69,7 +69,7 @@ function serveBtnClicked()
         client.publish(robotComboBoxCurrentText, data)
         missionCmdTopMenu.robotListModel.remove(missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex))
         if(missionCmdTopMenu.robotListModel.count===0)
-            serveBtnEnabled = false
+            missionCmdTopMenu.serveBtnEnabled = false
         else {
             var item = MyJS.find(wayPntListModel, function(item) { return item.name === 'Base' })
             console.log('item:', wayPntListModel.count)
