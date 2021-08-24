@@ -4,6 +4,10 @@ import QtQml 2.12
 
 Item {
     width: 180; height: 40
+    property alias textEnabled: textInput.enabled
+    signal tapped
+
+    Component.onCompleted: tapHandler.tapped.connect(tapped)
 
     Rectangle {
         id: rectangle
@@ -17,18 +21,21 @@ Item {
         anchors.bottomMargin: 1
         anchors.topMargin: 1
 
-        TextField {
-            id: textField
-            color: "#ffffff"
+        TextInput {
+            id: textInput
             text: mission_name
-            anchors.verticalCenter: parent.verticalCenter
+            enabled: false
+            anchors.fill: parent
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pointSize: 12
-            onPressed: {
-                areaListView.currentIndex = index
-            }
+
+        }
+
+    }
+    TapHandler {
+        id: tapHandler
+        onTapped: {
+            areaListView.currentIndex = index
         }
     }
 }

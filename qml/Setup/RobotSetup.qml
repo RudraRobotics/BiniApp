@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls.Styles 1.4
 import "../../js/Database.js" as JS
 import "../delegates"
+import QtQuick.LocalStorage 2.0
 
 Item {
     id: item1
@@ -99,7 +100,7 @@ Item {
                 }
 
                 TextField {
-                    id: connection
+                    id: connectionTxt
                     placeholderText: "Enter robot ip address"
                     clip: true
                     Layout.rightMargin: 10
@@ -125,13 +126,32 @@ Item {
                 Layout.topMargin: 5
                 onClicked: {
                     if(name.text.length && connection.left) {
-                        JS.dbInsertRobot(name.text, connection.text)
-                        robotListModel.append({'name': name.text, 'connection': connection.text})
+                        var robot_id = JS.dbInsertRobot(name.text, connection.text)
+                        robotListModel.append({'robot_id': robot_id, 'name': name.text, 'connection': connection.text})
                     }
                     else {
                         name.focus = true
                         connection.focus = true
                     }
+                }
+            }
+
+            Button {
+                id: deleteBtn
+                width: 50
+                height: 40
+                text: qsTr("Delete")
+                Layout.minimumWidth: 100
+                Layout.bottomMargin: 5
+                Layout.fillHeight: true
+                Layout.leftMargin: 5
+                Layout.fillWidth: false
+                Layout.rightMargin: 600
+                Layout.preferredWidth: 100
+                Layout.topMargin: 5
+                onClicked: {
+                    var result = JS.dbRemoveRobot(robotListModel.get(listView.currentIndex).robot_id)
+                    robotListModel.remove(listView.currentIndex)
                 }
             }
         }
@@ -140,8 +160,13 @@ Item {
     ListModel {
         id: robotListModel
         Component.onCompleted: {
-            clear()
-            JS.dbReadRobots()
+            var robotListArray = JS.dbReadRobots()
+            for (var i = 0; i < robotListArray.rows.length; i++) {
+                robotListModel.append({
+                                      robot_id: robotListArray.rows.item(i).robot_id,
+                                      name: robotListArray.rows.item(i).name
+                                    })
+            }
         }
     }
 
@@ -156,12 +181,13 @@ Item {
         anchors.topMargin: 0
         delegate: RobotListDelegate {}
         model: robotListModel
+        highlight: Rectangle { color: "#6aabff"; radius: 5 }
     }
 
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}
+    D{i:0;autoSize:true;height:480;width:640}D{i:12}
 }
 ##^##*/

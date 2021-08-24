@@ -48,7 +48,7 @@ Component {
                 Layout.fillWidth: true
 
                 Text {
-                    text: name
+                    text: connection
                     anchors.fill: parent
                     font.pixelSize: 14
                     horizontalAlignment: Text.AlignHCenter
@@ -57,6 +57,9 @@ Component {
                     Layout.fillWidth: true
                 }
             }
+        }
+        TapHandler {
+            onTapped: listView.currentIndex = index
         }
     }
 }

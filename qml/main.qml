@@ -9,8 +9,6 @@ import QtQml 2.12
 import "Setup"
 import "delegates"
 import "../js/Database.js" as JS
-
-import QtQuick.LocalStorage 2.0
 import MqttClient 1.0
 
 ApplicationWindow {
@@ -34,8 +32,6 @@ ApplicationWindow {
             connectToHost()
         }
     }
-
-    Component.onCompleted: JS.dbInit()
 
     Drawer {
         id: drawer

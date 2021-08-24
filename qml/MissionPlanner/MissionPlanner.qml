@@ -29,7 +29,12 @@ Item {
 
     ListModel {
         id: areaListModel
-        Component.onCompleted: JS.dbReadMissions()
+        Component.onCompleted: {
+            var areaListArray = JS.dbReadMissions()
+            for (var i = 0; i < areaListArray.rows.length; i++) {
+                areaListModel.append({'mission_id': areaListArray.rows.item(i).mission_id, 'mission_name': areaListArray.rows.item(i).name})
+            }
+        }
     }
 
     ListView {
@@ -46,15 +51,20 @@ Item {
         headerPositioning: ListView.OverlayHeader
         header: MissionListHeader {}
         model: areaListModel
-        delegate: MissionListDelegate {}
-        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+        delegate: MissionListDelegate {
+            id: missionListDelegate
+            onTapped: console.log('tapped', areaListView.currentIndex)
+        }
+        highlight: Rectangle { color: "#397ed7"; radius: 5 }
         focus: true
         onCurrentIndexChanged: {
+//            missionPlannerTopMenu.saveBtnTxt = "Delete"
+            missionPlannerTopMenu.saveBtnEnable = true
             MyJS.resetAll()
             if(currentIndex>-1) {
-                var areaListArray = JS.dbReadWayPnts(areaListModel.get(currentIndex).mission_id)
-                for (var i = 0; i < areaListArray.rows.length; i++) {
-                    wayPntListModel.append({name: areaListArray.rows.item(i).name, x: areaListArray.rows.item(i).x, y: areaListArray.rows.item(i).y})
+                var wayPntListArray = JS.dbReadWayPnts(areaListModel.get(currentIndex).mission_id)
+                for (var i = 0; i < wayPntListArray.rows.length; i++) {
+                    wayPntListModel.append({'name': wayPntListArray.rows.item(i).name, 'x': wayPntListArray.rows.item(i).x, 'y': wayPntListArray.rows.item(i).y})
                 }
             }
         }
@@ -79,8 +89,12 @@ Item {
         header: LocListHeader {}
         delegate: LocListDelegate {}
         model: wayPntListModel
-        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+        highlight: Rectangle { color: "#397ed7"; radius: 5 }
         focus: true
+        onCurrentIndexChanged: {
+//            missionPlannerTopMenu.saveBtnTxt = "Delete"
+            missionPlannerTopMenu.saveBtnEnable = true
+        }
     }
 
     MissionPlannerTopMenu {
@@ -124,33 +138,40 @@ Item {
             MyJS.resetAll()
         }
         onSaveBtnClicked: {
-            if(!areaNameTxt.length) {
-                areaNameFocus = true
-            }
-            else {
-                baseBtnEnable = true
-                wayPointBtnEnable = false
-                baseBtnHighlighted = false
-                wayPointBtnHighlighted = false
-                saveBtnEnable = false
-            }
-            if(areaNameTxt.length>0 && wayPntListModel.count>0) {
-                var wayPntListArray = []
-                for(var i=0;i<wayPntListModel.count;i++) {
-                    var data = {
-                         name: wayPntListModel.get(i).name,
-                         x: wayPntListModel.get(i).x,
-                         y: wayPntListModel.get(i).y
-                     }
-                    wayPntListArray.push(data)
+            if(saveBtnTxt=='Save') {
+                if(!areaNameTxt.length) {
+                    areaNameFocus = true
                 }
+                else {
+                    baseBtnEnable = true
+                    wayPointBtnEnable = false
+                    baseBtnHighlighted = false
+                    wayPointBtnHighlighted = false
+                    saveBtnEnable = false
+                }
+                if(areaNameTxt.length>0 && wayPntListModel.count>0) {
+                    var wayPntListArray = []
+                    for(var i=0;i<wayPntListModel.count;i++) {
+                        var data = {
+                             name: wayPntListModel.get(i).name,
+                             x: wayPntListModel.get(i).x,
+                             y: wayPntListModel.get(i).y
+                         }
+                        wayPntListArray.push(data)
+                    }
 
-                let mission_id = JS.dbInsertMission(areaNameTxt, wayPntListArray)
-                areaListModel.append({'mission_id': parseInt(mission_id), 'mission_name': areaNameTxt})
-                areaListView.currentIndex = -1
-                MyJS.resetAll()
+                    let mission_id = JS.dbInsertMission(areaNameTxt, wayPntListArray)
+                    areaListModel.append({'mission_id': parseInt(mission_id), 'mission_name': areaNameTxt})
+                    areaListView.currentIndex = -1
+                    MyJS.resetAll()
+                }
+                areaNameTxt = ''
             }
-            areaNameTxt = ''
+            if(saveBtnTxt=='Delete') {
+                var result = JS.dbRemoveMission(areaListModel.get(areaListView.currentIndex).mission_id)
+                areaListModel.remove(areaListView.currentIndex)
+                wayPntListModel.clear()
+            }
         }
     }
 
