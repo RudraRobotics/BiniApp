@@ -33,14 +33,17 @@ Item {
         anchors.leftMargin: 5
         anchors.topMargin: 5
         onServeBtnClicked: {
-            MyJS.clicked()
-            flickableMap.updateActiveMission(areaListModel.get(missionComboBoxCurrentIndex).mission_id)
-            if(robotListModel.count==0)
-                serveBtnEnabled = false
-            else {
-                var item = MyJS.find(wayPntListModel, function(item) { return item.name === 'Base' })
-                if(item)
-                    flickableMap.createSprite(item.x, item.y, missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name)
+            if(robotComboBoxCurrentIndex>-1) {
+                MyJS.clicked()
+                flickableMap.updateActiveMission(areaListModel.get(missionComboBoxCurrentIndex).mission_id)
+                if(robotListModel.count==0)
+                    serveBtnEnabled = false
+                else {
+                    var item = MyJS.find(wayPntListModel, function(item) { return item.name === 'Base' })
+                    console.log('x,y', item.x, item.y)
+                    if(item)
+                        flickableMap.createSprite(item.x, item.y, missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name)
+                }
             }
         }
     }
