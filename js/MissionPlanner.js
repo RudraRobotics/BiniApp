@@ -7,11 +7,16 @@ function resetAll() {
 function areaListViewCurrentIndexChanged() {
     var currentIndex = areaListView.currentIndex
     missionPlannerTopMenu.saveBtnEnable = true
-    MyJS.resetAll()
+    resetAll()
     if(currentIndex>-1) {
         var wayPntListArray = JS.dbReadWayPnts(areaListModel.get(currentIndex).mission_id)
         for (var i = 0; i < wayPntListArray.rows.length; i++) {
-            wayPntListModel.append({'waypnt_id': wayPntListArray.rows.item(i).mission_pnt_id, 'name': wayPntListArray.rows.item(i).name, 'x': wayPntListArray.rows.item(i).x, 'y': wayPntListArray.rows.item(i).y})
+            wayPntListModel.append({
+                                       'waypnt_id': wayPntListArray.rows.item(i).mission_pnt_id,
+                                       'name':      wayPntListArray.rows.item(i).name,
+                                       'x':         wayPntListArray.rows.item(i).x,
+                                       'y':         wayPntListArray.rows.item(i).y
+                                   })
         }
     }
     // update dynamic objecs in map
@@ -24,7 +29,10 @@ function areaListViewCurrentIndexChanged() {
 function areaListModelCompleted() {
     var areaListArray = JS.dbReadMissions()
     for (var i = 0; i < areaListArray.rows.length; i++) {
-        areaListModel.append({'mission_id': areaListArray.rows.item(i).mission_id, 'mission_name': areaListArray.rows.item(i).name})
+        areaListModel.append({
+                                 'mission_id':   areaListArray.rows.item(i).mission_id,
+                                 'mission_name': areaListArray.rows.item(i).name
+                             })
     }
 }
 
@@ -48,16 +56,19 @@ function missionPlannerTopMenuSaveBtnClicked()  {
         }
 
         let mission_id = JS.dbInsertMission(missionPlannerTopMenu.areaNameTxt, wayPntListArray)
-        areaListModel.append({'mission_id': parseInt(mission_id), 'mission_name': missionPlannerTopMenu.areaNameTxt})
+        areaListModel.append({
+                                 'mission_id':   parseInt(mission_id),
+                                 'mission_name': missionPlannerTopMenu.areaNameTxt
+                             })
         areaListView.currentIndex = -1
-        MyJS.resetAll()
+        resetAll()
     }
     missionPlannerTopMenu.areaNameTxt = ''
 }
 
 function  missionPlannerTopMenuWayPntBtnClicked() {
-    flickableMap.enable_way_pnts = missionPlannerTopMenu.wayPointBtnEnable
     missionPlannerTopMenu.wayPointBtnHighlighted =! missionPlannerTopMenu.wayPointBtnHighlighted
+    flickableMap.enable_way_pnts = missionPlannerTopMenu.wayPointBtnHighlighted
 }
 
 function missionPlannerTopMenuBaseBtnClicked() {
@@ -74,7 +85,7 @@ function missionPlannerTopMenuResetBtnClicked() {
     missionPlannerTopMenu.saveBtnEnable = false
     missionPlannerTopMenu.areaNameTxt = ''
     areaListView.currentIndex = -1
-    MyJS.resetAll()
+    resetAll()
 }
 
 function flickableMapWayPntCreated() {
@@ -82,14 +93,25 @@ function flickableMapWayPntCreated() {
     if(flickableMap.spriteListModel.count === 1) {
         missionPlannerTopMenu.baseBtnEnable = false
         missionPlannerTopMenu.wayPointBtnEnable = true
-        wayPntListModel.append({'name': 'Base', 'x': flickableMap.spriteListModel.get(i).sprite_item.x, 'y':flickableMap.spriteListModel.get(i).sprite_item.y})
+        wayPntListModel.append({
+                                   'name':  'Base',
+                                   'x':     flickableMap.spriteListModel.get(i).sprite_item.x,
+                                   'y':     flickableMap.spriteListModel.get(i).sprite_item.y
+                               })
     }
     else
-        wayPntListModel.append({'name': 'Location'+i, 'x': flickableMap.spriteListModel.get(i).sprite_item.x, 'y':flickableMap.spriteListModel.get(i).sprite_item.y})
-
+        wayPntListModel.append({
+                                   'name':  'Location'+i,
+                                   'x':     flickableMap.spriteListModel.get(i).sprite_item.x,
+                                   'y':     flickableMap.spriteListModel.get(i).sprite_item.y
+                               })
     for (let i = 0; i < flickableMap.spriteListModel.count; i++) {
         if(flickableMap.spriteListModel.get(i).sprite_item.acive) {
-            wayPntListView.append({'name': 'Location'+i, 'x': flickableMap.spriteListModel.get(i).sprite_item.x, 'y': flickableMap.spriteListModel.get(i).sprite_item.y})
+            wayPntListView.append({
+                                      'name':   'Location'+i,
+                                      'x':      flickableMap.spriteListModel.get(i).sprite_item.x,
+                                      'y':      flickableMap.spriteListModel.get(i).sprite_item.y
+                                  })
         }
     }
 
