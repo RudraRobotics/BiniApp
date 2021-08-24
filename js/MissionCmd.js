@@ -10,13 +10,26 @@ function find(model, criteria) {
   return null
 }
 
-function resetActiveRobots() {
+function updatetMapObjects(currentIndex) {
     activeRobotListModel.clear()
     flickableMap.resetItems()
     for(let i=0;i<allActiveMission.count;i++) {
-        if(missionCmdTopMenu.missionListModel.get(missionCmdTopMenu.missionComboBoxCurrentIndex).mission_id === allActiveMission.get(i).mission_id) {
+        if(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id === allActiveMission.get(i).mission_id) {
             activeRobotListModel.append({'robot_id': allActiveMission.get(i).robot_id, 'name': allActiveMission.get(i).name})
             flickableMap.createWayPnts(allActiveMission.get(i).name)
+        }
+    }
+
+    wayPntListModel.clear()
+    flickableMap.updateActiveMission(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id)
+    var wayPntsArray = JS.dbReadWayPnts(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id)
+    for (var i = 0; i < wayPntsArray.rows.length; i++) {
+        wayPntListModel.append({'name': wayPntsArray.rows.item(i).name, 'x': wayPntsArray.rows.item(i).x, 'y': wayPntsArray.rows.item(i).y})
+    }
+    var item = find(wayPntListModel, function(item) { return item.name === 'Base' })
+    if(item) {
+        for(var i=0;i<activeRobotListModel.count;i++) {
+            flickableMap.createRobot(item.x, item.y, activeRobotListModel.get(i).name)
         }
     }
 }

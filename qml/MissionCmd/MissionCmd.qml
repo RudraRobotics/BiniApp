@@ -21,7 +21,6 @@ Item {
         tempSubscription = client.subscribe("bini_data")
         tempSubscription.messageReceived.connect(MyJS.addMessage)
         console.log('bini_data mqtt topic subscribed')
-//        JS.dbInit()
     }
 
     MissionCmdTopMenu {
@@ -34,7 +33,7 @@ Item {
         anchors.rightMargin: 5
         anchors.leftMargin: 5
         anchors.topMargin: 5
-        onServeBtnClicked: MyJS.serveBtnClicked()        
+        onServeBtnClicked: MyJS.serveBtnClicked()
     }
 
     ListView {
@@ -55,24 +54,8 @@ Item {
         highlight: Rectangle { color: "#6aabff"; radius: 5 }
         focus: true
 
-        onCurrentIndexChanged: {
-            console.log('index changed')
-            MyJS.resetActiveRobots()
-            flickableMap.updateActiveMission(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id)
-            var item = MyJS.find(wayPntListModel, function(item) { return item.name === 'Base' })
-            console.log('item:', wayPntListModel.count)
-            if(item) {
-                for(var i=0;i<activeRobotListModel.count;i++) {
-                    flickableMap.createRobot(item.x, item.y, activeRobotListModel.get(i).name)
-                }
-            }
-        }
-
-        onCountChanged: {
-            console.log('count changed')
-            MyJS.resetActiveRobots()
-            flickableMap.updateActiveMission(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id)
-        }
+        onCurrentIndexChanged: MyJS.updatetMapObjects(currentIndex)
+        onCountChanged: MyJS.updatetMapObjects(count-1)
     }
 
     ListView {

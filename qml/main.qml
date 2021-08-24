@@ -35,6 +35,8 @@ ApplicationWindow {
         }
     }
 
+    Component.onCompleted: JS.dbInit()
+
     Drawer {
         id: drawer
 
