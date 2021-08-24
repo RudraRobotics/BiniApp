@@ -9,11 +9,11 @@ Item {
     property alias map_path: mapImg.source
     property alias spriteListModel: spriteListModel
     property bool enable_way_pnts: false
+
     ListModel {
         id: spriteListModel
         onCountChanged: {
             if(count > 0) {
-                objCreated()
                 get(count - 1).sprite_item.onPoseChanged.connect(poseChanged)
             }
         }
@@ -22,6 +22,12 @@ Item {
     signal resetItems
     signal objCreated
     signal poseChanged
+    signal createWayPnts(real x, real y, string name)
+
+    onCreateWayPnts: {
+        MyScript.createSpriteObjects(x, y, "../images/loc.png", name, true)
+        spriteListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
+    }
 
     onResetItems: {
         MyScript.resetSpriteObjects()
@@ -46,11 +52,13 @@ Item {
                 if(enable_way_pnts && MyScript.sprite.length === 0) {
                     MyScript.createSpriteObjects(x_pos, y_pos, "../images/loc.png", 'Base')
                     spriteListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
+                    objCreated()
                     enable_way_pnts = false
                 }
                 else if(enable_way_pnts && MyScript.sprite.length > 0) {
                     MyScript.createSpriteObjects(x_pos, y_pos, "../images/loc.png", 'Location'+i)
                     spriteListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
+                    objCreated()
                 }
             }
         }

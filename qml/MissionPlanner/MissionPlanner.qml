@@ -72,7 +72,11 @@ Item {
                     wayPntListModel.append({'waypnt_id': wayPntListArray.rows.item(i).mission_pnt_id, 'name': wayPntListArray.rows.item(i).name, 'x': wayPntListArray.rows.item(i).x, 'y': wayPntListArray.rows.item(i).y})
                 }
             }
-            MyJS.updatetMapObjects(currentIndex)
+            // update dynamic objecs in map
+            flickableMap.resetItems()
+            for(var i=0;i<wayPntListModel.count;i++) {
+                flickableMap.createWayPnts(wayPntListModel.get(i).x, wayPntListModel.get(i).y, wayPntListModel.get(i).name)
+            }
         }
     }
 
@@ -196,6 +200,7 @@ Item {
         }
 
         onPoseChanged: {
+            console.log('pose changed', spriteListModel.count )
             for (let i = 0; i < spriteListModel.count; i++) {
                 if(spriteListModel.get(i).sprite_item.active) {
                     wayPntListView.currentIndex = i
