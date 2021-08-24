@@ -21,10 +21,9 @@ Item {
             id: textField
             color: "#ffffff"
             text: mission_name
-            anchors.verticalCenter: parent.verticalCenter
+            anchors.fill: parent
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            anchors.horizontalCenter: parent.horizontalCenter
             font.pointSize: 12
             TapHandler {
                 onTapped: activeAreaListView.currentIndex = index
