@@ -12,11 +12,6 @@ Item {
     property string default_map: "../../maps/map.pgm"
     property var tempSubscription: 0
 
-    ListModel { id: activeWayPntListModel }
-    ListModel { id: allActiveMission }
-    ListModel { id: activeRobotListModel }
-    ListModel { id: wayPntListModel }
-
     Component.onCompleted: {
         tempSubscription = client.subscribe("bini_data")
         tempSubscription.messageReceived.connect(MyJS.addMessage)

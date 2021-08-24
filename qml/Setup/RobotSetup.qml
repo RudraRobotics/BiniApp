@@ -126,8 +126,8 @@ Item {
                 Layout.topMargin: 5
                 onClicked: {
                     if(name.text.length && connectionTxt.length) {
-                        var robot_id = JS.dbInsertRobot(name.text, connection.text)
-                        robotListModel.append({'robot_id': robot_id, 'name': name.text, 'connection': connection.text})
+                        var robot_id = JS.dbInsertRobot(name.text, connectionTxt.text)
+                        robotListModel.append({'robot_id': robot_id, 'name': name.text, 'connection': connectionTxt.text})
                     }
                     else {
                         name.focus = true
@@ -165,7 +165,7 @@ Item {
                 robotListModel.append({
                                       robot_id: robotListArray.rows.item(i).robot_id,
                                       name: robotListArray.rows.item(i).name,
-                                      address: robotListArray.rows.item(i).connection
+                                      connection: robotListArray.rows.item(i).connection
                                     })
             }
         }

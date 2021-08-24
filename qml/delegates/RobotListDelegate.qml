@@ -48,7 +48,7 @@ Component {
                 Layout.fillWidth: true
 
                 Text {
-                    text: address
+                    text: connection
                     anchors.fill: parent
                     font.pixelSize: 14
                     horizontalAlignment: Text.AlignHCenter
