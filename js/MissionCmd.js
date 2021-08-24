@@ -21,18 +21,7 @@ function resetActiveRobots() {
     }
 }
 
-function resetActiveRobots1() {
-    activeRobotListModel.clear()
-    flickableMap.resetItems()
-    for(let i=0;i<allActiveMission.count;i++) {
-        if(missionCmdTopMenu.areaListModel.get(activeAreaListView.currentIndex).mission_id === allActiveMission.get(i).mission_id) {
-            activeRobotListModel.append({'robot_id': allActiveMission.get(i).robot_id, 'name': allActiveMission.get(i).name})
-            flickableMap.createSprite(allActiveMission.get(i).name)
-        }
-    }
-}
-
-function clicked()
+function serveBtnClicked()
 {
     var missionComboBoxCurrentIndex = missionCmdTopMenu.missionComboBoxCurrentIndex
     var missionComboBoxCurrentText = missionCmdTopMenu.missionComboBoxCurrentText
@@ -47,7 +36,7 @@ function clicked()
         allActiveMission.append({'active_mission': missionCmdTopMenu.areaListModel.get(robotComboBoxCurrentIndex).mission_id+'_'+missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
                                 'mission_id': missionCmdTopMenu.areaListModel.get(missionComboBoxCurrentIndex).mission_id, 'robot_id': missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
                                 'name': missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name})
-        flickableMap.createSprite(missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name)
+//        flickableMap.createSprite(missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name)
         activeRobotListModel.append({'robot_id':missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id, 'mission_id':missionCmdTopMenu.areaListModel.get(missionComboBoxCurrentIndex).mission_id, 'name':missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name })
     }
     var data = ''
