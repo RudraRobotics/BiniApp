@@ -4,6 +4,15 @@ import QtQuick.Controls 2.12
 import "../../js/Database.js" as JS
 
 Item {
+    function removeWaypnt() {
+        var result1 = JS.dbRemoveWayPnt(wayPntListModel.get(wayPntListView.currentIndex).waypnt_id)
+        wayPntListModel.remove(wayPntListView.currentIndex)
+        flickableMap.spriteListModel.get(wayPntListView.currentIndex).sprite_item.destroy()
+        flickableMap.spriteListModel.remove(wayPntListView.currentIndex)
+        popup.close()
+        flickableMap.removeSprite(wayPntListView.currentIndex)
+    }
+
     ColumnLayout {
         id: columnLayout
         anchors.fill: parent
@@ -23,13 +32,7 @@ Item {
             Layout.margins: 5
             Layout.fillHeight: true
             Layout.fillWidth: true
-            onClicked: {
-                var result1 = JS.dbRemoveWayPnt(wayPntListModel.get(wayPntListView.currentIndex).waypnt_id)
-                wayPntListModel.remove(wayPntListView.currentIndex)
-                flickableMap.spriteListModel.get(wayPntListView.currentIndex).sprite_item.destroy()
-                flickableMap.spriteListModel.remove(wayPntListView.currentIndex)
-                popup.close()
-            }
+            onClicked: removeWaypnt()
         }
     }
 

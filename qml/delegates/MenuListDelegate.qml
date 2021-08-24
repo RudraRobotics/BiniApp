@@ -16,7 +16,7 @@ ItemDelegate {
             else if(index==1)
                 pageLoader.source = "../MissionCmd/MissionCmd.qml"
             else if(index==2)
-                pageLoader.source = "../Setup/RobotSetup.qml"
+                 pageLoader.source = "../Setup/RobotSetup.qml"
         }
     }
 }

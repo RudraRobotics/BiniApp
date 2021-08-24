@@ -24,6 +24,7 @@ Item {
     signal objCreated
     signal poseChanged
     signal createWayPnts(real x, real y, string name)
+    signal removeSprite(int index)
 
     onCreateWayPnts: {
         MyScript.createSpriteObjects(x, y, "../images/loc.png", name, true)
@@ -33,6 +34,11 @@ Item {
     onResetItems: {
         MyScript.resetSpriteObjects()
         spriteListModel.clear()
+    }
+
+    onRemoveSprite: {
+        MyScript.sprite[index].destroy()
+        MyScript.sprite.splice(index, 1)
     }
 
     Image {
