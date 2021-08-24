@@ -87,59 +87,11 @@ Item {
         anchors.leftMargin: 5
         anchors.topMargin: 5
 
-        // Signal handlers
         onMapChanged: flickableMap.map_path = map_path
-
-        onWayPntBtnClicked: {
-            flickableMap.enable_way_pnts = wayPointBtnEnable
-            wayPointBtnHighlighted =! wayPointBtnHighlighted
-        }
-
-        onBaseBtnClicked: {
-            baseBtnHighlighted =! baseBtnHighlighted
-            areaListView.currentIndex = -1
-            flickableMap.enable_way_pnts = true
-        }
-
-        onResetBtnClicked: {
-            baseBtnEnable = true
-            wayPointBtnEnable = false
-            baseBtnHighlighted = false
-            wayPointBtnHighlighted = false
-            saveBtnEnable = false
-            areaNameTxt = ''
-            areaListView.currentIndex = -1
-            MyJS.resetAll()
-        }
-        onSaveBtnClicked: {
-            if(!areaNameTxt.length) {
-                areaNameFocus = true
-            }
-            else {
-                baseBtnEnable = true
-                wayPointBtnEnable = false
-                baseBtnHighlighted = false
-                wayPointBtnHighlighted = false
-                saveBtnEnable = false
-            }
-            if(areaNameTxt.length>0 && wayPntListModel.count>0) {
-                var wayPntListArray = []
-                for(var i=0;i<wayPntListModel.count;i++) {
-                    var data = {
-                         name: wayPntListModel.get(i).name,
-                         x: wayPntListModel.get(i).x,
-                         y: wayPntListModel.get(i).y
-                     }
-                    wayPntListArray.push(data)
-                }
-
-                let mission_id = JS.dbInsertMission(areaNameTxt, wayPntListArray)
-                areaListModel.append({'mission_id': parseInt(mission_id), 'mission_name': areaNameTxt})
-                areaListView.currentIndex = -1
-                MyJS.resetAll()
-            }
-            areaNameTxt = ''
-        }
+        onWayPntBtnClicked: MyJS.missionPlannerTopMenuWayPntBtnClicked()
+        onBaseBtnClicked: MyJS.missionPlannerTopMenuBaseBtnClicked()
+        onResetBtnClicked: MyJS.missionPlannerTopMenuResetBtnClicked()
+        onSaveBtnClicked: MyJS.missionPlannerTopMenuSaveBtnClicked()
     }
 
     FlickableMap {
@@ -147,38 +99,9 @@ Item {
         anchors.fill: parent
         map_path: default_map
 
-        onObjCreated: {
-            var i = spriteListModel.count - 1
-            if(spriteListModel.count === 1) {
-                missionPlannerTopMenu.baseBtnEnable = false
-                missionPlannerTopMenu.wayPointBtnEnable = true
-                wayPntListModel.append({'name': 'Base', 'x': spriteListModel.get(i).sprite_item.x, 'y':spriteListModel.get(i).sprite_item.y})
-            }
-            else
-                wayPntListModel.append({'name': 'Location'+i, 'x': spriteListModel.get(i).sprite_item.x, 'y':spriteListModel.get(i).sprite_item.y})
-
-            for (let i = 0; i < spriteListModel.count; i++) {
-                if(spriteListModel.get(i).sprite_item.acive) {
-                    wayPntListView.append({'name': 'Location'+i, 'x': spriteListModel.get(i).sprite_item.x, 'y': spriteListModel.get(i).sprite_item.y})
-                }
-            }
-
-            if(wayPntListModel.count>1)
-                missionPlannerTopMenu.saveBtnEnable = true
-        }
-
-        onPoseChanged: {
-            for (let i = 0; i < spriteListModel.count; i++) {
-                if(spriteListModel.get(i).sprite_item.active) {
-                    wayPntListView.currentIndex = i
-                    missionPlannerTopMenu.x_pos = spriteListModel.get(i).sprite_item.x
-                    missionPlannerTopMenu.y_pos = spriteListModel.get(i).sprite_item.y
-                }
-            }
-        }
+        onObjCreated: MyJS.flickableMapWayPntCreated()
+        onPoseChanged: MyJS.flickableMapWayPntUpdated()
     }
-
-
 
 }
 
