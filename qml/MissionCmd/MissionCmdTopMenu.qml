@@ -18,6 +18,7 @@ Rectangle {
     property alias missionComboBoxCurrentText: missionComboBox.currentText
     property alias robotComboBoxCurrentIndex: robotComboBox.currentIndex
     property alias robotComboBoxCurrentText: robotComboBox.currentText
+    property alias serveBtnEnabled: serveBtn.enabled
 
     signal serveBtnClicked
 

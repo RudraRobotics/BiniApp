@@ -35,6 +35,13 @@ Item {
         onServeBtnClicked: {
             MyJS.clicked()
             flickableMap.updateActiveMission(areaListModel.get(missionComboBoxCurrentIndex).mission_id)
+            if(robotListModel.count==0)
+                serveBtnEnabled = false
+            else {
+                var item = MyJS.find(wayPntListModel, function(item) { return item.name === 'Base' })
+                if(item)
+                    flickableMap.createSprite(item.x, item.y, missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name)
+            }
         }
     }
 
@@ -56,8 +63,10 @@ Item {
         highlight: Rectangle { color: "#6aabff"; radius: 5 }
         focus: true
         onCountChanged: {
-            MyJS.resetActiveRobots()
-            flickableMap.updateActiveMission(missionCmdTopMenu.areaListModel.get(currentIndex).mission_id)
+            if(count>0) {
+                flickableMap.updateActiveMission(missionCmdTopMenu.areaListModel.get(currentIndex).mission_id)
+                MyJS.resetActiveRobots()
+            }
         }
 
         onCurrentIndexChanged: {
