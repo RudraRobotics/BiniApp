@@ -3,8 +3,8 @@ import QtQml 2.12
 
 Item {
     id: item1
-    width: 60
-    height: 60
+    width: 40
+    height: 40
     z: 2
     property alias name: itemTxt.text
     property bool active: dragHandler.active
@@ -23,40 +23,33 @@ Item {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
     }
-
-    Rectangle {
-        id: rectangle
-        opacity: 0.8
-        color: "#0024d0"
-        radius: 2
-        border.width: 2
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: locIconImg.top
-        anchors.bottomMargin: 0
-        anchors.topMargin: 0
-
-        Text {
-            id: itemTxt
-            text: qsTr('unknown robot')
-            anchors.fill: parent
-            font.pixelSize: 14
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            wrapMode: Text.NoWrap
-            clip: false
-        }
-    }
     Component.onCompleted: {
         onXChanged.connect(poseChanged)
         onYChanged.connect(poseChanged)
         //        objCreated
     }
 
+    Text {
+        id: itemTxt
+        width: 60
+        text: qsTr('unknown robot')
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: locIconImg.top
+        font.pixelSize: 14
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        wrapMode: Text.NoWrap
+        anchors.bottomMargin: 0
+        font.bold: true
+        clip: false
+    }
+
     DragHandler {
         id: dragHandler
     }
+
 
 }
 
