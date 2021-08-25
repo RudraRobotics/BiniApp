@@ -9,6 +9,7 @@ Item {
     property bool enable_way_pnts: false
     property real prev_active_mission_id: 0
     ListModel { id: dynamicRobotListModel }
+    ListModel { id: dynamicWayPntListModel}
 
     signal resetAllDynamicItems
     signal updateNewActiveMissionWayPnts(real new_active_mission_id)
@@ -17,8 +18,8 @@ Item {
 
     onUpdateNewActiveMissionWayPnts: MyScript.updateNewActiveMissionWayPnts(new_active_mission_id)
     onResetAllDynamicItems: MyScript.resetSpriteObjects()
-    onCreateDynamicRobotItem: MyScript.createSpriteObjects(x, y, "../images/bini.png", name, dynamic)
-    onCreateDynamicWayPntItem: MyScript.createSpriteObjects("../images/bini.png", name, dynamic)
+    onCreateDynamicRobotItem: MyScript.createDynamicWayPntItem(x, y, "../images/bini.png", name, dynamic)
+    onCreateDynamicWayPntItem: MyScript.createDynamicWayPntItem("../images/bini.png", name, dynamic)
 
     Image {
         id: mapImg

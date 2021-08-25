@@ -22,13 +22,10 @@ Item {
     signal resetItems
     signal objCreated
     signal poseChanged
-    signal createWayPnts(real x, real y, string name)
+    signal createDynamicWayPntItem(real x, real y, string name)
     signal removeSprite(int index)
 
-    onCreateWayPnts: {
-        MyScript.createSpriteObjects(x, y, "../images/loc.png", name, true)
-        dynamicWayPntListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
-    }
+    onCreateDynamicWayPntItem: MyScript.createDynamicWayPntItem(x, y, "../images/loc.png", name, true)
 
     onResetItems: {
         MyScript.resetSpriteObjects()

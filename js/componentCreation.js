@@ -2,14 +2,15 @@ var component;
 var sprite = []
 var missionWayPnt = []
 
-function createSpriteObjects(x, y, source, name, drag_enabled) {
+function createDynamicWayPntItem(x, y, source, name, drag_enabled) {
+    console.log('here')
     component = Qt.createComponent("../qml/Sprite.qml");
     sprite.push(component.createObject(mapImg, {x: x-30, y: y-30, source: source, name: name, drag_enabled: drag_enabled}));
 
     if (sprite[sprite.length - 1] === null) {
-        // Error Handling
         console.log("Error creating object");
     }
+    dynamicWayPntListModel.append({"sprite_item": sprite[sprite.length - 1]})
 }
 
 function createMissionWayPnt(x, y, source, name, drag_enabled) {
