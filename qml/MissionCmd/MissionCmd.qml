@@ -32,8 +32,8 @@ Item {
         anchors.rightMargin: 5
         anchors.leftMargin: 5
         anchors.topMargin: 5
-        onServeBtnClicked: MyJS.serveBtnClicked()
-        onReturnBtnClicked: MyJS.returnBtnClicked()
+        onServeBtnClicked: MyJS.missionCmdTopMenuServeBtnClicked()
+        onReturnBtnClicked: MyJS.missionCmdTopMenuReturnBtnClicked()
     }
 
     ListView {
