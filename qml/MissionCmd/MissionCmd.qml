@@ -19,7 +19,6 @@ Item {
     Component.onCompleted: {
         tempSubscription = client.subscribe("bini_data")
         tempSubscription.messageReceived.connect(MyJS.addMessage)
-        console.log('bini_data mqtt topic subscribed')
     }
 
     MissionCmdTopMenu {
@@ -54,15 +53,9 @@ Item {
         highlight: Rectangle { color: "#6aabff"; radius: 5 }
         focus: true
 
-        onCurrentIndexChanged: {
-            if(currentIndex>-1)
-                MyJS.updatetMapObjects(currentIndex)
-        }
+        onCurrentIndexChanged: MyJS.updatetAllMapObjects(currentIndex)
 
-        onCountChanged: {
-            if(currentIndex>-1)
-                MyJS.updatetMapObjects(count-1)
-        }
+        onCountChanged: MyJS.updatetAllMapObjects(count-1)
     }
 
     ListView {

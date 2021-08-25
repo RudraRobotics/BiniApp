@@ -5,31 +5,18 @@ import "../../js/Database.js" as JS
 
 Item {
     property alias map_path: mapImg.source
-    property alias posListModel: posListModel
+    property alias dynamicRobotListModel: dynamicRobotListModel
     property bool enable_way_pnts: false
     property real active_mission_id: 0
 
     ListModel {
-        id: posListModel
-
-        property real active_ind: 0
-
-        signal posChanged
-
-        onCountChanged: {
-            if(count > 0) {
-                objCreated()
-                get(count - 1).sprite_item.onPoseChanged.connect(poseChanged)
-            }
-        }
+        id: dynamicRobotListModel
     }
 
     signal resetItems
-    signal objCreated
     signal updateActiveMission(real mission_id)
 
-    signal poseChanged
-    signal createRobot(real x, real y, string name)
+    signal createDynamicRobot(real x, real y, string name)
     signal createWayPnts(string name)
 
     onUpdateActiveMission: {
@@ -45,10 +32,10 @@ Item {
 
     onResetItems: {
         MyScript.resetSpriteObjects()
-        posListModel.clear()
+        dynamicRobotListModel.clear()
     }
 
-    onCreateRobot: {
+    onCreateDynamicRobot: {
         MyScript.createSpriteObjects(x, y, "../images/bini.png", name, true)
     }
 

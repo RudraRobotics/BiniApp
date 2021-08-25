@@ -36,12 +36,12 @@ function resetMissionWayPnts() {
 }
 
 function locClicked() {
-    posListModel.get(posListModel.active_ind).sprite_item.scale = 1
-    posListModel.get(posListModel.active_ind).sprite_item.active = false
-    for (let i = 0; i < posListModel.count; i++) {
-        if(posListModel.get(i).sprite_item.scale === 2) {
-            posListModel.active_ind = i
-            posListModel.get(i).sprite_item.active = true
+    dynamicRobotListModel.get(dynamicRobotListModel.active_ind).sprite_item.scale = 1
+    dynamicRobotListModel.get(dynamicRobotListModel.active_ind).sprite_item.active = false
+    for (let i = 0; i < dynamicRobotListModel.count; i++) {
+        if(dynamicRobotListModel.get(i).sprite_item.scale === 2) {
+            dynamicRobotListModel.active_ind = i
+            dynamicRobotListModel.get(i).sprite_item.active = true
         }
     }
 }
