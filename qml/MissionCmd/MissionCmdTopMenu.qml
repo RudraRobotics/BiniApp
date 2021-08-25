@@ -21,6 +21,7 @@ Rectangle {
     property alias serveBtnEnabled: serveBtn.enabled
 
     signal serveBtnClicked
+    signal returnBtnClicked
 
     FileDialog {
         id: fileDialog
@@ -138,6 +139,7 @@ Rectangle {
             Layout.margins: 5
             Layout.topMargin: 5
             Layout.fillHeight: true
+            onClicked: returnBtnClicked()
         }
 
     }

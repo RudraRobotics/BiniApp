@@ -4,6 +4,7 @@ import QtQml 2.12
 
 Item {
     width: 180; height: 40
+    clip: true
     property alias textEnabled: textInput.enabled
     signal tapped
 

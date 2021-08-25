@@ -52,7 +52,10 @@ function serveBtnClicked()
         flickableMap.updateActiveMission(missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id)
 
         if(!find(activeWayPntListModel, function(item) { return item.mission_id === missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id }))
-            activeWayPntListModel.append({'mission_id': missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id, 'mission_name': missionComboBoxCurrentText})
+            activeWayPntListModel.append({
+                                             'mission_id': missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id,
+                                             'mission_name': missionComboBoxCurrentText
+                                         })
 
         if(!find(allActiveMission, function(item) { return item.active_mission === missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id+
                                                     '_'+missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id }))
@@ -87,6 +90,17 @@ function serveBtnClicked()
             if(item)
                 flickableMap.createRobot(item.x, item.y, missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name)
         }
+    }
+}
+
+function returnBtnClicked() {
+    var item = find(wayPntListModel, function(item) { return item.name === 'Base' })
+    if(item) {
+        var data = ''
+        data += item.x
+        data += '_'
+        data += item.y
+        client.publish(activeRobotListModel.get(activeRobotListView.currentIndex), data)
     }
 }
 

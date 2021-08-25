@@ -33,11 +33,6 @@ ApplicationWindow {
         }
     }
 
-    ListModel { id: activeWayPntListModel }
-    ListModel { id: allActiveMission }
-    ListModel { id: activeRobotListModel }
-    ListModel { id: wayPntListModel }
-
     Drawer {
         id: drawer
 

@@ -26,9 +26,9 @@ Item {
             verticalAlignment: Text.AlignVCenter
             anchors.horizontalCenter: parent.horizontalCenter
             font.pointSize: 12
-//            onPressed: {
-//                activeRobotListView.currentIndex = index
-//            }
+        }
+        TapHandler {
+            onTapped: activeRobotListView.currentIndex = index
         }
     }
 }

@@ -11,6 +11,10 @@ import QtQuick.LocalStorage 2.0
 Item {
     property string default_map: "../../maps/map.pgm"
     property var tempSubscription: 0
+    ListModel { id: activeWayPntListModel }
+    ListModel { id: allActiveMission }
+    ListModel { id: activeRobotListModel }
+    ListModel { id: wayPntListModel }
 
     Component.onCompleted: {
         tempSubscription = client.subscribe("bini_data")
@@ -29,6 +33,7 @@ Item {
         anchors.leftMargin: 5
         anchors.topMargin: 5
         onServeBtnClicked: MyJS.serveBtnClicked()
+        onReturnBtnClicked: MyJS.returnBtnClicked()
     }
 
     ListView {
@@ -75,7 +80,7 @@ Item {
         header: LocListHeader { name: 'Robots'; button_visible: false }
         delegate: ActiveRobotListDelegate {}
         model: activeRobotListModel
-//        highlight: Rectangle { color: "#6aabff"; radius: 5 }
+        highlight: Rectangle { color: "#6aabff"; radius: 5 }
         focus: true
     }
 
