@@ -26,6 +26,7 @@ function resetSpriteObjects() {
       sprite[i].destroy()
     }
     sprite = []
+    dynamicRobotListModel.clear()
 }
 
 function resetMissionWayPnts() {

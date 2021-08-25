@@ -8,11 +8,12 @@ Item {
     property alias x_pos: tapArea.x_pos
     property alias y_pos: tapArea.y_pos
     property alias map_path: mapImg.source
-    property alias spriteListModel: spriteListModel
+    property alias dynamicWayPntListModel: dynamicWayPntListModel
     property bool enable_way_pnts: false
+    ListModel { id: dynamicRobotListModel }
 
     ListModel {
-        id: spriteListModel
+        id: dynamicWayPntListModel
         onCountChanged: {
             if(count > 0) {
                 get(count - 1).sprite_item.onPoseChanged.connect(poseChanged)
@@ -28,12 +29,12 @@ Item {
 
     onCreateWayPnts: {
         MyScript.createSpriteObjects(x, y, "../images/loc.png", name, true)
-        spriteListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
+        dynamicWayPntListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
     }
 
     onResetItems: {
         MyScript.resetSpriteObjects()
-        spriteListModel.clear()
+        dynamicWayPntListModel.clear()
     }
 
     onRemoveSprite: {
@@ -55,16 +56,16 @@ Item {
             onTapped: {
                 x_pos = point.position.x
                 y_pos = point.position.y
-                var i = spriteListModel.count - 1
+                var i = dynamicWayPntListModel.count - 1
                 if(enable_way_pnts && MyScript.sprite.length === 0) {
                     MyScript.createSpriteObjects(x_pos, y_pos, "../images/loc.png", 'Base')
-                    spriteListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
+                    dynamicWayPntListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
                     objCreated()
                     enable_way_pnts = false
                 }
                 else if(enable_way_pnts && MyScript.sprite.length > 0) {
                     MyScript.createSpriteObjects(x_pos, y_pos, "../images/loc.png", 'Location'+i)
-                    spriteListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
+                    dynamicWayPntListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
                     objCreated()
                 }
             }

@@ -89,28 +89,28 @@ function missionPlannerTopMenuResetBtnClicked() {
 }
 
 function flickableMapWayPntCreated() {
-    var i = flickableMap.spriteListModel.count - 1
-    if(flickableMap.spriteListModel.count === 1) {
+    var i = flickableMap.dynamicWayPntListModel.count - 1
+    if(flickableMap.dynamicWayPntListModel.count === 1) {
         missionPlannerTopMenu.baseBtnEnable = false
         missionPlannerTopMenu.wayPointBtnEnable = true
         wayPntListModel.append({
                                    'name':  'Base',
-                                   'x':     flickableMap.spriteListModel.get(i).sprite_item.x,
-                                   'y':     flickableMap.spriteListModel.get(i).sprite_item.y
+                                   'x':     flickableMap.dynamicWayPntListModel.get(i).sprite_item.x,
+                                   'y':     flickableMap.dynamicWayPntListModel.get(i).sprite_item.y
                                })
     }
     else
         wayPntListModel.append({
                                    'name':  'Location'+i,
-                                   'x':     flickableMap.spriteListModel.get(i).sprite_item.x,
-                                   'y':     flickableMap.spriteListModel.get(i).sprite_item.y
+                                   'x':     flickableMap.dynamicWayPntListModel.get(i).sprite_item.x,
+                                   'y':     flickableMap.dynamicWayPntListModel.get(i).sprite_item.y
                                })
-    for (let i = 0; i < flickableMap.spriteListModel.count; i++) {
-        if(flickableMap.spriteListModel.get(i).sprite_item.acive) {
+    for (let i = 0; i < flickableMap.dynamicWayPntListModel.count; i++) {
+        if(flickableMap.dynamicWayPntListModel.get(i).sprite_item.acive) {
             wayPntListView.append({
                                       'name':   'Location'+i,
-                                      'x':      flickableMap.spriteListModel.get(i).sprite_item.x,
-                                      'y':      flickableMap.spriteListModel.get(i).sprite_item.y
+                                      'x':      flickableMap.dynamicWayPntListModel.get(i).sprite_item.x,
+                                      'y':      flickableMap.dynamicWayPntListModel.get(i).sprite_item.y
                                   })
         }
     }
@@ -120,11 +120,11 @@ function flickableMapWayPntCreated() {
 }
 
 function flickableMapWayPntUpdated()     {
-    for (let i = 0; i < flickableMap.spriteListModel.count; i++) {
-        if(flickableMap.spriteListModel.get(i).sprite_item.active) {
+    for (let i = 0; i < flickableMap.dynamicWayPntListModel.count; i++) {
+        if(flickableMap.dynamicWayPntListModel.get(i).sprite_item.active) {
             wayPntListView.currentIndex = i
-            missionPlannerTopMenu.x_pos = flickableMap.spriteListModel.get(i).sprite_item.x
-            missionPlannerTopMenu.y_pos = flickableMap.spriteListModel.get(i).sprite_item.y
+            missionPlannerTopMenu.x_pos = flickableMap.dynamicWayPntListModel.get(i).sprite_item.x
+            missionPlannerTopMenu.y_pos = flickableMap.dynamicWayPntListModel.get(i).sprite_item.y
         }
     }
 }
