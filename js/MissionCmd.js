@@ -21,7 +21,9 @@ function updatetMapObjects(currentIndex) {
     flickableMap.resetItems()
     for(let i=0;i<allActiveMission.count;i++) {
         if(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id === allActiveMission.get(i).mission_id) {
-            activeRobotListModel.append({'robot_id': allActiveMission.get(i).robot_id, 'name': allActiveMission.get(i).name})
+            activeRobotListModel.append({
+                                            'robot_id': allActiveMission.get(i).robot_id,
+                                            'name':     allActiveMission.get(i).name})
             flickableMap.createWayPnts(allActiveMission.get(i).name)
         }
     }
@@ -30,7 +32,10 @@ function updatetMapObjects(currentIndex) {
     flickableMap.updateActiveMission(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id)
     var wayPntsArray = JS.dbReadWayPnts(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id)
     for (var i = 0; i < wayPntsArray.rows.length; i++) {
-        wayPntListModel.append({'name': wayPntsArray.rows.item(i).name, 'x': wayPntsArray.rows.item(i).x, 'y': wayPntsArray.rows.item(i).y})
+        wayPntListModel.append({
+                                   'name':  wayPntsArray.rows.item(i).name,
+                                   'x':     wayPntsArray.rows.item(i).x,
+                                   'y':     wayPntsArray.rows.item(i).y})
     }
     var item = find(wayPntListModel, function(item) { return item.name === 'Base' })
     if(item) {
@@ -60,15 +65,15 @@ function serveBtnClicked()
         if(!find(allActiveMission, function(item) { return item.active_mission === missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id+
                                                     '_'+missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id }))
         {
-            allActiveMission.append({'active_mission': missionCmdTopMenu.missionListModel.get(robotComboBoxCurrentIndex).mission_id+
-                                                       '_'+missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
-                                    'mission_id': missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id,
-                                        'robot_id': missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
-                                    'name': missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name})
-    //        flickableMap.createSprite(missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name)
-            activeRobotListModel.append({'robot_id':missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
-                                            'mission_id':missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id,
-                                            'name':missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name })
+            allActiveMission.append({
+                                        'active_mission':   missionCmdTopMenu.missionListModel.get(robotComboBoxCurrentIndex).mission_id+'_'+missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
+                                        'mission_id':       missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id,
+                                        'robot_id':         missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
+                                        'name':             missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name})
+            activeRobotListModel.append({
+                                            'robot_id':     missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).robot_id,
+                                            'mission_id':   missionCmdTopMenu.missionListModel.get(missionComboBoxCurrentIndex).mission_id,
+                                            'name':         missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex).name })
         }
         var data = ''
         wayPntListModel.clear()
@@ -78,7 +83,10 @@ function serveBtnClicked()
             data += '_'
             data += wayPntsArray.rows.item(i).y
             data += '_'
-            wayPntListModel.append({'name': wayPntsArray.rows.item(i).name, 'x': wayPntsArray.rows.item(i).x, 'y': wayPntsArray.rows.item(i).y})
+            wayPntListModel.append({
+                                       'name':  wayPntsArray.rows.item(i).name,
+                                       'x':     wayPntsArray.rows.item(i).x,
+                                       'y':     wayPntsArray.rows.item(i).y})
         }
         client.publish(robotComboBoxCurrentText, data)
         missionCmdTopMenu.robotListModel.remove(missionCmdTopMenu.robotListModel.get(robotComboBoxCurrentIndex))
@@ -100,7 +108,10 @@ function returnBtnClicked() {
         data += item.x
         data += '_'
         data += item.y
-        client.publish(activeRobotListModel.get(activeRobotListView.currentIndex), data)
+        client.publish(activeRobotListModel.get(activeRobotListView.currentIndex).name, data)
     }
 }
 
+function updateBtnClicked() {
+
+}
