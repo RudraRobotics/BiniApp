@@ -5,8 +5,6 @@ import "../../js/FlickableMap.js" as JScript
 
 Item {
 
-    property alias x_pos: tapArea.x_pos
-    property alias y_pos: tapArea.y_pos
     property alias map_path: mapImg.source
     property alias dynamicWayPntListModel: dynamicWayPntListModel
     property bool enable_way_pnts: false
@@ -44,31 +42,13 @@ Item {
 
     Image {
         id: mapImg
-        source: "../../maps/map1.pgm"
         x: (parent.width-width)/2
         y: (parent.height-height)/2
         PinchHandler {}
         DragHandler {}
         TapHandler {
             id: tapArea
-            property real x_pos: 0.0
-            property real y_pos: 0.0
-            onTapped: {
-                x_pos = point.position.x
-                y_pos = point.position.y
-                var i = dynamicWayPntListModel.count - 1
-                if(enable_way_pnts && MyScript.sprite.length === 0) {
-                    MyScript.createSpriteObjects(x_pos, y_pos, "../images/loc.png", 'Base')
-                    dynamicWayPntListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
-                    objCreated()
-                    enable_way_pnts = false
-                }
-                else if(enable_way_pnts && MyScript.sprite.length > 0) {
-                    MyScript.createSpriteObjects(x_pos, y_pos, "../images/loc.png", 'Location'+i)
-                    dynamicWayPntListModel.append({"sprite_item": MyScript.sprite[MyScript.sprite.length - 1]})
-                    objCreated()
-                }
-            }
+            onTapped: JScript.mapImgTapped()
         }
     }
 
