@@ -16,8 +16,8 @@ Item {
     signal resetAllDynamicItems
     signal updateNewActiveMissionWayPnts(real new_active_mission_id)
 
-    signal createDynamicRobotItem(real x, real y, string name)
-    signal createWayPnts(string name)
+    signal createDynamicRobotItem(real x, real y, string name, bool dynamic)
+    signal createDynamicWayPntItem(real x, real y,string name, bool dynamic)
 
     onUpdateNewActiveMissionWayPnts: MyScript.updateNewActiveMissionWayPnts(new_active_mission_id)
 
@@ -27,11 +27,11 @@ Item {
     }
 
     onCreateDynamicRobotItem: {
-        MyScript.createSpriteObjects(x, y, "../images/bini.png", name, true)
+        MyScript.createSpriteObjects(x, y, "../images/bini.png", name, dynamic)
     }
 
-    onCreateWayPnts: {
-        MyScript.createSpriteObjects("../images/bini.png", name, false)
+    onCreateDynamicWayPntItem: {
+        MyScript.createSpriteObjects("../images/bini.png", name, dynamic)
     }
 
     Image {
