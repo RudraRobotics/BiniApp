@@ -1,6 +1,6 @@
 function resetAll() {
     wayPntListModel.clear()
-    flickableMap.resetItems()
+    flickableMap.resetAllDynamicItems()
     flickableMap.enable_way_pnts = false
 }
 
@@ -19,7 +19,7 @@ function find(model, criteria) {
 function updatetAllMapObjects(currentIndex) {
     if(currentIndex>-1) {
         activeRobotListModel.clear()
-        flickableMap.resetItems()
+        flickableMap.resetAllDynamicItems()
         for(var i=0;i<allActiveMission.count;i++) {
             if(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id === allActiveMission.get(i).mission_id) {
                 activeRobotListModel.append({
@@ -30,8 +30,8 @@ function updatetAllMapObjects(currentIndex) {
         }
 
         wayPntListModel.clear()
-        flickableMap.updateActiveMission(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id)
-        var wayPntsArray = JS.dbReadWayPnts(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id)
+        flickableMap.updateNewActiveMissionWayPnts(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id)
+        var wayPntsArray = JS.dbReadMissionWayPnts(missionCmdTopMenu.missionListModel.get(currentIndex).mission_id)
         for (i = 0; i < wayPntsArray.rows.length; i++) {
             wayPntListModel.append({
                                        'name':  wayPntsArray.rows.item(i).name,
@@ -41,7 +41,7 @@ function updatetAllMapObjects(currentIndex) {
         var item = find(wayPntListModel, function(item) { return item.name === 'Base' })
         if(item) {
             for(i=0;i<activeRobotListModel.count;i++) {
-                flickableMap.createDynamicRobot(item.x, item.y, activeRobotListModel.get(i).name)
+                flickableMap.createDynamicRobotItem(item.x, item.y, activeRobotListModel.get(i).name)
             }
         }
     }
@@ -51,7 +51,7 @@ function missionCmdTopMenuServeBtnClicked()
 {
     if(missionCmdTopMenu.robotComboBoxCurrentIndex>-1) {
 
-        flickableMap.updateActiveMission(missionCmdTopMenu.missionListModel.get(missionCmdTopMenu.missionComboBoxCurrentIndex).mission_id)
+        flickableMap.updateNewActiveMissionWayPnts(missionCmdTopMenu.missionListModel.get(missionCmdTopMenu.missionComboBoxCurrentIndex).mission_id)
 
         if(!find(activeWayPntListModel, function(item) { return item.mission_id === missionCmdTopMenu.missionListModel.get(missionCmdTopMenu.missionComboBoxCurrentIndex).mission_id }))
             activeWayPntListModel.append({
@@ -74,7 +74,7 @@ function missionCmdTopMenuServeBtnClicked()
         }
         var data = ''
         wayPntListModel.clear()
-        var wayPntsArray = JS.dbReadWayPnts(missionCmdTopMenu.missionListModel.get(missionCmdTopMenu.missionComboBoxCurrentIndex).mission_id)
+        var wayPntsArray = JS.dbReadMissionWayPnts(missionCmdTopMenu.missionListModel.get(missionCmdTopMenu.missionComboBoxCurrentIndex).mission_id)
         for (var i = 0; i < wayPntsArray.rows.length; i++) {
             data += wayPntsArray.rows.item(i).x
             data += '_'
@@ -93,7 +93,7 @@ function missionCmdTopMenuServeBtnClicked()
             var item = MyJS.find(wayPntListModel, function(item) { return item.name === 'Base' })
             console.log('item:', wayPntListModel.count)
             if(item)
-                flickableMap.createDynamicRobot(item.x, item.y, missionCmdTopMenu.robotListModel.get(missionCmdTopMenu.robotComboBoxCurrentIndex).name)
+                flickableMap.createDynamicRobotItem(item.x, item.y, missionCmdTopMenu.robotListModel.get(missionCmdTopMenu.robotComboBoxCurrentIndex).name)
         }
     }
 }

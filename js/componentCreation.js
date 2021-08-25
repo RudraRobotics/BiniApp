@@ -45,3 +45,14 @@ function locClicked() {
         }
     }
 }
+
+function updateNewActiveMissionWayPnts(new_active_mission_id) {
+    if(new_active_mission_id !== prev_active_mission_id) {
+        MyScript.resetMissionWayPnts()
+        var wayPntsArray = JS.dbReadMissionWayPnts(new_active_mission_id)
+        for (var i = 0; i < wayPntsArray.rows.length; i++) {
+            MyScript.createMissionWayPnt(wayPntsArray.rows.item(i).x, wayPntsArray.rows.item(i).y, "../images/loc.png", wayPntsArray.rows.item(i).name, false)
+        }
+    }
+    prev_active_mission_id = new_active_mission_id
+}

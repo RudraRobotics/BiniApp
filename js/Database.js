@@ -81,7 +81,7 @@ function dbReadRobots()
     return results
 }
 
-function dbReadWayPnts(mission_id)
+function dbReadMissionWayPnts(mission_id)
 {
     var db = dbGetHandle()
     var results

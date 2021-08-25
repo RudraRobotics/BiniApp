@@ -9,7 +9,7 @@ function areaListViewCurrentIndexChanged() {
     missionPlannerTopMenu.saveBtnEnable = true
     resetAll()
     if(currentIndex>-1) {
-        var wayPntListArray = JS.dbReadWayPnts(areaListModel.get(currentIndex).mission_id)
+        var wayPntListArray = JS.dbReadMissionWayPnts(areaListModel.get(currentIndex).mission_id)
         for (var i = 0; i < wayPntListArray.rows.length; i++) {
             wayPntListModel.append({
                                        'waypnt_id': wayPntListArray.rows.item(i).mission_pnt_id,
