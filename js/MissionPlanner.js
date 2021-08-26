@@ -123,9 +123,11 @@ function flickableMapWayPntUpdated()     {
     for (let i = 0; i < flickableMap.dynamicWayPntListModel.count; i++) {
         if(flickableMap.dynamicWayPntListModel.get(i).sprite_item.active) {
             wayPntListView.currentIndex = i
-            missionPlannerTopMenu.x_pos = flickableMap.dynamicWayPntListModel.get(i).sprite_item.x
-            missionPlannerTopMenu.y_pos = flickableMap.dynamicWayPntListModel.get(i).sprite_item.y
-            wayPntListModel.set(i,  {'name': 'hello', 'x': flickableMap.dynamicWayPntListModel.get(i).sprite_item.x, 'y': flickableMap.dynamicWayPntListModel.get(i).sprite_item.y})
+            var x = flickableMap.dynamicWayPntListModel.get(i).sprite_item.x
+            var y = flickableMap.dynamicWayPntListModel.get(i).sprite_item.y
+            missionPlannerTopMenu.x_pos = x
+            missionPlannerTopMenu.y_pos = y
+            wayPntListModel.set(i,  {'x': x, 'y': y})
         }
     }
 }
