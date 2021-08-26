@@ -100,8 +100,8 @@ Item {
         map_path: default_map
         mapimg_tap_enabled: true
 
-        onObjCreated: MyJS.flickableMapWayPntCreated()
-        onPoseChanged: MyJS.flickableMapWayPntUpdated()
+        onDynamicWayPntCreated: MyJS.flickableMapWayPntCreated()
+        onDynamicWayPntUpdated:  MyJS.flickableMapWayPntUpdated()
     }
 
 }

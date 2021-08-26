@@ -108,7 +108,3 @@ function missionCmdTopMenuReturnBtnClicked() {
         client.publish(activeRobotListModel.get(activeRobotListView.currentIndex).name, data)
     }
 }
-
-function updateBtnClicked() {
-
-}

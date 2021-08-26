@@ -3,12 +3,12 @@ function mapImgTapped() {
     var i = dynamicWayPntListModel.count - 1
     if(enable_way_pnts && sprite.length === 0) {
         createDynamicWayPntItem(tapArea.point.position.x, tapArea.point.position.y, "../images/loc.png", 'Base')
-        objCreated()
+        dynamicWayPntCreated()
         enable_way_pnts = false
     }
     else if(enable_way_pnts && sprite.length > 0) {
         createDynamicWayPntItem(tapArea.point.position.x, tapArea.point.position.y, "../images/loc.png", 'Location'+i)
-        objCreated()
+        dynamicWayPntCreated()
     }
 }
 
@@ -24,8 +24,7 @@ function createDynamicWayPntItem(x, y, source, name, drag_enabled) {
         console.log("Error creating object");
     }
     dynamicWayPntListModel.append({"sprite_item": sprite[sprite.length - 1]})
-//    get(count - 1).sprite_item.onPoseChanged.connect(poseChanged)
-    dynamicWayPntListModel.get(dynamicWayPntListModel.count-1).sprite_item.onPoseChanged.connect(poseChanged)
+    dynamicWayPntListModel.get(dynamicWayPntListModel.count-1).sprite_item.onPoseChanged.connect(dynamicWayPntUpdated)
 }
 
 function createMissionWayPnt(x, y, source, name, drag_enabled) {
