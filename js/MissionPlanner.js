@@ -125,6 +125,7 @@ function flickableMapWayPntUpdated()     {
             wayPntListView.currentIndex = i
             missionPlannerTopMenu.x_pos = flickableMap.dynamicWayPntListModel.get(i).sprite_item.x
             missionPlannerTopMenu.y_pos = flickableMap.dynamicWayPntListModel.get(i).sprite_item.y
+            wayPntListModel.set(i,  {'name': 'hello', 'x': flickableMap.dynamicWayPntListModel.get(i).sprite_item.x, 'y': flickableMap.dynamicWayPntListModel.get(i).sprite_item.y})
         }
     }
 }

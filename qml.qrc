@@ -38,7 +38,6 @@
         <file>images/bini.xcf</file>
         <file>js/MissionPlanner.js</file>
         <file>js/MissionCmd.js</file>
-        <file>js/componentCreation.js</file>
         <file>js/Database.js</file>
         <file>qml/delegates/MissionListHeaderPopup.qml</file>
         <file>qml/delegates/LocListHeaderPopup.qml</file>
