@@ -5,6 +5,8 @@ import "../Core"
 import "../delegates"
 import MqttClient 1.0
 import "../../js/MissionCmd.js" as MyJS
+import "../../js/Database.js" as JS
+
 
 Item {
     property string default_map: "../../maps/map.pgm"
@@ -75,7 +77,7 @@ Item {
         focus: true
     }
 
-    MissionMap {
+    FlickableMap {
         id: flickableMap
         anchors.fill: parent
         map_path: default_map

@@ -35,7 +35,6 @@
         <file>qml/delegates/LocListHeader.qml</file>
         <file>qml/delegates/ActiveMissionListDelegate.qml</file>
         <file>qml/delegates/ActiveRobotListDelegate.qml</file>
-        <file>qml/Core/MissionMap.qml</file>
         <file>images/bini.xcf</file>
         <file>js/MissionPlanner.js</file>
         <file>js/MissionCmd.js</file>

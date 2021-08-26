@@ -12,18 +12,20 @@ Item {
     property real prev_active_mission_id: 0
     property alias mapimg_tap_enabled: tapArea.enabled
 
+    signal resetAllDynamicItems
+    signal createDynamicWayPntItem(real x, real y, string name)
+    signal createDynamicRobotItem(real x, real y, string name, bool dynamic)
+    signal removeDynamicWayPnt(int way_pnt_ind)
+    signal updateNewActiveMissionWayPnts(real new_active_mission_id)
+
     signal poseChanged
     signal objCreated
 
-    signal resetAllDynamicItems
-    signal createDynamicWayPntItem(real x, real y, string name)
-    signal removeDynamicWayPnt(int way_pnt_ind)
-
     onCreateDynamicWayPntItem: FlickableMapScript.createDynamicWayPntItem(x, y, "../images/loc.png", name, true)
-
+    onCreateDynamicRobotItem: FlickableMapScript.createDynamicWayPntItem(x, y, "../images/bini.png", name, dynamic)
     onResetAllDynamicItems: FlickableMapScript.resetAllDynamicItems()
-
     onRemoveDynamicWayPnt: FlickableMapScript.removeDynamicWayPnt(way_pnt_ind)
+    onUpdateNewActiveMissionWayPnts: FlickableMapScript.updateNewActiveMissionWayPnts(new_active_mission_id)
 
     ListModel { id: dynamicRobotListModel }
     ListModel { id: dynamicWayPntListModel }
