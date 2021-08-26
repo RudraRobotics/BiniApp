@@ -35,8 +35,6 @@ Item {
     }
     TapHandler {
         id: tapHandler
-        onTapped: {
-            missionListView.currentIndex = index
-        }
+        onTapped: missionListView.currentIndex = index
     }
 }

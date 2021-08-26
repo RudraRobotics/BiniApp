@@ -128,3 +128,4 @@ function dbRemoveWayPnt(waypnt_id)
     };
     return results
 }
+

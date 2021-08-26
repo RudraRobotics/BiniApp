@@ -1,4 +1,5 @@
 import QtQuick 2.12
+import "../../js/Database.js" as JS
 import "../../js/FlickableMap.js" as FlickableMapScript
 
 

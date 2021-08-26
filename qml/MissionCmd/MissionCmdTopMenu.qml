@@ -5,7 +5,8 @@ import QtQuick.Dialogs 1.2
 import QtQml 2.12
 
 import "../../js/Database.js" as JS
-import "../../js/componentCreation.js" as MyScript
+import "../../js/MissionCmdTopMenu.js" as MissionCmdTopMenu
+import QtQuick.LocalStorage 2.0
 
 Rectangle {
     height: 100
@@ -28,37 +29,17 @@ Rectangle {
         title: "Please choose a file"
         folder: shortcuts.home
         nameFilters: [ "Map files (*.pgm)", "All files (*)" ]
-        onAccepted: {
-            mapChanged(fileUrl)
-            resetItems()
-            wayPointBtn.highlighted = false
-        }
+        onAccepted: MissionCmdTopMenu.fileDialogAccepted()
     }
 
     ListModel {
         id: missionListModel
-        Component.onCompleted: {
-            var results = JS.dbReadMissions()
-            for (var i = 0; i < results.rows.length; i++) {
-                missionListModel.append({
-                                      mission_id: results.rows.item(i).mission_id,
-                                      mission_name: results.rows.item(i).name
-                                    })
-            }
-        }
+        Component.onCompleted: MissionCmdTopMenu.readMissionListModel()
     }
 
     ListModel {
         id: robotListModel
-        Component.onCompleted: {
-            var results = JS.dbReadRobots()
-            for (var i = 0; i < results.rows.length; i++) {
-                robotListModel.append({
-                                      robot_id: results.rows.item(i).robot_id,
-                                      name: results.rows.item(i).name
-                                    })
-            }
-        }
+        Component.onCompleted: MissionCmdTopMenu.readRobotListModel()
     }
 
     RowLayout {

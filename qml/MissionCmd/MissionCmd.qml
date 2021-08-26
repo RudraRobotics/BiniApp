@@ -4,9 +4,7 @@ import QtQml 2.12
 import "../Core"
 import "../delegates"
 import MqttClient 1.0
-import "../../js/Database.js" as JS
 import "../../js/MissionCmd.js" as MyJS
-import QtQuick.LocalStorage 2.0
 
 Item {
     property string default_map: "../../maps/map.pgm"

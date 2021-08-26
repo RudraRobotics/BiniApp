@@ -46,5 +46,8 @@
         <file>icons/menu.png</file>
         <file>js/FlickableMap.js</file>
         <file>qml/Dashboard.qml</file>
+        <file>js/LocListHeaderPopup.js</file>
+        <file>js/MissionListHeaderPopup.js</file>
+        <file>js/MissionCmdTopMenu.js</file>
     </qresource>
 </RCC>
