@@ -9,17 +9,9 @@ Item {
     property alias dynamicWayPntListModel: dynamicWayPntListModel
     property bool enable_way_pnts: false
     ListModel { id: dynamicRobotListModel }
+    ListModel { id: dynamicWayPntListModel }
 
-    ListModel {
-        id: dynamicWayPntListModel
-//        onCountChanged: {
-//            if(count > 0) {
-//                get(count - 1).sprite_item.onPoseChanged.connect(poseChanged)
-//            }
-//        }
-    }
-
-    signal resetItems
+    signal resetAllDynamicItems
     signal objCreated
     signal poseChanged
     signal createDynamicWayPntItem(real x, real y, string name)
@@ -27,7 +19,7 @@ Item {
 
     onCreateDynamicWayPntItem: MyScript.createDynamicWayPntItem(x, y, "../images/loc.png", name, true)
 
-    onResetItems: {
+    onResetAllDynamicItems: {
         MyScript.resetSpriteObjects()
         dynamicWayPntListModel.clear()
     }

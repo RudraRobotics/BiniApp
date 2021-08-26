@@ -1,6 +1,6 @@
 function resetAll() {
     wayPntListModel.clear()
-    flickableMap.resetItems()
+    flickableMap.resetAllDynamicItems()
     flickableMap.enable_way_pnts = false
 }
 
@@ -20,7 +20,7 @@ function areaListViewCurrentIndexChanged() {
         }
     }
     // update dynamic objecs in map
-    flickableMap.resetItems()
+    flickableMap.resetAllDynamicItems()
     for(i=0;i<wayPntListModel.count;i++) {
         flickableMap.createDynamicWayPntItem(wayPntListModel.get(i).x, wayPntListModel.get(i).y, wayPntListModel.get(i).name)
     }
