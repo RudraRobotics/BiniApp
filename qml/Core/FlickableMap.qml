@@ -12,11 +12,11 @@ Item {
 
     ListModel {
         id: dynamicWayPntListModel
-        onCountChanged: {
-            if(count > 0) {
-                get(count - 1).sprite_item.onPoseChanged.connect(poseChanged)
-            }
-        }
+//        onCountChanged: {
+//            if(count > 0) {
+//                get(count - 1).sprite_item.onPoseChanged.connect(poseChanged)
+//            }
+//        }
     }
 
     signal resetItems

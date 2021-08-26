@@ -15,6 +15,7 @@ Item {
     signal updateNewActiveMissionWayPnts(real new_active_mission_id)
     signal createDynamicRobotItem(real x, real y, string name, bool dynamic)
     signal createDynamicWayPntItem(real x, real y,string name, bool dynamic)
+    signal poseChanged
 
     onUpdateNewActiveMissionWayPnts: MyScript.updateNewActiveMissionWayPnts(new_active_mission_id)
     onResetAllDynamicItems: MyScript.resetSpriteObjects()
