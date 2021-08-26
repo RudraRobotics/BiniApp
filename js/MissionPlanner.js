@@ -26,7 +26,7 @@ function areaListViewCurrentIndexChanged() {
     }
 }
 
-function areaListModelCompleted() {
+function getAreaListModelData() {
     var areaListArray = JS.dbReadMissions()
     for (var i = 0; i < areaListArray.rows.length; i++) {
         areaListModel.append({
