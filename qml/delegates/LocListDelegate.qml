@@ -2,6 +2,8 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQml 2.12
 
+import "../../js/LocListDelegate.js" as LocListScript
+
 Item {
     width: 180; height: 40
     property alias textEnabled: textInput.enabled
@@ -25,6 +27,7 @@ Item {
             anchors.fill: parent
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
+            onEditingFinished: LocListScript.updateLocListItemName()
         }
     }
     TapHandler {

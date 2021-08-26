@@ -47,5 +47,6 @@
         <file>js/LocListHeaderPopup.js</file>
         <file>js/MissionListHeaderPopup.js</file>
         <file>js/MissionCmdTopMenu.js</file>
+        <file>js/LocListDelegate.js</file>
     </qresource>
 </RCC>

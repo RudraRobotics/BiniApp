@@ -67,7 +67,7 @@ Item {
         clip: true
         headerPositioning: ListView.OverlayHeader
         header: LocListHeader {}
-        delegate: LocListDelegate { id: locListDelegate }
+        delegate: LocListDelegate { id: locListDelegate; textEnabled: flickableMap.enable_way_pnts }
         model: wayPntListModel
         highlight: Rectangle { color: "#397ed7"; radius: 5 }
         focus: true
