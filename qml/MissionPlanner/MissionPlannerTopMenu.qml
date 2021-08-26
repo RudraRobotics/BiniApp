@@ -32,7 +32,7 @@ Rectangle {
         nameFilters: [ "Map files (*.pgm)", "All files (*)" ]
         onAccepted: {
             mapChanged(fileUrl)
-            resetItems()
+            flickableMap.resetAllDynamicItems()
             wayPointBtn.highlighted = false
         }
     }

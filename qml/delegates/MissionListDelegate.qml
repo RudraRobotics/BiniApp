@@ -14,7 +14,7 @@ Item {
         id: rectangle
         opacity: 0.7
         color: "#515151"
-        radius: 2
+        radius: 0
         border.width: 2
         anchors.fill: parent
         anchors.rightMargin: 1

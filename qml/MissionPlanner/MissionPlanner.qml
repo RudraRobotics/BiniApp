@@ -27,7 +27,7 @@ Item {
 
     ListModel {
         id: missionListModel
-        Component.onCompleted: MyJS.getAreaListModelData()
+        Component.onCompleted: MyJS.getMissionListModelData()
     }
 
     ListModel {

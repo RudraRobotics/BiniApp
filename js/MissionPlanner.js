@@ -1,13 +1,23 @@
-function resetAll() {
-    wayPntListModel.clear()
-    flickableMap.resetAllDynamicItems()
-    flickableMap.enable_way_pnts = false
+/**
+ * Methods called from MissionPlanner signals
+ */
+
+function getMissionListModelData() {
+    var areaListArray = JS.dbReadMissions()
+    for (var i = 0; i < areaListArray.rows.length; i++) {
+        missionListModel.append({
+                                 'mission_id':   areaListArray.rows.item(i).mission_id,
+                                 'mission_name': areaListArray.rows.item(i).name
+                             })
+    }
 }
 
 function missionListViewCurrentIndexChanged() {
     var currentIndex = missionListView.currentIndex
     missionPlannerTopMenu.saveBtnEnable = true
-    resetAll()
+    wayPntListModel.clear()
+    flickableMap.resetAllDynamicItems()
+    flickableMap.enable_way_pnts = false
     if(currentIndex>-1) {
         var wayPntListArray = JS.dbReadMissionWayPnts(missionListModel.get(currentIndex).mission_id)
         for (var i = 0; i < wayPntListArray.rows.length; i++) {
@@ -23,16 +33,6 @@ function missionListViewCurrentIndexChanged() {
     flickableMap.resetAllDynamicItems()
     for(i=0;i<wayPntListModel.count;i++) {
         flickableMap.createDynamicWayPntItem(wayPntListModel.get(i).x, wayPntListModel.get(i).y, wayPntListModel.get(i).name, true)
-    }
-}
-
-function getAreaListModelData() {
-    var areaListArray = JS.dbReadMissions()
-    for (var i = 0; i < areaListArray.rows.length; i++) {
-        missionListModel.append({
-                                 'mission_id':   areaListArray.rows.item(i).mission_id,
-                                 'mission_name': areaListArray.rows.item(i).name
-                             })
     }
 }
 
@@ -61,7 +61,9 @@ function missionPlannerTopMenuSaveBtnClicked()  {
                                  'mission_name': missionPlannerTopMenu.areaNameTxt
                              })
         missionListView.currentIndex = -1
-        resetAll()
+        wayPntListModel.clear()
+        flickableMap.resetAllDynamicItems()
+        flickableMap.enable_way_pnts = false
     }
     missionPlannerTopMenu.areaNameTxt = ''
 }
@@ -85,8 +87,14 @@ function missionPlannerTopMenuResetBtnClicked() {
     missionPlannerTopMenu.saveBtnEnable = false
     missionPlannerTopMenu.areaNameTxt = ''
     missionListView.currentIndex = -1
-    resetAll()
+    wayPntListModel.clear()
+    flickableMap.resetAllDynamicItems()
+    flickableMap.enable_way_pnts = false
 }
+
+/**
+ * Methods called from flickableMap signals
+ */
 
 function flickableMapWayPntCreated() {
     var i = flickableMap.dynamicWayPntListModel.count - 1

@@ -41,7 +41,7 @@ function updatetAllMapObjects(currentIndex) {
         var item = find(wayPntListModel, function(item) { return item.name === 'Base' })
         if(item) {
             for(i=0;i<activeRobotListModel.count;i++) {
-                flickableMap.createDynamicRobotItem(item.x, item.y, activeRobotListModel.get(i).name, true)
+                flickableMap.createDynamicRobotItem(item.x, item.y, activeRobotListModel.get(i).name, false)
             }
         }
     }
@@ -91,9 +91,8 @@ function missionCmdTopMenuServeBtnClicked()
             missionCmdTopMenu.serveBtnEnabled = false
         else {
             var item = MyJS.find(wayPntListModel, function(item) { return item.name === 'Base' })
-            console.log('item:', wayPntListModel.count)
             if(item)
-                flickableMap.createDynamicRobotItem(item.x, item.y, missionCmdTopMenu.robotListModel.get(missionCmdTopMenu.robotComboBoxCurrentIndex).name, true)
+                flickableMap.createDynamicRobotItem(item.x, item.y, missionCmdTopMenu.robotListModel.get(missionCmdTopMenu.robotComboBoxCurrentIndex).name, false)
         }
     }
 }

@@ -9,6 +9,7 @@ import QtQml 2.12
 import "Setup"
 import "delegates"
 import "../js/Database.js" as JS
+import "Core"
 import MqttClient 1.0
 
 ApplicationWindow {
@@ -64,6 +65,7 @@ ApplicationWindow {
                 ListElement {
                     name: "Setup"
                 }
+
             }
 
             delegate: MenuListDelegate {}
@@ -78,6 +80,7 @@ ApplicationWindow {
         anchors.leftMargin: !inPortrait ? drawer.width : undefined
 
         source: "Dashboard.qml"
+
     }
 
 }
