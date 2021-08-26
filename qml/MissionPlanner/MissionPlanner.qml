@@ -26,7 +26,7 @@ Item {
     }
 
     ListModel {
-        id: areaListModel
+        id: missionListModel
         Component.onCompleted: MyJS.getAreaListModelData()
     }
 
@@ -35,7 +35,7 @@ Item {
     }
 
     ListView {
-        id: areaListView
+        id: missionListView
         width: planner.width*0.2
         height: 200
         anchors.left: parent.left
@@ -47,11 +47,11 @@ Item {
         z: 1
         headerPositioning: ListView.OverlayHeader
         header: MissionListHeader {}
-        model: areaListModel
+        model: missionListModel
         delegate: MissionListDelegate {}
         highlight: Rectangle { color: "#397ed7"; radius: 5 }
         focus: true
-        onCurrentIndexChanged: MyJS.areaListViewCurrentIndexChanged()
+        onCurrentIndexChanged: MyJS.missionListViewCurrentIndexChanged()
     }
 
     ListView {

@@ -36,7 +36,7 @@ Item {
     TapHandler {
         id: tapHandler
         onTapped: {
-            areaListView.currentIndex = index
+            missionListView.currentIndex = index
         }
     }
 }

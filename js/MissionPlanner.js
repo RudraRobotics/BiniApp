@@ -4,12 +4,12 @@ function resetAll() {
     flickableMap.enable_way_pnts = false
 }
 
-function areaListViewCurrentIndexChanged() {
-    var currentIndex = areaListView.currentIndex
+function missionListViewCurrentIndexChanged() {
+    var currentIndex = missionListView.currentIndex
     missionPlannerTopMenu.saveBtnEnable = true
     resetAll()
     if(currentIndex>-1) {
-        var wayPntListArray = JS.dbReadMissionWayPnts(areaListModel.get(currentIndex).mission_id)
+        var wayPntListArray = JS.dbReadMissionWayPnts(missionListModel.get(currentIndex).mission_id)
         for (var i = 0; i < wayPntListArray.rows.length; i++) {
             wayPntListModel.append({
                                        'waypnt_id': wayPntListArray.rows.item(i).mission_pnt_id,
@@ -29,7 +29,7 @@ function areaListViewCurrentIndexChanged() {
 function getAreaListModelData() {
     var areaListArray = JS.dbReadMissions()
     for (var i = 0; i < areaListArray.rows.length; i++) {
-        areaListModel.append({
+        missionListModel.append({
                                  'mission_id':   areaListArray.rows.item(i).mission_id,
                                  'mission_name': areaListArray.rows.item(i).name
                              })
@@ -56,11 +56,11 @@ function missionPlannerTopMenuSaveBtnClicked()  {
         }
 
         let mission_id = JS.dbInsertMission(missionPlannerTopMenu.areaNameTxt, wayPntListArray)
-        areaListModel.append({
+        missionListModel.append({
                                  'mission_id':   parseInt(mission_id),
                                  'mission_name': missionPlannerTopMenu.areaNameTxt
                              })
-        areaListView.currentIndex = -1
+        missionListView.currentIndex = -1
         resetAll()
     }
     missionPlannerTopMenu.areaNameTxt = ''
@@ -73,7 +73,7 @@ function  missionPlannerTopMenuWayPntBtnClicked() {
 
 function missionPlannerTopMenuBaseBtnClicked() {
     missionPlannerTopMenu.baseBtnHighlighted =! missionPlannerTopMenu.baseBtnHighlighted
-    areaListView.currentIndex = -1
+    missionListView.currentIndex = -1
     flickableMap.enable_way_pnts = true
 }
 
@@ -84,7 +84,7 @@ function missionPlannerTopMenuResetBtnClicked() {
     missionPlannerTopMenu.wayPointBtnHighlighted = false
     missionPlannerTopMenu.saveBtnEnable = false
     missionPlannerTopMenu.areaNameTxt = ''
-    areaListView.currentIndex = -1
+    missionListView.currentIndex = -1
     resetAll()
 }
 
