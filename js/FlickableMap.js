@@ -37,7 +37,7 @@ function createMissionWayPnt(x, y, source, name, drag_enabled) {
     }
 }
 
-function resetSpriteObjects() {
+function resetAllDynamicItems() {
     for (let i = 0; i < sprite.length; i++) {
       sprite[i].destroy()
     }

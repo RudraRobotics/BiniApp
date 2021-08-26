@@ -17,17 +17,14 @@ Item {
     signal updateNewActiveMissionWayPnts(real new_active_mission_id)
     signal createDynamicRobotItem(real x, real y, string name, bool dynamic)
     signal createDynamicWayPntItem(real x, real y,string name, bool dynamic)
-    signal removeSprite(int index)
+    signal removeDynamicWayPnt(int way_pnt_ind)
 
     onUpdateNewActiveMissionWayPnts: FlickableMapScript.updateNewActiveMissionWayPnts(new_active_mission_id)
-    onResetAllDynamicItems: FlickableMapScript.resetSpriteObjects()
+    onResetAllDynamicItems: FlickableMapScript.resetAllDynamicItems()
     onCreateDynamicRobotItem: FlickableMapScript.createDynamicWayPntItem(x, y, "../images/bini.png", name, dynamic)
     onCreateDynamicWayPntItem: FlickableMapScript.createDynamicWayPntItem("../images/bini.png", name, dynamic)
 
-    onRemoveSprite: {
-        FlickableMapScript.sprite[index].destroy()
-        FlickableMapScript.sprite.splice(index, 1)
-    }
+    onRemoveDynamicWayPnt: FlickableMapScript.removeDynamicWayPnt(way_pnt_ind)
 
     ListModel { id: dynamicRobotListModel }
     ListModel { id: dynamicWayPntListModel}

@@ -6,19 +6,22 @@ import "../../js/FlickableMap.js" as FlickableMapScript
 Item {
 
     property alias map_path: mapImg.source
+    property alias dynamicRobotListModel: dynamicRobotListModel
     property alias dynamicWayPntListModel: dynamicWayPntListModel
     property bool enable_way_pnts: false
+    property real prev_active_mission_id: 0
     property alias mapimg_tap_enabled: tapArea.enabled
 
-    signal resetAllDynamicItems
-    signal objCreated
     signal poseChanged
+    signal objCreated
+
+    signal resetAllDynamicItems
     signal createDynamicWayPntItem(real x, real y, string name)
     signal removeDynamicWayPnt(int way_pnt_ind)
 
     onCreateDynamicWayPntItem: FlickableMapScript.createDynamicWayPntItem(x, y, "../images/loc.png", name, true)
 
-    onResetAllDynamicItems: FlickableMapScript.resetSpriteObjects()
+    onResetAllDynamicItems: FlickableMapScript.resetAllDynamicItems()
 
     onRemoveDynamicWayPnt: FlickableMapScript.removeDynamicWayPnt(way_pnt_ind)
 
