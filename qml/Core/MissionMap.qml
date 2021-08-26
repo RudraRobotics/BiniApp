@@ -6,6 +6,7 @@ import "../../js/FlickableMap.js" as JScript
 Item {
     property alias map_path: mapImg.source
     property alias dynamicRobotListModel: dynamicRobotListModel
+    property alias dynamicWayPntListModel: dynamicWayPntListModel
     property bool enable_way_pnts: false
     property real prev_active_mission_id: 0
     property alias mapimg_tap_enabled: tapArea.enabled

@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import "../../js/Database.js" as JS
+import QtQuick.LocalStorage 2.0
 
 Item {
     ColumnLayout {
@@ -24,8 +25,8 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
             onClicked: {
-                var result = JS.dbRemoveMission(areaListModel.get(areaListView.currentIndex).mission_id)
-                areaListModel.remove(areaListView.currentIndex)
+                var result = JS.dbRemoveMission(missionListModel.get(missionListView.currentIndex).mission_id)
+                missionListModel.remove(missionListView.currentIndex)
                 popup.close()
             }
         }

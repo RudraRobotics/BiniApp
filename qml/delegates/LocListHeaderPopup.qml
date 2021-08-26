@@ -7,8 +7,8 @@ Item {
     function removeWaypnt() {
         var result1 = JS.dbRemoveWayPnt(wayPntListModel.get(wayPntListView.currentIndex).waypnt_id)
         wayPntListModel.remove(wayPntListView.currentIndex)
-        flickableMap.spriteListModel.get(wayPntListView.currentIndex).sprite_item.destroy()
-        flickableMap.spriteListModel.remove(wayPntListView.currentIndex)
+        flickableMap.dynamicWayPntListModel.get(wayPntListView.currentIndex).sprite_item.destroy()
+        flickableMap.dynamicWayPntListModel.remove(wayPntListView.currentIndex)
         popup.close()
         flickableMap.removeSprite(wayPntListView.currentIndex)
     }

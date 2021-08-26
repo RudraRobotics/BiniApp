@@ -1,6 +1,5 @@
 import QtQuick 2.12
-import "../../js/componentCreation.js" as MyScript
-import "../../js/FlickableMap.js" as JScript
+import "../../js/FlickableMap.js" as FlickableMapScript
 
 
 Item {
@@ -9,26 +8,21 @@ Item {
     property alias dynamicWayPntListModel: dynamicWayPntListModel
     property bool enable_way_pnts: false
     property alias mapimg_tap_enabled: tapArea.enabled
-    ListModel { id: dynamicRobotListModel }
-    ListModel { id: dynamicWayPntListModel }
 
     signal resetAllDynamicItems
     signal objCreated
     signal poseChanged
     signal createDynamicWayPntItem(real x, real y, string name)
-    signal removeSprite(int index)
+    signal removeDynamicWayPnt(int way_pnt_ind)
 
-    onCreateDynamicWayPntItem: MyScript.createDynamicWayPntItem(x, y, "../images/loc.png", name, true)
+    onCreateDynamicWayPntItem: FlickableMapScript.createDynamicWayPntItem(x, y, "../images/loc.png", name, true)
 
-    onResetAllDynamicItems: {
-        MyScript.resetSpriteObjects()
-        dynamicWayPntListModel.clear()
-    }
+    onResetAllDynamicItems: FlickableMapScript.resetSpriteObjects()
 
-    onRemoveSprite: {
-        MyScript.sprite[index].destroy()
-        MyScript.sprite.splice(index, 1)
-    }
+    onRemoveDynamicWayPnt: FlickableMapScript.removeDynamicWayPnt(way_pnt_ind)
+
+    ListModel { id: dynamicRobotListModel }
+    ListModel { id: dynamicWayPntListModel }
 
     Image {
         id: mapImg
@@ -38,7 +32,7 @@ Item {
         DragHandler {}
         TapHandler {
             id: tapArea
-            onTapped: JScript.mapImgTapped()
+            onTapped: FlickableMapScript.mapImgTapped()
         }
     }
 
