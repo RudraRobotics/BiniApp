@@ -53,6 +53,9 @@ ApplicationWindow {
             model: ListModel {
                 id: sidebarModel
                 ListElement {
+                    name: "Dashboard"
+                }
+                ListElement {
                     name: "MissionPlanner"
                 }
                 ListElement {
@@ -74,7 +77,7 @@ ApplicationWindow {
         anchors.fill: parent
         anchors.leftMargin: !inPortrait ? drawer.width : undefined
 
-        source: "MissionPlanner/MissionPlanner.qml"
+        source: "Dashboard.qml"
     }
 
 }

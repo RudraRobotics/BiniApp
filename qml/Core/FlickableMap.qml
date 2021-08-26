@@ -8,6 +8,7 @@ Item {
     property alias map_path: mapImg.source
     property alias dynamicWayPntListModel: dynamicWayPntListModel
     property bool enable_way_pnts: false
+    property alias mapimg_tap_enabled: tapArea.enabled
     ListModel { id: dynamicRobotListModel }
     ListModel { id: dynamicWayPntListModel }
 

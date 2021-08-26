@@ -11,11 +11,13 @@ ItemDelegate {
     TapHandler {
         onTapped: {
             font.bold = !font.bold
-            if(index==0)
-                pageLoader.source = "../MissionPlanner/MissionPlanner.qml"
+            if(index===0)
+                pageLoader.source = "../Dashboard.qml"
             else if(index==1)
-                pageLoader.source = "../MissionCmd/MissionCmd.qml"
+                pageLoader.source = "../MissionPlanner/MissionPlanner.qml"
             else if(index==2)
+                pageLoader.source = "../MissionCmd/MissionCmd.qml"
+            else if(index==3)
                  pageLoader.source = "../Setup/RobotSetup.qml"
         }
     }

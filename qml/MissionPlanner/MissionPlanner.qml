@@ -98,6 +98,7 @@ Item {
         id: flickableMap
         anchors.fill: parent
         map_path: default_map
+        mapimg_tap_enabled: true
 
         onObjCreated: MyJS.flickableMapWayPntCreated()
         onPoseChanged: MyJS.flickableMapWayPntUpdated()

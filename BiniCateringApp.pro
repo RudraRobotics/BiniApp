@@ -1,4 +1,4 @@
-QT += core quick sql network mqtt quickcontrols2
+QT += core quick sql network mqtt quickcontrols2 charts qml
 
 CONFIG += c++11
 

@@ -45,5 +45,6 @@
         <file>qml/delegates/LocListHeaderPopup.qml</file>
         <file>icons/menu.png</file>
         <file>js/FlickableMap.js</file>
+        <file>qml/Dashboard.qml</file>
     </qresource>
 </RCC>

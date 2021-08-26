@@ -22,7 +22,7 @@ function areaListViewCurrentIndexChanged() {
     // update dynamic objecs in map
     flickableMap.resetAllDynamicItems()
     for(i=0;i<wayPntListModel.count;i++) {
-        flickableMap.createDynamicWayPntItem(wayPntListModel.get(i).x, wayPntListModel.get(i).y, wayPntListModel.get(i).name)
+        flickableMap.createDynamicWayPntItem(wayPntListModel.get(i).x, wayPntListModel.get(i).y, wayPntListModel.get(i).name, true)
     }
 }
 

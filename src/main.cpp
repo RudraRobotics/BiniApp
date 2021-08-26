@@ -1,4 +1,4 @@
-#include <QGuiApplication>
+#include <QtWidgets/QApplication>
 #include <QQmlApplicationEngine>
 #include <QLoggingCategory>
 #include <QQuickStyle>
@@ -11,7 +11,7 @@
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     app.setOrganizationName("somename");
     app.setOrganizationDomain("somename");
     QQuickStyle::setStyle("Material");
