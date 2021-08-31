@@ -154,6 +154,30 @@ Item {
                     robotListModel.remove(listView.currentIndex)
                 }
             }
+
+            Button {
+                id: deleteBtn1
+                width: 50
+                height: 40
+                text: qsTr("RestoreDB")
+                Layout.topMargin: 5
+                Layout.preferredWidth: 100
+                Layout.fillHeight: true
+                Layout.leftMargin: 5
+                Layout.rightMargin: 600
+                Layout.fillWidth: false
+                Layout.minimumWidth: 100
+                Layout.bottomMargin: 5
+                onClicked: JS.dbInit()
+            }
+        }
+
+        RowLayout {
+            id: rowLayout2
+            x: 113
+            y: 132
+            width: 100
+            height: 100
         }
     }
 
@@ -189,6 +213,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:12}
+    D{i:0;autoSize:true;height:480;width:640}D{i:13}
 }
 ##^##*/
