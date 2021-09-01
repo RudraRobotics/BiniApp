@@ -4,7 +4,7 @@ import QtQml 2.12
 import "../Core"
 import "../delegates"
 import MqttClient 1.0
-import "../../js/MissionCmd.js" as MyJS
+import "../../js/MissionCmd/MissionCmd.js" as MyJS
 import "../../js/Database.js" as JS
 
 

@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQml 2.12
 
-import "../../js/LocListDelegate.js" as LocListScript
+import "../../js/delegates/LocListDelegate.js" as LocListScript
 
 Item {
     width: 180; height: 40

@@ -36,17 +36,34 @@
         <file>qml/delegates/ActiveMissionListDelegate.qml</file>
         <file>qml/delegates/ActiveRobotListDelegate.qml</file>
         <file>images/bini.xcf</file>
-        <file>js/MissionPlanner.js</file>
-        <file>js/MissionCmd.js</file>
         <file>js/Database.js</file>
         <file>qml/delegates/MissionListHeaderPopup.qml</file>
         <file>qml/delegates/LocListHeaderPopup.qml</file>
         <file>icons/menu.png</file>
-        <file>js/FlickableMap.js</file>
         <file>qml/Dashboard.qml</file>
-        <file>js/LocListHeaderPopup.js</file>
-        <file>js/MissionListHeaderPopup.js</file>
-        <file>js/MissionCmdTopMenu.js</file>
-        <file>js/LocListDelegate.js</file>
+        <file>js/Core/FlickableMap.js</file>
+        <file>js/MissionCmd/MissionCmd.js</file>
+        <file>js/MissionCmd/MissionCmdTopMenu.js</file>
+        <file>js/MissionPlanner/MissionPlanner.js</file>
+        <file>images/back_button.jpeg</file>
+        <file>images/portrait.png</file>
+        <file>include/database.h</file>
+        <file>include/listmodel.h</file>
+        <file>include/qmlmqttclient.h</file>
+        <file>include/tablemodel.h</file>
+        <file>js/delegates/LocListDelegate.js</file>
+        <file>js/delegates/LocListHeaderPopup.js</file>
+        <file>js/delegates/MissionListHeaderPopup.js</file>
+        <file>qml/Views/LocListDelegate.qml</file>
+        <file>qml/Views/MenuListDelegate.qml</file>
+        <file>qml/Views/MissionListDelegate.qml</file>
+        <file>src/database.cpp</file>
+        <file>src/listmodel.cpp</file>
+        <file>src/main.cpp</file>
+        <file>src/qmlmqttclient.cpp</file>
+        <file>src/tablemodel.cpp</file>
+        <file>BiniCateringApp.pro</file>
+        <file>qml.qrc</file>
+        <file>README.md</file>
     </qresource>
 </RCC>

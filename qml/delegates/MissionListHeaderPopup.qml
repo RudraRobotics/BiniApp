@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import "../../js/Database.js" as JS
-import "../../js/MissionListHeaderPopup.js" as MissionListHeaderPopup
+import "../../js/delegates/MissionListHeaderPopup.js" as MissionListHeaderPopup
 import QtQuick.LocalStorage 2.0
 
 Item {

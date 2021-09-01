@@ -5,7 +5,7 @@ import QtQuick.Dialogs 1.2
 import QtQml 2.12
 
 import "../../js/Database.js" as JS
-import "../../js/MissionCmdTopMenu.js" as MissionCmdTopMenu
+import "../../js/MissionCmd/MissionCmdTopMenu.js" as MissionCmdTopMenu
 import QtQuick.LocalStorage 2.0
 
 Rectangle {
