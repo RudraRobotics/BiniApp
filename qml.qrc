@@ -47,23 +47,12 @@
         <file>js/MissionPlanner/MissionPlanner.js</file>
         <file>images/back_button.jpeg</file>
         <file>images/portrait.png</file>
-        <file>include/database.h</file>
-        <file>include/listmodel.h</file>
-        <file>include/qmlmqttclient.h</file>
-        <file>include/tablemodel.h</file>
         <file>js/delegates/LocListDelegate.js</file>
         <file>js/delegates/LocListHeaderPopup.js</file>
         <file>js/delegates/MissionListHeaderPopup.js</file>
         <file>qml/Views/LocListDelegate.qml</file>
         <file>qml/Views/MenuListDelegate.qml</file>
         <file>qml/Views/MissionListDelegate.qml</file>
-        <file>src/database.cpp</file>
-        <file>src/listmodel.cpp</file>
-        <file>src/main.cpp</file>
-        <file>src/qmlmqttclient.cpp</file>
-        <file>src/tablemodel.cpp</file>
-        <file>BiniCateringApp.pro</file>
-        <file>qml.qrc</file>
         <file>README.md</file>
     </qresource>
 </RCC>
