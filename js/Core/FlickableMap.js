@@ -1,27 +1,26 @@
-var mission_way_pnts = []
+var way_pnts_js = []
 
 function resetAllDynamicItems() {
-    for (let i = 0; i < mission_way_pnts.length; i++) {
-      mission_way_pnts[i].destroy()
+    for (let i = 0; i < way_pnts_js.length; i++) {
+      way_pnts_js[i].destroy()
     }
-    mission_way_pnts = []
-    dynamicRobotListModel.clear()
-    dynamicWayPntListModel.clear()
+    way_pnts_js = []
+    robots.clear()
+    way_pnts.clear()
 }
 /**
 * Common method for both mission setup and mission command page
 */
 function createDynamicWayPntItem(x, y, source, name, drag_enabled) {
-    var component = Qt.createComponent("../qml/Sprite.qml");
-    mission_way_pnts.push(component.createObject(mapImg, {x: x-30, y: y-30, source: source, name: name, drag_enabled: drag_enabled}));
-
-    if (mission_way_pnts[mission_way_pnts.length - 1] === null) {
+    var component = Qt.createComponent("../../qml/Sprite.qml");
+    way_pnts_js.push(component.createObject(mapImg, {x: x-30, y: y-30, source: source, name: name, drag_enabled: drag_enabled}));
+    if (way_pnts_js[way_pnts_js.length - 1] === null) {
         console.log("Error creating object");
     }
     /* drag is only enabled in in MISSION PLANNING process */
     if(drag_enabled) {
-        dynamicWayPntListModel.append({"sprite_item": mission_way_pnts[mission_way_pnts.length - 1]})
-        dynamicWayPntListModel.get(dynamicWayPntListModel.count-1).sprite_item.onPoseChanged.connect(dynamicWayPntUpdated)
+        way_pnts.append({"sprite_item": way_pnts_js[way_pnts_js.length - 1]})
+        way_pnts.get(way_pnts.count-1).sprite_item.onPoseChanged.connect(dynamicWayPntUpdated)
     }
 }
 
@@ -29,15 +28,15 @@ function createDynamicWayPntItem(x, y, source, name, drag_enabled) {
 * This method is called when user tapps on map area in MISSION PLANNING phase
 */
 
-function mapImgTapped() {
-    var i = dynamicWayPntListModel.count - 1
-    if(enable_way_pnts && mission_way_pnts.length === 0) {
-        createDynamicWayPntItem(tapArea.point.position.x, tapArea.point.position.y, "../images/loc.png", 'Base', true)
+function mapImgTapped(source) {
+    var i = way_pnts.count - 1
+    if(enable_way_pnts && way_pnts_js.length === 0) {
+        createDynamicWayPntItem(tapArea.point.position.x, tapArea.point.position.y, source, 'Base', true)
         dynamicWayPntCreated()
         enable_way_pnts = false
     }
-    else if(enable_way_pnts && mission_way_pnts.length > 0) {
-        createDynamicWayPntItem(tapArea.point.position.x, tapArea.point.position.y, "../images/loc.png", 'Location'+i, true)
+    else if(enable_way_pnts && way_pnts_js.length > 0) {
+        createDynamicWayPntItem(tapArea.point.position.x, tapArea.point.position.y, source, 'Location'+i, true)
         dynamicWayPntCreated()
     }
 }
@@ -46,14 +45,14 @@ function mapImgTapped() {
   * This method is called to show the waypoints of mission selected in MISSION COMMAND page
 */
 
-function updateNewActiveMissionWayPnts(new_active_mission_id) {
+function updateWayPnts(new_active_mission_id, source) {
     if(new_active_mission_id !== prev_active_mission_id) {
-        for (var i = 0; i < mission_way_pnts.length; i++)
-            mission_way_pnts[i].destroy()
-        mission_way_pnts = []
+        for (var i = 0; i < way_pnts_js.length; i++)
+            way_pnts_js[i].destroy()
+        way_pnts_js = []
         var wayPntsArray = JS.dbReadMissionWayPnts(new_active_mission_id)
         for (i = 0; i < wayPntsArray.rows.length; i++)
-            createDynamicWayPntItem(wayPntsArray.rows.item(i).x, wayPntsArray.rows.item(i).y, "../images/loc.png", wayPntsArray.rows.item(i).name, false)
+            createDynamicWayPntItem(wayPntsArray.rows.item(i).x, wayPntsArray.rows.item(i).y, source, wayPntsArray.rows.item(i).name, false)
     }
     prev_active_mission_id = new_active_mission_id
 }
@@ -63,6 +62,6 @@ function updateNewActiveMissionWayPnts(new_active_mission_id) {
 */
 
 function removeDynamicWayPnt(way_pnt_ind) {
-    mission_way_pnts[way_pnt_ind].destroy()
-    mission_way_pnts.splice(way_pnt_ind, 1)
+    way_pnts_js[way_pnt_ind].destroy()
+    way_pnts_js.splice(way_pnt_ind, 1)
 }

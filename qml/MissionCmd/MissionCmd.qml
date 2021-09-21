@@ -11,10 +11,10 @@ import "../../js/Database.js" as JS
 Item {
     property string default_map: "../../maps/map.pgm"
     property var tempSubscription: 0
-    ListModel { id: activeWayPntListModel }
+    ListModel { id: way_pnts }
     ListModel { id: allActiveMission }
     ListModel { id: activeRobotListModel }
-    ListModel { id: wayPntListModel }
+    ListModel { id: all_way_pnts }
 
     Component.onCompleted: {
         tempSubscription = client.subscribe("bini_data")
@@ -48,7 +48,7 @@ Item {
         z: 1
         headerPositioning: ListView.OverlayHeader
         header: MissionListHeader { button_visible: false }
-        model: activeWayPntListModel
+        model: way_pnts
         delegate: ActiveMissionListDelegate {}
         highlight: Rectangle { color: "#6aabff"; radius: 5 }
         focus: true

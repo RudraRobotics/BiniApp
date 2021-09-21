@@ -15,7 +15,6 @@ Item {
     Image {
         id: locIconImg
         height: parent.height*0.7
-        source: "../images/loc.png"
         anchors.bottomMargin: 0
         z: 1
         fillMode: Image.PreserveAspectFit
